@@ -1105,13 +1105,18 @@ function RouterSync() {
 }
 
 function SolarPreloader() {
+  const isMobile = useMobile();
   const radii = [105, 160, 215];
   const orbits = [
     { src: "https://cdn.simpleicons.org/react/61DAFB", r: radii[0], dur: 12, off: 0 },
-    { src: "https://cdn.simpleicons.org/nodedotjs/339933", r: radii[1], dur: 18, off: 72 },
-    { src: "https://cdn.simpleicons.org/mongodb/47A248", r: radii[0], dur: 15, off: 144 },
-    { src: "https://cdn.simpleicons.org/tailwindcss/06B6D4", r: radii[2], dur: 22, off: 288 },
-    { src: "https://cdn.simpleicons.org/javascript/F7DF1E", r: radii[1], dur: 20, off: 216 }
+    { src: "https://cdn.simpleicons.org/nodedotjs/339933", r: radii[1], dur: 18, off: 40 },
+    { src: "https://cdn.simpleicons.org/tailwindcss/06B6D4", r: radii[2], dur: 24, off: 80 },
+    { src: "https://cdn.simpleicons.org/mongodb/47A248", r: radii[0], dur: 14, off: 120 },
+    { src: "https://cdn.simpleicons.org/javascript/F7DF1E", r: radii[1], dur: 20, off: 160 },
+    { src: "https://cdn.simpleicons.org/postman/FF6C37", r: radii[2], dur: 26, off: 200 },
+    { src: "https://cdn.simpleicons.org/typescript/3178C6", r: radii[0], dur: 16, off: 240 },
+    { src: "https://cdn.simpleicons.org/github/FFFFFF", r: radii[1], dur: 22, off: 280 },
+    { src: "https://cdn.simpleicons.org/figma/F24E1E", r: radii[2], dur: 28, off: 320 }
   ];
 
   return (
@@ -1122,7 +1127,9 @@ function SolarPreloader() {
         background: "var(--bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
         overflow: "hidden"
       }}>
-      <div style={{ position: "relative", width: "100%", height: 380, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <motion.div 
+        animate={{ scale: isMobile ? 0.72 : 1 }}
+        style={{ position: "relative", width: "100%", height: isMobile ? 300 : 380, display: "flex", alignItems: "center", justifyContent: "center" }}>
         {/* Core Dot */}
         <motion.div
           animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.8, 0.4] }}
@@ -1156,7 +1163,7 @@ function SolarPreloader() {
           </motion.div>
         ))}
 
-        {/* Floating Tech Stack Orbitals */}
+        {/* Floating Tech Stack Orbitals (Balanced 9 icons) */}
         {orbits.map((icon, idx) => (
           <motion.div
             key={idx}
@@ -1185,7 +1192,7 @@ function SolarPreloader() {
             </motion.div>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Branding Text - Optimized for LCP */}
       <motion.div
