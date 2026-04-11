@@ -1065,6 +1065,18 @@ function Contact() {
   );
 }
 
+function RouterSync() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const lastPath = useRef(null);
+
+  useEffect(() => {
+    // Logic will go here in next commit
+  }, [pathname]);
+
+  return null;
+}
+
 export default function App() {
   const isMobile = useMobile();
 
