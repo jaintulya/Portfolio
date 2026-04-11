@@ -212,28 +212,31 @@ const useMobile = () => {
   return m;
 };
 function Nav() {
-  const [active, setActive] = useState("Home");
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const isMobile = useMobile();
-  
+  const location = useLocation();
+
   useEffect(() => {
-    const sects = NAVS.map(n => document.getElementById(n.toLowerCase()));
-    const obs = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) setActive(e.target.getAttribute("data-label")); });
-    }, { threshold: 0.4 });
-    sects.forEach(s => s && obs.observe(s));
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => { obs.disconnect(); window.removeEventListener("scroll", onScroll); };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const scrollTo = (id) => {
-    setMenuOpen(false);
-    setTimeout(() => {
-      document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
-  };
+  const navItemStyle = (isActive) => ({
+    fontFamily: "var(--sans)",
+    fontSize: "0.68rem",
+    fontWeight: isActive ? 600 : 400,
+    letterSpacing: "0.12em",
+    textTransform: "uppercase",
+    background: isActive ? "rgba(240,236,227,0.06)" : "transparent",
+    color: isActive ? "var(--ink)" : "var(--ink3)",
+    padding: "6px 14px",
+    borderRadius: 6,
+    transition: "all 0.25s",
+    textDecoration: "none",
+    display: "inline-block",
+  });
 
   return (
     <>
