@@ -250,27 +250,23 @@ function Nav() {
           borderBottom: `1px solid ${scrolled || menuOpen ? "var(--rule)" : "transparent"}`,
           transition: "all 0.4s",
         }}>
-        <button data-cur onClick={() => scrollTo("home")}
-          style={{ fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.22em", color: "var(--gold)", background: "none", border: "none" }}>
+        <Link to="/" data-cur
+          style={{ fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.22em", color: "var(--gold)", background: "none", border: "none", textDecoration: "none" }}>
           TJ.
-        </button>
+        </Link>
 
         {!isMobile ? (
           <>
             <div style={{ display: "flex", gap: 4 }}>
-              {NAVS.map(n => (
-                <button key={n} data-cur onClick={() => scrollTo(n)}
-                  style={{
-                    fontFamily: "var(--sans)", fontSize: "0.68rem", fontWeight: active === n ? 600 : 400,
-                    letterSpacing: "0.12em", textTransform: "uppercase", background: "none", border: "none",
-                    color: active === n ? "var(--ink)" : "var(--ink3)",
-                    padding: "6px 14px", borderRadius: 6,
-                    background: active === n ? "rgba(240,236,227,0.06)" : "transparent",
-                    transition: "all 0.25s",
-                  }}>
-                  {n}
-                </button>
-              ))}
+              {NAVS.map(n => {
+                const path = n === "Home" ? "/" : `/${n.toLowerCase()}`;
+                return (
+                  <NavLink key={n} to={path} data-cur
+                    style={({ isActive }) => navItemStyle(isActive)}>
+                    {n}
+                  </NavLink>
+                );
+              })}
             </div>
             <a href="https://drive.google.com/file/d/1m71b0KgRAl64M0ePunAcATVhIvV0sF9k/view?usp=sharing" target="_blank" rel="noreferrer" data-cur
               style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.1em", color: "var(--gold)", textDecoration: "none", border: "1px solid var(--gold2)", padding: "6px 16px", borderRadius: 4, transition: "all 0.25s" }}
