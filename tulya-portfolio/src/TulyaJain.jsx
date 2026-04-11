@@ -1071,7 +1071,23 @@ function RouterSync() {
   const lastPath = useRef(null);
 
   useEffect(() => {
-    // Logic will go here in next commit
+    // 1. Sync Section -> URL
+    const sects = NAVS.map(n => document.getElementById(n.toLowerCase()));
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const label = e.target.getAttribute("data-label")?.toLowerCase();
+          const targetPath = label === "home" ? "/" : `/${label}`;
+          if (window.location.pathname !== targetPath) {
+            lastPath.current = targetPath;
+            window.history.replaceState(null, "", targetPath);
+          }
+        }
+      });
+    }, { threshold: 0.4 });
+    sects.forEach(s => s && obs.observe(s));
+
+    return () => obs.disconnect();
   }, [pathname]);
 
   return null;
