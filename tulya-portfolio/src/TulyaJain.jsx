@@ -15,7 +15,7 @@ const D = {
   ),
   email: "tulya.jain.cg@gmail.com",
   whatsapp: "https://wa.me/917016747635",
-  avatar: "https://res.cloudinary.com/dob8kltpc/image/upload/v1774937661/new_profile_brown_shirt_wpp7zr.jpg",
+  avatar: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_800/v1774937661/new_profile_brown_shirt_wpp7zr.jpg",
   ejs: { svc: "service_mik4w7c", tpl: "template_qkn4ddh", key: "IUgMaI57UFvt-q1Vz" },
   socials: [
     { label: "GitHub",   href: "https://github.com/jaintulya" },
@@ -59,7 +59,7 @@ const D = {
       n: "01", name: "PRIME Clone", year: "2025",
       desc: "A faithful recreation of Amazon Prime Video's interface. Responsive card grids, dynamic content layout, and smooth navigation — built to pixel precision.",
       tech: ["React", "CSS3"],
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770461010/prime-coverpic_uvsmt9.png",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1000/v1770461010/prime-coverpic_uvsmt9.png",
       live: "https://prime-tulya.netlify.app",
       repo: "https://github.com/jaintulya/clone-projects/tree/master/prime",
       videoId: "sRj0Frixa_4",
@@ -68,7 +68,7 @@ const D = {
       n: "02", name: "AARKE Clone", year: "2025",
       desc: "Premium kitchen appliance brand — bold editorial typography, scroll-reveal animations, and exacting fidelity to the original brand language.",
       tech: ["HTML5", "CSS3"],
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770461065/aarke-cover_ghgd98.png",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1000/v1770461065/aarke-cover_ghgd98.png",
       live: "https://aarke-tulya.netlify.app",
       repo: "https://github.com/jaintulya/clone-projects/tree/master/aarke",
       videoId: "spL9vNEar_E",
@@ -77,7 +77,7 @@ const D = {
       n: "03", name: "BEVEL Clone", year: "2025",
       desc: "Luxury men's grooming brand. Cinematic full-screen hero sections, layered parallax depth, and an immersive product story built in pure HTML/CSS.",
       tech: ["HTML5", "CSS3"],
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770461010/bevel-cover_hqccgt.png",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1000/v1770461010/bevel-cover_hqccgt.png",
       live: "https://bevel-tulya.netlify.app",
       repo: "https://github.com/jaintulya/clone-projects/tree/master/bevel",
       videoId: "Kyb9361X-mA",
@@ -107,7 +107,6 @@ const D = {
 
 /* ═══════════════════════════════════ GLOBAL CSS ═══ */
 const G = `
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;500;600;700;800&display=swap');
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;background:#0d0c0a;}
 body{background:#0d0c0a;color:#f0ece3;overflow-x:hidden;}
