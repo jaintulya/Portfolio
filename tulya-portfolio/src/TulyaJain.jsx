@@ -432,10 +432,10 @@ function ProjectImage({ src, alt, live }) {
     <a href={live} target="_blank" rel="noreferrer" data-cur
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
-      style={{ display: "block", position: "relative", border: "1px solid var(--rule)", background: "var(--bg3)", overflow: "hidden", cursor: "none" }}>
+      style={{ display: "block", position: "relative", border: "1px solid var(--rule)", background: "var(--bg3)", overflow: "hidden", cursor: "none", aspectRatio: "1.4" }}>
       <img src={src} alt={alt} loading="lazy"
         style={{ 
-          width: "100%", display: "block", 
+          width: "100%", height: "100%", objectFit: "cover", display: "block", 
           filter: hov ? "blur(10px) brightness(0.4) sepia(10%)" : "sepia(8%) contrast(1.06) brightness(0.87)",
           transition: "all 0.6s cubic-bezier(0.16,1,0.3,1)",
           transform: hov ? "scale(1.05)" : "scale(1)"
@@ -744,25 +744,6 @@ function Work() {
                     <span key={t} style={{ fontFamily: "var(--mono)", fontSize: "0.58rem", letterSpacing: "0.1em", color: "var(--ink3)", border: "1px solid var(--rule)", padding: "3px 8px", borderRadius: 3, textTransform: "uppercase" }}>{t}</span>
                   ))}
                 </div>
-                <div style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap" }}>
-                  {[
-                    { l: "Live Site ↗", h: p.live },
-                    { l: "Source ↗", h: p.repo },
-                  ].map(({ l, h }) => (
-                    <a key={l} href={h} target="_blank" rel="noreferrer" data-cur
-                      style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.1em", color: "var(--gold)", textDecoration: "none", borderBottom: "1px solid var(--gold2)", paddingBottom: 1, transition: "all 0.2s" }}
-                      onMouseEnter={e => { e.currentTarget.style.color = "var(--ink)"; e.currentTarget.style.borderColor = "var(--ink3)"; }}
-                      onMouseLeave={e => { e.currentTarget.style.color = "var(--gold)"; e.currentTarget.style.borderColor = "var(--gold2)"; }}>
-                      {l}
-                    </a>
-                  ))}
-                  <button data-cur onClick={() => setVideo(p.videoId)}
-                    style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.1em", color: "var(--ink2)", background: "none", border: "none", borderBottom: "1px solid var(--rule)", paddingBottom: 1, transition: "all 0.2s" }}
-                    onMouseEnter={e => { e.currentTarget.style.color = "var(--ink)"; e.currentTarget.style.borderColor = "var(--ink3)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.color = "var(--ink2)"; e.currentTarget.style.borderColor = "var(--rule)"; }}>
-                    Watch Demo ▶
-                  </button>
-                </div>
               </motion.div>
             </div>
 
@@ -770,7 +751,29 @@ function Work() {
             <motion.div key={`img-${active}`} initial={{ opacity: 0, scale: 1.03 }} animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, ease: [0.76,0,0.24,1] }}>
               <ProjectImage src={p.img} alt={p.name} live={p.live} />
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 8 }}>
+              
+              <div style={{ display: "flex", gap: "10px", marginTop: "1rem", width: "100%" }}>
+                <a href={p.live} target="_blank" rel="noreferrer" data-cur
+                   style={{ flex: 1, padding: "14px 0", border: "1px solid var(--gold2)", borderRadius: 4, background: "rgba(201,168,76,0.05)", textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.8rem", letterSpacing: "0.15em", color: "var(--gold)", textDecoration: "none", transition: "all 0.3s" }}
+                   onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--bg)"; }}
+                   onMouseLeave={e => { e.currentTarget.style.background = "rgba(201,168,76,0.05)"; e.currentTarget.style.color = "var(--gold)"; }}>
+                   Live Site ↗
+                </a>
+                <a href={p.repo} target="_blank" rel="noreferrer" data-cur
+                   style={{ flex: 1, padding: "14px 0", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink2)", textDecoration: "none", transition: "all 0.3s" }}
+                   onMouseEnter={e => { e.currentTarget.style.background = "var(--ink)"; e.currentTarget.style.color = "var(--bg)"; }}
+                   onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--ink2)"; }}>
+                   Source ↗
+                </a>
+                <button data-cur onClick={() => setVideo(p.videoId)}
+                   style={{ flex: 1, padding: "14px 0", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", background: "none", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink)", cursor: "none", transition: "all 0.3s" }}
+                   onMouseEnter={e => { e.currentTarget.style.background = "rgba(240,236,227,0.08)"; e.currentTarget.style.borderColor = "var(--ink3)"; }}
+                   onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "var(--rule)"; }}>
+                   Watch Demo ▶
+                </button>
+              </div>
+
+              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
                 <span style={{ fontFamily: "var(--mono)", fontSize: "0.58rem", color: "var(--ink3)", letterSpacing: "0.1em" }}>{p.name}</span>
                 <span style={{ fontFamily: "var(--mono)", fontSize: "0.58rem", color: "var(--ink3)" }}>{p.year}</span>
               </div>
@@ -780,30 +783,33 @@ function Work() {
           <div style={{ display: "flex", flexDirection: "column", gap: "4rem" }}>
             {D.projects.map(proj => (
               <div key={proj.n} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-                <ProjectImage src={proj.img} alt={proj.name} live={proj.live} />
+                <div>
+                  <ProjectImage src={proj.img} alt={proj.name} live={proj.live} />
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", marginTop: "1.2rem" }}>
+                    <a href={proj.live} target="_blank" rel="noreferrer"
+                      style={{ width: "100%", padding: "16px", border: "1px solid var(--gold2)", borderRadius: 4, background: "rgba(201,168,76,0.05)", textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.85rem", letterSpacing: "0.15em", color: "var(--gold)", textDecoration: "none" }}>
+                      Live Site ↗
+                    </a>
+                    <div style={{ display: "flex", gap: "0.8rem" }}>
+                      <a href={proj.repo} target="_blank" rel="noreferrer"
+                        style={{ flex: 1, padding: "14px", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink2)", textDecoration: "none" }}>
+                        Source ↗
+                      </a>
+                      <button onClick={() => setVideo(proj.videoId)}
+                        style={{ flex: 1, padding: "14px", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", background: "none", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink)" }}>
+                        Watch Demo ▶
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem" }}>
                     <h3 style={{ fontFamily: "var(--serif)", fontSize: "2.2rem", fontWeight: 300, color: "var(--ink)" }}>{proj.name}</h3>
                     <span style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", color: "var(--ink3)" }}>{proj.year}</span>
                   </div>
-                  <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "1rem", lineHeight: 1.6, color: "var(--ink2)", fontWeight: 300, marginBottom: "1.5rem" }}>
+                  <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "1rem", lineHeight: 1.6, color: "var(--ink2)", fontWeight: 300, marginBottom: "0" }}>
                     {proj.desc}
                   </p>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "1.2rem", borderTop: "1px solid var(--rule)", paddingTop: "1rem" }}>
-                    {[
-                      { l: "Live ↗", h: proj.live },
-                      { l: "Source ↗", h: proj.repo },
-                    ].map(({ l, h }) => (
-                      <a key={l} href={h} target="_blank" rel="noreferrer"
-                        style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.1em", color: "var(--gold)", textDecoration: "none" }}>
-                        {l}
-                      </a>
-                    ))}
-                    <button onClick={() => setVideo(proj.videoId)}
-                      style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.1em", color: "var(--ink2)", background: "none", border: "none" }}>
-                      Watch Demo ▶
-                    </button>
-                  </div>
                 </div>
               </div>
             ))}
