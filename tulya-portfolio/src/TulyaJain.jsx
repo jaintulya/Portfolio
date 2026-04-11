@@ -406,7 +406,7 @@ function ProjectImage({ src, alt, live }) {
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{ display: "block", position: "relative", border: "1px solid var(--rule)", background: "var(--bg3)", overflow: "hidden", cursor: "none" }}>
-      <img src={src} alt={alt} 
+      <img src={src} alt={alt} loading="lazy"
         style={{ 
           width: "100%", display: "block", 
           filter: hov ? "blur(10px) brightness(0.4) sepia(10%)" : "sepia(8%) contrast(1.06) brightness(0.87)",
@@ -543,7 +543,7 @@ function About() {
                 const [t,l,bt,r] = pos === "0,0" ? ["0","0",undefined,undefined] : pos === "0,auto" ? ["auto","0","0",undefined] : pos === "auto,0" ? ["0",undefined,undefined,"0"] : ["auto",undefined,"0","0"];
                 return <div key={k} style={{ position:"absolute", width:20, height:20, top:t, left:l, bottom:bt, right:r, borderTop: (i===0||i===2) ? "1px solid var(--gold2)" : "none", borderBottom: (i===1||i===3) ? "1px solid var(--gold2)" : "none", borderLeft: (i===0||i===1) ? "1px solid var(--gold2)" : "none", borderRight: (i===2||i===3) ? "1px solid var(--gold2)" : "none", zIndex: 2 }} />;
               })}
-              <img src={D.avatar} alt="Tulya Jain" style={{ width: "100%", display: "block", filter: "sepia(10%) contrast(1.05) brightness(0.88)", border: "1px solid var(--rule)" }} />
+              <img src={D.avatar} alt="Tulya Jain" fetchpriority="high" style={{ width: "100%", display: "block", filter: "sepia(10%) contrast(1.05) brightness(0.88)", border: "1px solid var(--rule)" }} />
             </div>
             {/* Action Cluster (Chip + Buttons) */}
             <div style={{ marginTop: "1.5rem", display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12 }}>
@@ -865,7 +865,7 @@ function CertCard({ cert, i }) {
           aspectRatio: "4/3",
         }}>
         {/* Certification Image - Main Background */}
-        <img src={cert.img} alt={cert.name} style={{ width: "100%", height: "100%", objectFit: "cover", opacity: hovered ? 0.15 : 1, transition: "opacity 0.6s ease", filter: "sepia(10%) contrast(1.05) brightness(0.88)" }} />
+        <img src={cert.img} alt={cert.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: hovered ? 0.15 : 1, transition: "opacity 0.6s ease", filter: "sepia(10%) contrast(1.05) brightness(0.88)" }} />
 
         {/* Hover Overlay */}
         <motion.div
