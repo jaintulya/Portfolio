@@ -153,7 +153,7 @@ input:-webkit-autofill,textarea:-webkit-autofill{
   opacity:0.032;pointer-events:none;z-index:1;animation:grn 6s steps(8) infinite;
 }
 @keyframes grn{0%,100%{transform:translate(0,0)}25%{transform:translate(-1%,-2%)}50%{transform:translate(2%,1%)}75%{transform:translate(-1%,2%)}};
-h1, h2, h3, h4, h5, h6 { font-weight: 900!important; }
+h1, h2, h3, h4, h5, h6 { font-weight: 300; }
 .card-wrap{will-change:transform, opacity;}
 .skill-icon-bg{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .skill-icon-img{filter:brightness(1) contrast(1.1);}
@@ -161,7 +161,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 900!important; }
 .hl{color:var(--gold);font-weight:500;font-style:normal;}
 .marquee-strip{overflow:hidden;white-space:nowrap;padding:1.4rem 0;background:var(--bg);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:flex;align-items:center;}
 .marquee-inner{display:flex;gap:4rem;animation:scroll 40s linear infinite;}
-.about-watermark{position:absolute;right:-5%;top:20%;font-family:var(--serif);font-size:25vw;font-weight:900;color:rgba(240,236,227,0.03);pointer-events:none;z-index:0;user-select:none;line-height:1;}
+.about-watermark{position:absolute;right:-5%;top:20%;font-family:var(--serif);font-size:25vw;font-weight:300;color:rgba(240,236,227,0.03);pointer-events:none;z-index:0;user-select:none;line-height:1;}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 `;
 
@@ -455,9 +455,9 @@ function Card({ id, label, children, index, bgOverride }) {
 /* ═══════════════════════════════════ SECTION LABEL ═══ */
 const SLabel = ({ n, text }) => (
   <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: "3.5rem" }}>
-    <span style={{ fontFamily: "var(--mono)", fontSize: "0.95rem", color: "var(--gold)", letterSpacing: "0.22em", fontWeight: 600 }}>{n}</span>
+    <span style={{ fontFamily: "var(--mono)", fontSize: "0.95rem", color: "var(--gold)", letterSpacing: "0.22em", fontWeight: 400 }}>{n}</span>
     <div style={{ height: 1.5, width: 48, background: "var(--gold)" }} />
-    <span style={{ fontFamily: "var(--mono)", fontSize: "0.95rem", letterSpacing: "0.45em", color: "var(--gold)", textTransform: "uppercase", fontWeight: 700 }}>{text}</span>
+    <span style={{ fontFamily: "var(--mono)", fontSize: "0.95rem", letterSpacing: "0.45em", color: "var(--gold)", textTransform: "uppercase", fontWeight: 500 }}>{text}</span>
   </div>
 );
 
@@ -543,7 +543,7 @@ function About() {
                 const [t,l,bt,r] = pos === "0,0" ? ["0","0",undefined,undefined] : pos === "0,auto" ? ["auto","0","0",undefined] : pos === "auto,0" ? ["0",undefined,undefined,"0"] : ["auto",undefined,"0","0"];
                 return <div key={k} style={{ position:"absolute", width:20, height:20, top:t, left:l, bottom:bt, right:r, borderTop: (i===0||i===2) ? "1px solid var(--gold2)" : "none", borderBottom: (i===1||i===3) ? "1px solid var(--gold2)" : "none", borderLeft: (i===0||i===1) ? "1px solid var(--gold2)" : "none", borderRight: (i===2||i===3) ? "1px solid var(--gold2)" : "none", zIndex: 2 }} />;
               })}
-              <img src={D.avatar} alt="Tulya Jain" fetchpriority="high" style={{ width: "100%", display: "block", filter: "sepia(10%) contrast(1.05) brightness(0.88)", border: "1px solid var(--rule)" }} />
+              <img src={D.avatar} alt="Tulya Jain" fetchPriority="high" style={{ width: "100%", display: "block", filter: "sepia(10%) contrast(1.05) brightness(0.88)", border: "1px solid var(--rule)" }} />
             </div>
             {/* Action Cluster (Chip + Buttons) */}
             <div style={{ marginTop: "1.5rem", display: "flex", flexWrap: "wrap", alignItems: "center", gap: 12 }}>
@@ -1104,24 +1104,94 @@ function RouterSync() {
   return null;
 }
 
+function SolarPreloader() {
+  return (
+    <motion.div
+      exit={{ opacity: 0 }}
+      style={{
+        position: "fixed", inset: 0, zIndex: 10000,
+        background: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center",
+        overflow: "hidden"
+      }}>
+      <div style={{ position: "relative", width: 300, height: 300, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {/* Core Dot */}
+        <motion.div
+          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          style={{ width: 12, height: 12, background: "var(--gold)", borderRadius: "50%", boxShadow: "0 0 20px var(--gold)" }} 
+        />
+        
+        {/* Concentric Rings */}
+        {[1, 1.6, 2.2].map((scale, i) => (
+          <motion.div
+            key={i}
+            animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
+            transition={{ duration: 10 + i * 5, repeat: Infinity, ease: "linear" }}
+            style={{
+              position: "absolute",
+              width: 80 * scale,
+              height: 80 * scale,
+              border: "1px solid rgba(201, 168, 76, 0.15)",
+              borderRadius: "50%",
+            }}>
+            {/* Spinning Arcs */}
+            <div style={{
+              position: "absolute", inset: -1,
+              borderRadius: "50%",
+              border: "2px solid transparent",
+              borderTopColor: "var(--gold)",
+              opacity: 0.6
+            }} />
+          </motion.div>
+        ))}
+
+        {/* Outer Orbitals */}
+        <motion.div
+          animate={{ rotate: -360 }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          style={{
+            position: "absolute", width: 260, height: 260,
+            border: "1px dashed rgba(240, 236, 227, 0.1)",
+            borderRadius: "50%"
+          }}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
 export default function App() {
   const isMobile = useMobile();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2600);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="pg" style={{ position: "relative", background: "var(--bg)" }}>
       <style>{G}</style>
       <RouterSync />
-      {!isMobile && <Cursor />}
-      <Nav />
-      <main style={{ position: "relative", zIndex: 1 }}>
-        <Hero />
-        <About />
-        <SkillStrip />
-        <Work />
-        <Skills />
-        <Credentials />
-        <Contact />
-      </main>
+      <AnimatePresence mode="wait">
+        {loading ? (
+          <SolarPreloader key="loader" />
+        ) : (
+          <motion.div key="content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2 }}>
+            {!isMobile && <Cursor />}
+            <Nav />
+            <main style={{ position: "relative", zIndex: 1 }}>
+              <Hero />
+              <About />
+              <SkillStrip />
+              <Work />
+              <Skills />
+              <Credentials />
+              <Contact />
+            </main>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
