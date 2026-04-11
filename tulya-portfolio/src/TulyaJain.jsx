@@ -1110,7 +1110,7 @@ function SolarPreloader() {
       exit={{ opacity: 0 }}
       style={{
         position: "fixed", inset: 0, zIndex: 10000,
-        background: "var(--bg)", display: "flex", alignItems: "center", justifyContent: "center",
+        background: "var(--bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
         overflow: "hidden"
       }}>
       <div style={{ position: "relative", width: 300, height: 300, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -1156,28 +1156,43 @@ function SolarPreloader() {
           }}
         />
       </div>
+
+      {/* Branding Text */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.8 }}
+        style={{ marginTop: "2rem", textAlign: "center" }}>
+        <p style={{ fontFamily: "var(--mono)", fontSize: "0.62rem", letterSpacing: "0.45em", color: "var(--gold2)", textTransform: "uppercase" }}>
+          Tulya Jain Portfolio
+        </p>
+      </motion.div>
     </motion.div>
   );
 }
 
 export default function App() {
   const isMobile = useMobile();
-  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  // Preloader only on home page
+  const [loading, setLoading] = useState(location.pathname === "/");
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 2600);
-    return () => clearTimeout(timer);
-  }, []);
+    if (loading) {
+      const timer = setTimeout(() => setLoading(false), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [loading]);
 
   return (
     <div className="pg" style={{ position: "relative", background: "var(--bg)" }}>
       <style>{G}</style>
-      <RouterSync />
       <AnimatePresence mode="wait">
         {loading ? (
           <SolarPreloader key="loader" />
         ) : (
-          <motion.div key="content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.2 }}>
+          <motion.div key="content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+            <RouterSync />
             {!isMobile && <Cursor />}
             <Nav />
             <main style={{ position: "relative", zIndex: 1 }}>
