@@ -76,7 +76,7 @@ const D = {
     {
       n: "03", name: "PRIME Clone", year: "2025",
       desc: "A faithful recreation of Amazon Prime Video's interface. Responsive card grids, dynamic content layout, and smooth navigation — built to pixel precision.",
-      tech: ["React", "CSS3"],
+      tech: ["HTML5", "CSS3"],
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1000/v1770461010/prime-coverpic_uvsmt9.png",
       live: "https://prime-tulya.netlify.app",
       repo: "https://github.com/jaintulya/Prime-clone-",
@@ -736,15 +736,7 @@ function Work() {
               ))}
               <div style={{ borderTop: "1px solid var(--rule)" }} />
 
-              {/* Tech + links */}
-              <motion.div key={active} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}
-                style={{ marginTop: "1.5rem" }}>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: "1rem" }}>
-                  {p.tech.map(t => (
-                    <span key={t} style={{ fontFamily: "var(--mono)", fontSize: "0.58rem", letterSpacing: "0.1em", color: "var(--ink3)", border: "1px solid var(--rule)", padding: "3px 8px", borderRadius: 3, textTransform: "uppercase" }}>{t}</span>
-                  ))}
-                </div>
-              </motion.div>
+              {/* Original tech stack location removed, moved to right panel */}
             </div>
 
             {/* Project image */}
@@ -771,6 +763,18 @@ function Work() {
                    onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "var(--rule)"; }}>
                    Watch Demo ▶
                 </button>
+              </div>
+
+              {/* Tech Stack Chips */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "1.2rem", justifyContent: "flex-start" }}>
+                {p.tech.map(t => (
+                  <span key={t} data-cur
+                    style={{ fontFamily: "var(--mono)", fontSize: "0.7rem", letterSpacing: "0.15em", color: "var(--gold)", border: "1px solid var(--gold2)", padding: "8px 16px", borderRadius: 4, textTransform: "uppercase", transition: "all 0.3s", cursor: "none" }}
+                    onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--bg)"; }}
+                    onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--gold)"; }}>
+                    {t}
+                  </span>
+                ))}
               </div>
 
               <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
@@ -801,6 +805,8 @@ function Work() {
                       </button>
                     </div>
                   </div>
+
+                  {/* Tech stack for mobile - WIP */}
                 </div>
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem" }}>
