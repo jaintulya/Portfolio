@@ -285,19 +285,23 @@ function Nav() {
         )}
       </motion.nav>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {isMobile && menuOpen && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
             style={{ position: "fixed", inset: 0, zIndex: 999, background: "var(--bg)", display: "flex", flexDirection: "column", justifyContent: "center", padding: "4rem 2rem", overflowY: "auto" }}>
             <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-              {NAVS.map((n, i) => (
-                <motion.button key={n} initial={{ x: -20, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: i * 0.05 }}
-                  onClick={() => scrollTo(n)}
-                  style={{ fontFamily: "var(--serif)", fontSize: "clamp(2rem, 12vw, 4rem)", fontWeight: 300, color: active === n ? "var(--gold)" : "var(--ink)", textAlign: "left", background: "none", border: "none" }}>
-                  {n}
-                </motion.button>
-              ))}
+              {NAVS.map((n, i) => {
+                const path = n === "Home" ? "/" : `/${n.toLowerCase()}`;
+                return (
+                  <NavLink key={n} to={path} onClick={() => setMenuOpen(false)}
+                    style={({ isActive }) => ({
+                      fontFamily: "var(--serif)", fontSize: "clamp(2rem, 12vw, 4rem)", fontWeight: 300,
+                      color: isActive ? "var(--gold)" : "var(--ink)", textAlign: "left", background: "none", border: "none", textDecoration: "none"
+                    })}>
+                    {n}
+                  </NavLink>
+                );
+              })}
             </div>
             <div style={{ marginTop: "auto", paddingTop: "3rem", borderTop: "1px solid var(--rule)" }}>
               <a href="https://drive.google.com/file/d/1m71b0KgRAl64M0ePunAcATVhIvV0sF9k/view?usp=sharing" target="_blank" rel="noreferrer"
