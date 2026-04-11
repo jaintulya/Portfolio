@@ -1087,6 +1087,18 @@ function RouterSync() {
     }, { threshold: 0.4 });
     sects.forEach(s => s && obs.observe(s));
 
+    // 2. Sync URL -> Section (on initial load or manual navigation)
+    if (pathname !== lastPath.current) {
+      const targetId = pathname === "/" ? "home" : pathname.substring(1);
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        setTimeout(() => {
+          targetEl.scrollIntoView({ behavior: "smooth" });
+        }, 300); 
+      }
+      lastPath.current = pathname;
+    }
+
     return () => obs.disconnect();
   }, [pathname]);
 
