@@ -554,12 +554,12 @@ function About() {
                 <span style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.18em", color: "#22c55e", textTransform: "uppercase" }}>Available for work</span>
               </div>
               
-              <button data-cur onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
-                style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", letterSpacing: "0.15em", color: "var(--ink)", background: "none", border: "1px solid var(--rule)", padding: "0 22px", borderRadius: 6, textTransform: "uppercase", height: 42, display: "flex", alignItems: "center", transition: "all 0.3s" }}
+              <Link to="/work" data-cur
+                style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", letterSpacing: "0.15em", color: "var(--ink)", background: "none", border: "1px solid var(--rule)", padding: "0 22px", borderRadius: 6, textTransform: "uppercase", height: 42, display: "flex", alignItems: "center", transition: "all 0.3s", textDecoration: "none" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--bg)"; e.currentTarget.style.borderColor = "var(--gold)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "none"; e.currentTarget.style.color = "var(--ink)"; e.currentTarget.style.borderColor = "var(--rule)"; }}>
                 View Work
-              </button>
+              </Link>
               
               <a href="https://drive.google.com/file/d/1m71b0KgRAl64M0ePunAcATVhIvV0sF9k/view?usp=sharing" target="_blank" rel="noreferrer" data-cur
                 style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", letterSpacing: "0.15em", color: "var(--gold)", background: "none", border: "1px solid var(--gold2)", padding: "0 22px", borderRadius: 6, textTransform: "uppercase", textDecoration: "none", height: 42, display: "flex", alignItems: "center", transition: "all 0.3s" }}
