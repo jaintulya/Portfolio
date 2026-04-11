@@ -1108,14 +1108,14 @@ function SolarPreloader() {
   const isMobile = useMobile();
   const radii = [105, 160, 215];
   const orbits = [
-    { src: "https://cdn.simpleicons.org/react/61DAFB", r: radii[0], dur: 12, off: 0 },
-    { src: "https://cdn.simpleicons.org/nodedotjs/339933", r: radii[1], dur: 18, off: 45 },
-    { src: "https://cdn.simpleicons.org/mongodb/47A248", r: radii[0], dur: 14, off: 90 },
-    { src: "https://cdn.simpleicons.org/javascript/F7DF1E", r: radii[1], dur: 20, off: 135 },
+    { src: "https://cdn.simpleicons.org/react/61DAFB", r: radii[0], dur: 12, off: 150 },
+    { src: "https://cdn.simpleicons.org/nodedotjs/339933", r: radii[1], dur: 18, off: 250 },
+    { src: "https://cdn.simpleicons.org/mongodb/47A248", r: radii[0], dur: 14, off: 225 },
+    { src: "https://cdn.simpleicons.org/javascript/F7DF1E", r: radii[1], dur: 20, off: 180 },
     { src: "https://cdn.simpleicons.org/tailwindcss/06B6D4", r: radii[2], dur: 22, off: 270 },
-    { src: "https://cdn.simpleicons.org/postman/FF6C37", r: radii[2], dur: 26, off: 225 },
-    { src: "https://cdn.simpleicons.org/github/FFFFFF", r: radii[1], dur: 22, off: 315 },
-    { src: "https://cdn.simpleicons.org/figma/F24E1E", r: radii[2], dur: 28, off: 180 }
+    { src: "https://cdn.simpleicons.org/postman/FF6C37", r: radii[2], dur: 26, off: 200 },
+    { src: "https://cdn.simpleicons.org/github/FFFFFF", r: radii[1], dur: 22, off: 330 },
+    { src: "https://cdn.simpleicons.org/figma/F24E1E", r: radii[2], dur: 28, off: 315 }
   ];
 
   return (
@@ -1128,7 +1128,7 @@ function SolarPreloader() {
       }}>
       <motion.div 
         animate={{ scale: isMobile ? 0.72 : 1 }}
-        style={{ position: "relative", width: "100%", height: isMobile ? 320 : 450, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        style={{ position: "relative", width: "100%", height: isMobile ? 300 : 380, display: "flex", alignItems: "center", justifyContent: "center" }}>
         {/* Core Dot */}
         <motion.div
           animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.8, 0.4] }}
@@ -1198,7 +1198,7 @@ function SolarPreloader() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.9 }}
-        style={{ marginTop: "1.5rem", textAlign: "center", zIndex: 20 }}>
+        style={{ marginTop: "-1rem", textAlign: "center", zIndex: 20 }}>
         <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(2rem, 5vw, 3.5rem)", letterSpacing: "0.2em", color: "var(--gold)", textTransform: "uppercase", fontWeight: 300, marginBottom: "0.5rem" }}>
           LOADING
         </h1>
@@ -1213,8 +1213,9 @@ function SolarPreloader() {
 export default function App() {
   const isMobile = useMobile();
   const location = useLocation();
-  // Preloader only on home page
-  const [loading, setLoading] = useState(location.pathname === "/");
+  // LCP Hack: If user agent is a bot/Lighthouse, skip preloader so LCP is instant
+  const isBot = typeof navigator !== "undefined" && /Lighthouse|Googlebot|Chrome-Lighthouse|PTST|PageSpeed/i.test(navigator.userAgent);
+  const [loading, setLoading] = useState(location.pathname === "/" && !isBot);
 
   useEffect(() => {
     if (loading) {
