@@ -1105,20 +1105,28 @@ function RouterSync() {
 }
 
 function SolarPreloader() {
+  const orbits = [
+    { src: "https://cdn.simpleicons.org/react", d: 110, dur: 8 },
+    { src: "https://cdn.simpleicons.org/nodedotjs", d: 160, dur: 12 },
+    { src: "https://cdn.simpleicons.org/mongodb", d: 110, dur: 10, offset: 180 },
+    { src: "https://cdn.simpleicons.org/tailwindcss", d: 210, dur: 15 },
+    { src: "https://cdn.simpleicons.org/javascript", d: 160, dur: 14, offset: 90 }
+  ];
+
   return (
     <motion.div
-      exit={{ opacity: 0 }}
+      exit={{ opacity: 0, scale: 1.1 }}
       style={{
         position: "fixed", inset: 0, zIndex: 10000,
         background: "var(--bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
         overflow: "hidden"
       }}>
-      <div style={{ position: "relative", width: 300, height: 300, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ position: "relative", width: 400, height: 400, display: "flex", alignItems: "center", justifyContent: "center" }}>
         {/* Core Dot */}
         <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 1, 0.5] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          style={{ width: 12, height: 12, background: "var(--gold)", borderRadius: "50%", boxShadow: "0 0 20px var(--gold)" }} 
+          animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.8, 0.4] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          style={{ width: 14, height: 14, background: "var(--gold)", borderRadius: "50%", boxShadow: "0 0 30px var(--gold)", zIndex: 10 }} 
         />
         
         {/* Concentric Rings */}
@@ -1126,45 +1134,64 @@ function SolarPreloader() {
           <motion.div
             key={i}
             animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-            transition={{ duration: 10 + i * 5, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 12 + i * 6, repeat: Infinity, ease: "linear" }}
             style={{
               position: "absolute",
-              width: 80 * scale,
-              height: 80 * scale,
-              border: "1px solid rgba(201, 168, 76, 0.15)",
+              width: 90 * scale,
+              height: 90 * scale,
+              border: "1px solid rgba(201, 168, 76, 0.12)",
               borderRadius: "50%",
             }}>
             {/* Spinning Arcs */}
             <div style={{
               position: "absolute", inset: -1,
               borderRadius: "50%",
-              border: "2px solid transparent",
-              borderTopColor: "var(--gold)",
-              opacity: 0.6
+              border: "1.5px solid transparent",
+              borderTopColor: "rgba(201, 168, 76, 0.5)",
+              borderBottomColor: "rgba(201, 168, 76, 0.2)"
             }} />
           </motion.div>
         ))}
 
-        {/* Outer Orbitals */}
-        <motion.div
-          animate={{ rotate: -360 }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          style={{
-            position: "absolute", width: 260, height: 260,
-            border: "1px dashed rgba(240, 236, 227, 0.1)",
-            borderRadius: "50%"
-          }}
-        />
+        {/* Floating Tech Stack Orbitals */}
+        {orbits.map((icon, idx) => (
+          <motion.div
+            key={idx}
+            animate={{ rotate: 360 }}
+            transition={{ duration: icon.dur, repeat: Infinity, ease: "linear" }}
+            style={{
+              position: "absolute",
+              width: icon.d * 2,
+              height: icon.d * 2,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              pointerEvents: "none"
+            }}>
+            <motion.div
+               animate={{ rotate: -360 }}
+               transition={{ duration: icon.dur, repeat: Infinity, ease: "linear" }}
+               style={{ 
+                 width: 24, height: 24, padding: 4, background: "rgba(13,12,10,0.8)", border: "1px solid var(--rule)", borderRadius: "4px", 
+                 display:"flex", alignItems:"center", justifyContent:"center", transform: `rotate(${icon.offset || 0}deg)` 
+               }}>
+               <img src={icon.src} style={{ width: "100%", height: "100%", filter: "grayscale(1) brightness(0.8)" }} />
+            </motion.div>
+          </motion.div>
+        ))}
       </div>
 
-      {/* Branding Text */}
+      {/* Branding Text - Optimized for LCP */}
       <motion.div
-        initial={{ opacity: 0, y: 10 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.8 }}
-        style={{ marginTop: "2rem", textAlign: "center" }}>
-        <p style={{ fontFamily: "var(--mono)", fontSize: "0.62rem", letterSpacing: "0.45em", color: "var(--gold2)", textTransform: "uppercase" }}>
-          Tulya Jain Portfolio
+        transition={{ delay: 0.3, duration: 0.9 }}
+        style={{ marginTop: "1rem", textAlign: "center" }}>
+        <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(2rem, 5vw, 3.5rem)", letterSpacing: "0.2em", color: "var(--gold)", textTransform: "uppercase", fontWeight: 300, marginBottom: "0.5rem" }}>
+          LOADING
+        </h1>
+        <p style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.5em", color: "var(--ink3)", textTransform: "uppercase", opacity: 0.6 }}>
+          Portfolio Experience
         </p>
       </motion.div>
     </motion.div>
@@ -1179,7 +1206,7 @@ export default function App() {
 
   useEffect(() => {
     if (loading) {
-      const timer = setTimeout(() => setLoading(false), 2800);
+      const timer = setTimeout(() => setLoading(false), 2400);
       return () => clearTimeout(timer);
     }
   }, [loading]);
@@ -1191,7 +1218,7 @@ export default function App() {
         {loading ? (
           <SolarPreloader key="loader" />
         ) : (
-          <motion.div key="content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+          <motion.div key="content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1.1 }}>
             <RouterSync />
             {!isMobile && <Cursor />}
             <Nav />
