@@ -1,5 +1,6 @@
 import Background from "./Background";
 import { useState, useEffect, useRef } from "react";
+import { useLocation, useNavigate, NavLink, Link } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 
 /* ═══════════════════════════════════ DATA ═══ */
