@@ -806,7 +806,17 @@ function Work() {
                     </div>
                   </div>
 
-                  {/* Tech stack for mobile - WIP */}
+                  {/* Tech stack for mobile */}
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "1.2rem", justifyContent: "flex-start" }}>
+                    {proj.tech.map(t => (
+                      <span key={t}
+                        style={{ fontFamily: "var(--mono)", fontSize: "0.7rem", letterSpacing: "0.15em", color: "var(--gold)", border: "1px solid var(--gold2)", padding: "10px 18px", borderRadius: 4, textTransform: "uppercase", transition: "all 0.3s" }}
+                        onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--bg)"; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--gold)"; }}>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
                 </div>
                 <div>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem" }}>
