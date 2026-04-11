@@ -1111,6 +1111,7 @@ export default function App() {
   return (
     <div className="pg" style={{ position: "relative", background: "var(--bg)" }}>
       <style>{G}</style>
+      <RouterSync />
       {!isMobile && <Cursor />}
       <Nav />
       <main style={{ position: "relative", zIndex: 1 }}>
