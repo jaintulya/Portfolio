@@ -287,7 +287,7 @@ function Nav() {
               {NAVS.map(n => {
                 const path = n === "Home" ? "/" : `/${n.toLowerCase()}`;
                 return (
-                  <NavLink key={n} to={path} data-cur
+                  <NavLink key={n} to={path} end={n === "Home"} data-cur
                     style={({ isActive }) => navItemStyle(isActive)}>
                     {n}
                   </NavLink>
@@ -319,7 +319,7 @@ function Nav() {
               {NAVS.map((n, i) => {
                 const path = n === "Home" ? "/" : `/${n.toLowerCase()}`;
                 return (
-                  <NavLink key={n} to={path} onClick={() => setMenuOpen(false)}
+                  <NavLink key={n} to={path} end={n === "Home"} onClick={() => setMenuOpen(false)}
                     style={({ isActive }) => ({
                       fontFamily: "var(--serif)", fontSize: "clamp(2rem, 12vw, 4rem)", fontWeight: 300,
                       color: isActive ? "var(--gold)" : "var(--ink)", textAlign: "left", background: "none", border: "none", textDecoration: "none"
@@ -1128,7 +1128,7 @@ function RouterSync() {
           const targetPath = label === "home" ? "/" : `/${label}`;
           if (window.location.pathname !== targetPath) {
             lastPath.current = targetPath;
-            window.history.replaceState(null, "", targetPath);
+            navigate(targetPath, { replace: true });
           }
         }
       });
