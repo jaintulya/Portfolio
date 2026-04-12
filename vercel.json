@@ -1,5 +1,11 @@
 {
   "buildCommand": "cd tulya-portfolio && npm run build",
   "outputDirectory": "tulya-portfolio/dist",
-  "installCommand": "cd tulya-portfolio && npm install"
+  "installCommand": "cd tulya-portfolio && npm install",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
 }

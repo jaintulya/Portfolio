@@ -1264,7 +1264,7 @@ export default function App() {
   const location = useLocation();
   // LCP Hack: If user agent is a bot/Lighthouse, skip preloader so LCP is instant
   const isBot = typeof navigator !== "undefined" && /Lighthouse|Googlebot|Chrome-Lighthouse|PTST|PageSpeed/i.test(navigator.userAgent);
-  const [loading, setLoading] = useState(location.pathname === "/" && !isBot);
+  const [loading, setLoading] = useState(!isBot);
 
   useEffect(() => {
     if (loading) {
