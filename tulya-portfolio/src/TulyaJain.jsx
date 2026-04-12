@@ -1264,14 +1264,16 @@ export default function App() {
   const location = useLocation();
   // LCP Hack: If user agent is a bot/Lighthouse, skip preloader so LCP is instant
   const isBot = typeof navigator !== "undefined" && /Lighthouse|Googlebot|Chrome-Lighthouse|PTST|PageSpeed/i.test(navigator.userAgent);
-  const [loading, setLoading] = useState(!isBot);
+  const isMobileOrTablet = typeof window !== "undefined" && window.innerWidth <= 1024;
+  const [loading, setLoading] = useState(!isBot && !isMobileOrTablet);
 
   useEffect(() => {
     if (loading) {
-      const timer = setTimeout(() => setLoading(false), 2400);
+      const delay = location.pathname === "/" ? 2400 : 1000;
+      const timer = setTimeout(() => setLoading(false), delay);
       return () => clearTimeout(timer);
     }
-  }, [loading]);
+  }, [loading, location.pathname]);
 
   return (
     <div className="pg" style={{ position: "relative", background: "var(--bg)" }}>
