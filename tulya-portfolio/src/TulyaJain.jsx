@@ -1132,7 +1132,7 @@ function RouterSync() {
           }
         }
       });
-    }, { threshold: 0.4 });
+    }, { rootMargin: "-30% 0px -30% 0px", threshold: 0 });
     sects.forEach(s => s && obs.observe(s));
 
     // 2. Sync URL -> Section (on initial load or manual navigation)
