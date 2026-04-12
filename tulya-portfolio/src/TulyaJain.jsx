@@ -1118,17 +1118,33 @@ function RouterSync() {
   const navigate = useNavigate();
   const lastPath = useRef(null);
 
+  // Dynamic titles mapping
+  const titles = {
+    "/": "Tulya Jain — Full Stack Developer",
+    "/about": "About — Tulya Jain",
+    "/work": "Selected Work — Tulya Jain",
+    "/skills": "Tech Stack — Tulya Jain",
+    "/credentials": "Credentials — Tulya Jain",
+    "/contact": "Contact — Tulya Jain"
+  };
+
   useEffect(() => {
-    // 1. Sync Section -> URL
+    // 1. Sync Section -> URL & Title
     const sects = NAVS.map(n => document.getElementById(n.toLowerCase()));
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
         if (e.isIntersecting) {
           const label = e.target.getAttribute("data-label")?.toLowerCase();
           const targetPath = label === "home" ? "/" : `/${label}`;
+          
           if (window.location.pathname !== targetPath) {
             lastPath.current = targetPath;
             navigate(targetPath, { replace: true });
+          }
+          
+          // Update title on intersect
+          if (titles[targetPath]) {
+            document.title = titles[targetPath];
           }
         }
       });
@@ -1144,11 +1160,17 @@ function RouterSync() {
           targetEl.scrollIntoView({ behavior: "smooth" });
         }, 300); 
       }
+      
+      // Update title on initial load/manual route change
+      if (titles[pathname]) {
+        document.title = titles[pathname];
+      }
+      
       lastPath.current = pathname;
     }
 
     return () => obs.disconnect();
-  }, [pathname]);
+  }, [pathname, navigate]);
 
   return null;
 }
