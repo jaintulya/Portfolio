@@ -2,6 +2,7 @@ import Background from "./Background";
 import { useState, useEffect, useRef } from "react";
 import { useLocation, useNavigate, NavLink, Link } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { Helmet } from "react-helmet";
 
 /* ═══════════════════════════════════ DATA ═══ */
 const D = {
@@ -1113,12 +1114,8 @@ function Contact() {
   );
 }
 
-function RouterSync() {
+function PageHead() {
   const { pathname } = useLocation();
-  const navigate = useNavigate();
-  const lastPath = useRef(null);
-
-  // Dynamic titles mapping
   const titles = {
     "/": "Tulya Jain — Full Stack Developer",
     "/about": "About — Tulya Jain",
@@ -1129,47 +1126,107 @@ function RouterSync() {
   };
 
   useEffect(() => {
-    // 1. Sync Section -> URL & Title
-    const sects = NAVS.map(n => document.getElementById(n.toLowerCase()));
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const label = e.target.getAttribute("data-label")?.toLowerCase();
-          const targetPath = label === "home" ? "/" : `/${label}`;
-          
-          if (window.location.pathname !== targetPath) {
-            lastPath.current = targetPath;
-            navigate(targetPath, { replace: true });
-          }
-          
-          // Update title on intersect
-          if (titles[targetPath]) {
-            document.title = titles[targetPath];
+    const currentTitle = titles[pathname] || "Tulya Jain";
+    document.title = currentTitle;
+  }, [pathname]);
+
+  return (
+    <Helmet>
+      <title>{titles[pathname] || "Tulya Jain"}</title>
+    </Helmet>
+  );
+}
+
+function RouterSync() {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const lastPath = useRef(null);
+  const isNavigatingRef = useRef(false);
+
+  // Sync Titles Mapping
+  const titles = {
+    "/": "Tulya Jain — Full Stack Developer",
+    "/about": "About — Tulya Jain",
+    "/work": "Selected Work — Tulya Jain",
+    "/skills": "Tech Stack — Tulya Jain",
+    "/credentials": "Credentials — Tulya Jain",
+    "/contact": "Contact — Tulya Jain"
+  };
+
+  useEffect(() => {
+    let scrollTimeout;
+    const scrollThreshold = 160; // Bias to trigger before hitting the top
+
+    const handleScroll = () => {
+      if (isNavigatingRef.current) return;
+
+      // Special case: Top of page is always Home
+      if (window.scrollY < 100) {
+        if (window.location.pathname !== "/") {
+          lastPath.current = "/";
+          navigate("/", { replace: true });
+          document.title = titles["/"];
+        }
+        return;
+      }
+
+      const sections = NAVS.map(n => ({
+        id: n.toLowerCase(),
+        path: n === "Home" ? "/" : `/${n.toLowerCase()}`
+      }));
+
+      // Find the "most active" section (the one currently crossing the upper part of the screen)
+      let currentWinner = null;
+      for (const sect of sections) {
+        const el = document.getElementById(sect.id);
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          // If the top of the section has entered the viewport's top region
+          if (rect.top <= scrollThreshold) {
+            currentWinner = sect.path;
           }
         }
-      });
-    }, { rootMargin: "-30% 0px -30% 0px", threshold: 0 });
-    sects.forEach(s => s && obs.observe(s));
+      }
 
-    // 2. Sync URL -> Section (on initial load or manual navigation)
+      if (currentWinner && window.location.pathname !== currentWinner) {
+        lastPath.current = currentWinner;
+        navigate(currentWinner, { replace: true });
+        if (titles[currentWinner]) {
+          document.title = titles[currentWinner];
+        }
+      }
+    };
+
+    const throttledScroll = () => {
+      if (!scrollTimeout) {
+        scrollTimeout = setTimeout(() => {
+          handleScroll();
+          scrollTimeout = null;
+        }, 100); 
+      }
+    };
+
+    window.addEventListener("scroll", throttledScroll, { passive: true });
+    
+    // Sync URL -> Section (Initial load or Click)
     if (pathname !== lastPath.current) {
       const targetId = pathname === "/" ? "home" : pathname.substring(1);
       const targetEl = document.getElementById(targetId);
       if (targetEl) {
+        isNavigatingRef.current = true;
+        targetEl.scrollIntoView({ behavior: "smooth" });
+        
         setTimeout(() => {
-          targetEl.scrollIntoView({ behavior: "smooth" });
-        }, 300); 
+          isNavigatingRef.current = false;
+        }, 1200); // Wait for smooth scroll to finish
       }
-      
-      // Update title on initial load/manual route change
-      if (titles[pathname]) {
-        document.title = titles[pathname];
-      }
-      
       lastPath.current = pathname;
     }
 
-    return () => obs.disconnect();
+    return () => {
+      window.removeEventListener("scroll", throttledScroll);
+      if (scrollTimeout) clearTimeout(scrollTimeout);
+    };
   }, [pathname, navigate]);
 
   return null;
@@ -1304,6 +1361,7 @@ export default function App() {
           <SolarPreloader key="loader" />
         ) : (
           <motion.div key="content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
+            <PageHead />
             <RouterSync />
             {!isMobile && <Cursor />}
             <Nav />
