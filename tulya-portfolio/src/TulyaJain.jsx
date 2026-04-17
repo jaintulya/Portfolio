@@ -849,23 +849,38 @@ function SkillCard({ skill, isRowHovered }) {
       onMouseLeave={() => setHovered(false)}
       style={{
         display: "flex", flexDirection: "column", alignItems: "center", gap: "0.9rem",
-        padding: "1.6rem 2rem", border: "1px solid rgba(240,236,227,0.08)", borderRadius: 12,
-        background: "rgba(240,236,227,0.02)", flexShrink: 0, transition: "all 0.4s",
+        padding: "1.6rem 2rem", border: `1px solid ${hovered ? "var(--gold)" : "rgba(240,236,227,0.08)"}`,
+        borderRadius: 12, background: hovered ? "rgba(201,168,76,0.06)" : "rgba(240,236,227,0.02)",
+        boxShadow: hovered ? "0 0 20px rgba(201,168,76,0.15)" : "none",
+        transform: hovered ? "scale(1.06)" : (isRowHovered && !hovered ? "scale(0.97)" : "scale(1)"),
+        opacity: isRowHovered && !hovered ? 0.5 : 1,
+        transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)", flexShrink: 0, cursor: "none",
       }}
     >
-      <img src={skill.icon} alt={skill.name} style={{ width: 26, height: 26 }} />
-      <p style={{ fontFamily: "var(--serif)", fontSize: "0.95rem", color: "var(--ink)" }}>{skill.name}</p>
+      <img src={skill.icon} alt={skill.name} style={{ width: 26, height: 26, filter: hovered ? "none" : "brightness(0.8)" }} />
+      <p style={{ fontFamily: "var(--serif)", fontSize: "0.95rem", color: hovered ? "var(--gold)" : "var(--ink)", transition: "color 0.4s", margin: 0 }}>{skill.name}</p>
     </div>
   );
 }
 
 function SkillMarquee({ items, direction = "left", speed = 35 }) {
-  const repeated = [...items, ...items, ...items, ...items];
+  const [paused, setPaused] = useState(false);
+  const [isRowHovered, setIsRowHovered] = useState(false);
+  const repeated = [...items, ...items, ...items, ...items, ...items, ...items];
+
   return (
-    <div style={{ overflow: "hidden", width: "100%" }}>
-      <div style={{ display: "flex", gap: "1.2rem", width: "max-content", animation: `marquee-${direction} ${speed}s linear infinite` }}>
+    <div
+      onMouseEnter={() => { setPaused(true); setIsRowHovered(true); }}
+      onMouseLeave={() => { setPaused(false); setIsRowHovered(false); }}
+      style={{ overflow: "hidden", width: "100%", position: "relative" }}
+    >
+      <div style={{
+        display: "flex", gap: "1.2rem", width: "max-content",
+        animation: `marquee-${direction} ${speed}s linear infinite`,
+        animationPlayState: paused ? "paused" : "running",
+      }}>
         {repeated.map((skill, i) => (
-          <SkillCard key={i} skill={skill} />
+          <SkillCard key={i} skill={skill} isRowHovered={isRowHovered} />
         ))}
       </div>
       <style>{`
@@ -877,27 +892,21 @@ function SkillMarquee({ items, direction = "left", speed = 35 }) {
 }
 
 function Skills() {
+  const directions = ["left", "right", "left"];
   return (
     <Card id="skills" label="Skills" index={2} bgOverride="var(--bg2)">
       <div style={{ padding: "4rem 0" }}>
         <SLabel n="03" text="Skills" />
-                    viewport={{ once: true, margin: "-40px" }}
-                    transition={{ duration: 0.45, delay: si * 0.07, ease: [0.16,1,0.3,1] }}
-                    style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "12px 0", borderBottom: "1px solid var(--rule)" }}
-                    data-cur
-                    onMouseEnter={e => { e.currentTarget.style.paddingLeft = "8px"; e.currentTarget.style.transition = "padding 0.25s"; }}
-                    onMouseLeave={e => { e.currentTarget.style.paddingLeft = "0"; }}>
-                    {/* Icon Container with Background */}
-                    <div className="skill-icon-bg">
-                      <img src={skill.icon} alt={skill.name}
-                        className="skill-icon-img"
-                        style={{ width: 22, height: 22, objectFit: "contain" }}
-                        onError={e => { e.currentTarget.style.display = "none"; }} />
-                    </div>
-                    <span style={{ fontFamily: "var(--serif)", fontSize: "1.2rem", fontWeight: 300, color: "var(--ink)", flex: 1 }}>{skill.name}</span>
-                  </motion.div>
-                ))}
-              </div>
+        {D.skills.map((cat, ci) => (
+          <div key={cat.cat} style={{ margin: "3rem 0" }}>
+            <h3 style={{ color: "var(--gold)", paddingLeft: "5rem", marginBottom: "1.5rem" }}>{cat.cat}</h3>
+            <SkillMarquee items={cat.items} direction={directions[ci]} speed={ci === 1 ? 28 : 36} />
+          </div>
+        ))}
+      </div>
+    </Card>
+  );
+}
             </div>
           ))}
         </div>
