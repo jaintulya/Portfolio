@@ -1,10 +1,16 @@
-import Background from "./Background";
-import { useState, useEffect, useRef } from "react";
+﻿import Background from "./Background";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useLocation, useNavigate, NavLink, Link } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet";
+import Lenis from 'lenis';
+import { GitHubCalendar } from 'react-github-calendar';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
+import { ProjectItem, CertificatesGrid } from "./ProjectLayouts";
+import React from "react";
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ DATA ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• DATA â•â•â• */
 const D = {
   name: ["TULYA", "JAIN"],
   role: "Full Stack Developer",
@@ -44,8 +50,10 @@ const D = {
       ],
     },
     {
-      cat: "Toolchain",
+      cat: "Tools & Languages",
       items: [
+        { name: "C",        icon: "https://cdn.simpleicons.org/c/f0ece3" },
+        { name: "C++",      icon: "https://cdn.simpleicons.org/cplusplus" },
         { name: "Git",      icon: "https://cdn.simpleicons.org/git" },
         { name: "GitHub",   icon: "https://cdn.simpleicons.org/github/f0ece3" },
         { name: "Figma",    icon: "https://cdn.simpleicons.org/figma" },
@@ -64,24 +72,27 @@ const D = {
       live: "https://bevel-tulya.netlify.app",
       repo: "https://github.com/jaintulya/Bevel-clone-",
       videoId: "oHWpCMTIyZ0",
+      cat: "Clones"
     },
     {
       n: "02", name: "AARKE Clone", year: "2025",
-      desc: "Premium kitchen appliance brand ΓÇö bold editorial typography, scroll-reveal animations, and exacting fidelity to the original brand language.",
+      desc: "Premium kitchen appliance brand â€” bold editorial typography, scroll-reveal animations, and exacting fidelity to the original brand language.",
       tech: ["HTML5", "CSS3"],
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1000/v1770461065/aarke-cover_ghgd98.png",
       live: "https://aarke-tulya.netlify.app",
       repo: "https://github.com/jaintulya/Aarke-clone-",
       videoId: "TflxOJ40Tuo",
+      cat: "Clones"
     },
     {
       n: "03", name: "PRIME Clone", year: "2025",
-      desc: "A faithful recreation of Amazon Prime Video's interface. Responsive card grids, dynamic content layout, and smooth navigation ΓÇö built to pixel precision.",
+      desc: "A faithful recreation of Amazon Prime Video's interface. Responsive card grids, dynamic content layout, and smooth navigation â€” built to pixel precision.",
       tech: ["HTML5", "CSS3"],
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1000/v1770461010/prime-coverpic_uvsmt9.png",
       live: "https://prime-tulya.netlify.app",
       repo: "https://github.com/jaintulya/Prime-clone-",
       videoId: "voQSKVaUi1k",
+      cat: "Clones"
     },
     {
       n: "04", name: "PUMA Clone", year: "2025",
@@ -91,6 +102,7 @@ const D = {
       live: "https://puma-tulya.netlify.app",
       repo: "https://github.com/jaintulya/puma-clone",
       videoId: "zuadjEcaA5k",
+      cat: "Clones"
     },
     {
       n: "05", name: "COCA-COLA Clone", year: "2025",
@@ -100,6 +112,7 @@ const D = {
       live: "https://cococola-tulya.netlify.app",
       repo: "https://github.com/jaintulya/cola-clone",
       videoId: "AtzCF1w-nfI",
+      cat: "Clones"
     },
     {
       n: "06", name: "MovieHub", year: "2025",
@@ -109,11 +122,12 @@ const D = {
       live: "https://advmovie.netlify.app",
       repo: "https://github.com/jaintulya/movie-filter-byreact",
       videoId: "zcg205b-HYk",
+      cat: "Frontend"
     },
   ],
   certs: [
     { name: "Solution Architecture", org: "Amazon Web Services", year: "2026",
-      desc: "Distributed systems on AWS ΓÇö compute, storage, networking, security, and cost optimisation for scalable architectures.",
+      desc: "Distributed systems on AWS â€” compute, storage, networking, security, and cost optimisation for scalable architectures.",
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/aws_certificate_pages-to-jpg-0001_wsdave.jpg" },
     { name: "Software Engineering", org: "Wells Fargo", year: "2026",
       desc: "Agile workflows, code review, debugging, and building fintech features in a real engineering simulation.",
@@ -128,12 +142,12 @@ const D = {
       desc: "Accessible, internationalised React components using Skyscanner's Backpack design system.",
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/skyscanner_page-0001_xtalcr.jpg" },
     { name: "Excel Automation with AI", org: "Microsoft", year: "2025",
-      desc: "Automating Excel workflows with ChatGPT ΓÇö intelligent formulas and spreadsheet solutions without code.",
+      desc: "Automating Excel workflows with ChatGPT â€” intelligent formulas and spreadsheet solutions without code.",
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/Excel_automation_using_chagpt_pages-to-jpg-0001_jc6nmq.jpg" },
   ],
 };
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ GLOBAL CSS ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• GLOBAL CSS â•â•â• */
 const G = `
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;background:#0d0c0a;}
@@ -147,6 +161,7 @@ body{background:#0d0c0a;color:#f0ece3;overflow-x:hidden;}
   --mono:'DM Mono','Courier New',monospace;
   --sans:'Syne',sans-serif;
   --card-r:16px;
+  --gold-glow: rgba(201, 168, 76, 0.4);
 }
 *{cursor:none!important;}
 a, button {
@@ -194,7 +209,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 300; }
 `;
 
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ CURSOR ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• CURSOR â•â•â• */
 function Cursor() {
   const [p, setP] = useState({ x: -100, y: -100 });
   const [hov, setHov] = useState(false);
@@ -227,8 +242,8 @@ function Cursor() {
   );
 }
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ NAV ΓòÉΓòÉΓòÉ */
-const NAVS = ["Home","About","Work","Skills","Credentials","Contact"];
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• NAV â•â•â• */
+const NAVS = ["Home","About","Work","Skills","Hackathons","Credentials","Contact"];
 const useMobile = () => {
   const [m, setM] = useState(false);
   useEffect(() => {
@@ -343,7 +358,7 @@ function Nav() {
   );
 }
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ BREATHING RINGS BG ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• BREATHING RINGS BG â•â•â• */
 function BreathingRings() {
   const canvasRef = useRef(null);
   const mouse = useRef({ x: -2000, y: -2000 });
@@ -426,7 +441,7 @@ function BreathingRings() {
   return <canvas ref={canvasRef} style={{ position: "fixed", inset: 0, zIndex: 100, pointerEvents: "none", opacity: 1 }} />;
 }
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ PROJECT IMAGE ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• PROJECT IMAGE â•â•â• */
 function ProjectImage({ src, alt, live }) {
   const [hov, setHov] = useState(false);
   return (
@@ -447,7 +462,7 @@ function ProjectImage({ src, alt, live }) {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
             style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2, pointerEvents: "none" }}>
             <span style={{ fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.25em", color: "var(--ink)", padding: "10px 20px", border: "1px solid rgba(240,236,227,0.24)", background: "rgba(13,12,10,0.45)", backdropFilter: "blur(4px)", borderRadius: 4, textTransform: "uppercase" }}>
-              Click to Open Γåù
+              Click to Open â†—
             </span>
           </motion.div>
         )}
@@ -456,7 +471,7 @@ function ProjectImage({ src, alt, live }) {
   );
 }
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ STACKING CARD WRAPPER ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• STACKING CARD WRAPPER â•â•â• */
 function Card({ id, label, children, index, bgOverride }) {
   const ref = useRef(null);
 
@@ -480,7 +495,7 @@ function Card({ id, label, children, index, bgOverride }) {
   );
 }
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ SECTION LABEL ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• SECTION LABEL â•â•â• */
 const SLabel = ({ n, text }) => (
   <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: "3.5rem" }}>
     <span style={{ fontFamily: "var(--mono)", fontSize: "0.95rem", color: "var(--gold)", letterSpacing: "0.22em", fontWeight: 400 }}>{n}</span>
@@ -489,7 +504,7 @@ const SLabel = ({ n, text }) => (
   </div>
 );
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ HERO ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• HERO â•â•â• */
 function Hero() {
   const [vis, setVis] = useState(false);
   useEffect(() => { setTimeout(() => setVis(true), 120); }, []);
@@ -500,7 +515,7 @@ function Hero() {
       <Background />
       {/* Corner coords */}
       <div style={{ position: "absolute", top: 72, left: 28, fontFamily: "var(--mono)", fontSize: "0.58rem", color: "var(--ink3)", letterSpacing: "0.15em" }}>
-        23.0225┬░ N, 72.5714┬░ E
+        23.0225Â° N, 72.5714Â° E
       </div>
       <div style={{ position: "absolute", top: 72, right: 28, fontFamily: "var(--mono)", fontSize: "0.58rem", color: "var(--ink3)", letterSpacing: "0.15em" }}>
         TJ. {new Date().getFullYear()}
@@ -555,7 +570,7 @@ function Hero() {
   );
 }
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ ABOUT ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ABOUT â•â•â• */
 function About() {
   return (
     <Card id="about" label="About" index={0}>
@@ -603,7 +618,7 @@ function About() {
                   style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", letterSpacing: "0.12em", color: "var(--ink3)", textDecoration: "none", borderBottom: "1px solid var(--rule)", paddingBottom: 2, transition: "color 0.2s, border-color 0.2s" }}
                   onMouseEnter={e => { e.currentTarget.style.color = "var(--gold)"; e.currentTarget.style.borderColor = "var(--gold)"; }}
                   onMouseLeave={e => { e.currentTarget.style.color = "var(--ink3)"; e.currentTarget.style.borderColor = "var(--rule)"; }}>
-                  {s.label} Γåù
+                  {s.label} â†—
                 </a>
               ))}
             </div>
@@ -642,7 +657,7 @@ function About() {
   );
 }
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ SKILL STRIP ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• SKILL STRIP â•â•â• */
 function SkillStrip() {
   const allSkills = D.skills.flatMap(c => c.items.map(s => s.name));
   const double = [...allSkills, ...allSkills, ...allSkills];
@@ -657,7 +672,7 @@ function SkillStrip() {
   );
 }
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ VIDEO MODAL ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• VIDEO MODAL â•â•â• */
 function VideoModal({ videoId, onClose }) {
   useEffect(() => {
     const fn = e => { if (e.key === "Escape") onClose(); };
@@ -679,7 +694,7 @@ function VideoModal({ videoId, onClose }) {
               style={{ fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.14em", color: "var(--ink3)", background: "none", border: "1px solid var(--rule)", padding: "4px 12px", borderRadius: 3, transition: "color 0.2s" }}
               onMouseEnter={e => e.currentTarget.style.color = "var(--ink)"}
               onMouseLeave={e => e.currentTarget.style.color = "var(--ink3)"}>
-              Close ├ù
+              Close Ã—
             </button>
           </div>
           <div style={{ position: "relative", paddingBottom: "56.25%" }}>
@@ -696,142 +711,107 @@ function VideoModal({ videoId, onClose }) {
   );
 }
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ WORK ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• WORK â•â•â• */
 function Work() {
-  const [active, setActive] = useState(0);
+  const [activeCat, setActiveCat] = useState("All");
   const [video, setVideo] = useState(null);
   const isMobile = useMobile();
-  const p = D.projects[active];
+  
+  const cats = ["All", "Clones", "Frontend", "Full Stack", "Games", "Figma"];
+  
+  const filtered = useMemo(() => {
+    if (activeCat === "All") return D.projects;
+    return D.projects.filter(p => p.cat === activeCat);
+  }, [activeCat]);
 
   return (
     <Card id="work" label="Work" index={1} bgOverride="var(--bg)">
-      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <SLabel n="02" text="Selected Work" />
-
-        {!isMobile ? (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: "2rem 3rem", alignItems: "start" }}>
-            {/* Project list */}
-            <div>
-              {D.projects.map((proj, i) => (
-                <div key={proj.n} style={{ borderTop: "1px solid var(--rule)" }}>
-                  <button data-cur onClick={() => setActive(i)}
-                    style={{ width: "100%", textAlign: "left", padding: "1.4rem 0", background: "none", border: "none", display: "flex", alignItems: "flex-start", gap: "1.2rem" }}>
-                    <span style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", color: active === i ? "var(--gold)" : "var(--ink3)", letterSpacing: "0.12em", paddingTop: 6, minWidth: 28, transition: "color 0.3s" }}>
-                      {proj.n}
-                    </span>
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontFamily: "var(--serif)", fontSize: "clamp(1.8rem,4vw,2.8rem)", fontWeight: active === i ? 400 : 300, color: active === i ? "var(--ink)" : "var(--ink2)", letterSpacing: "-0.01em", lineHeight: 1.1, transition: "all 0.3s" }}>
-                        {proj.name}
-                      </div>
-                      <motion.div animate={{ height: active === i ? "auto" : 0, opacity: active === i ? 1 : 0 }}
-                        transition={{ duration: 0.38, ease: [0.16,1,0.3,1] }}
-                        style={{ overflow: "hidden" }}>
-                        <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "0.9rem", lineHeight: 1.65, color: "var(--ink2)", fontWeight: 300, marginTop: "0.5rem", paddingBottom: "0.25rem" }}>
-                          {proj.desc}
-                        </p>
-                      </motion.div>
-                    </div>
-                    <span style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", color: "var(--ink3)", paddingTop: 6 }}>{proj.year}</span>
-                  </button>
-                </div>
-              ))}
-              <div style={{ borderTop: "1px solid var(--rule)" }} />
-
-              {/* Original tech stack location removed, moved to right panel */}
-            </div>
-
-            {/* Project image */}
-            <motion.div key={`img-${active}`} initial={{ opacity: 0, scale: 1.03 }} animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: [0.76,0,0.24,1] }}>
-              <ProjectImage src={p.img} alt={p.name} live={p.live} />
-              
-              <div style={{ display: "flex", gap: "10px", marginTop: "1rem", width: "100%" }}>
-                <a href={p.live} target="_blank" rel="noreferrer" data-cur
-                   style={{ flex: 1, padding: "14px 0", border: "1px solid var(--gold2)", borderRadius: 4, background: "rgba(201,168,76,0.05)", textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.8rem", letterSpacing: "0.15em", color: "var(--gold)", textDecoration: "none", transition: "all 0.3s" }}
-                   onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--bg)"; }}
-                   onMouseLeave={e => { e.currentTarget.style.background = "rgba(201,168,76,0.05)"; e.currentTarget.style.color = "var(--gold)"; }}>
-                   Live Site Γåù
-                </a>
-                <a href={p.repo} target="_blank" rel="noreferrer" data-cur
-                   style={{ flex: 1, padding: "14px 0", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink2)", textDecoration: "none", transition: "all 0.3s" }}
-                   onMouseEnter={e => { e.currentTarget.style.background = "var(--ink)"; e.currentTarget.style.color = "var(--bg)"; }}
-                   onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--ink2)"; }}>
-                   Source Γåù
-                </a>
-                <button data-cur onClick={() => setVideo(p.videoId)}
-                   style={{ flex: 1, padding: "14px 0", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", background: "none", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink)", cursor: "none", transition: "all 0.3s" }}
-                   onMouseEnter={e => { e.currentTarget.style.background = "rgba(240,236,227,0.08)"; e.currentTarget.style.borderColor = "var(--ink3)"; }}
-                   onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "var(--rule)"; }}>
-                   Watch Demo Γû╢
-                </button>
-              </div>
-
-              {/* Tech Stack Chips */}
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "1.2rem", justifyContent: "flex-start" }}>
-                {p.tech.map(t => (
-                  <span key={t} data-cur
-                    style={{ fontFamily: "var(--mono)", fontSize: "0.7rem", letterSpacing: "0.15em", color: "var(--gold)", border: "1px solid var(--gold2)", padding: "8px 16px", borderRadius: 4, textTransform: "uppercase", transition: "all 0.3s", cursor: "none" }}
-                    onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--bg)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--gold)"; }}>
-                    {t}
-                  </span>
-                ))}
-              </div>
-
-              <div style={{ display: "flex", justifyContent: "space-between", marginTop: 12 }}>
-                <span style={{ fontFamily: "var(--mono)", fontSize: "0.58rem", color: "var(--ink3)", letterSpacing: "0.1em" }}>{p.name}</span>
-                <span style={{ fontFamily: "var(--mono)", fontSize: "0.58rem", color: "var(--ink3)" }}>{p.year}</span>
-              </div>
-            </motion.div>
-          </div>
-        ) : (
-          <div style={{ display: "flex", flexDirection: "column", gap: "4rem" }}>
-            {D.projects.map(proj => (
-              <div key={proj.n} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
-                <div>
-                  <ProjectImage src={proj.img} alt={proj.name} live={proj.live} />
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", marginTop: "1.2rem" }}>
-                    <a href={proj.live} target="_blank" rel="noreferrer"
-                      style={{ width: "100%", padding: "16px", border: "1px solid var(--gold2)", borderRadius: 4, background: "rgba(201,168,76,0.05)", textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.85rem", letterSpacing: "0.15em", color: "var(--gold)", textDecoration: "none" }}>
-                      Live Site Γåù
-                    </a>
-                    <div style={{ display: "flex", gap: "0.8rem" }}>
-                      <a href={proj.repo} target="_blank" rel="noreferrer"
-                        style={{ flex: 1, padding: "14px", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink2)", textDecoration: "none" }}>
-                        Source Γåù
-                      </a>
-                      <button onClick={() => setVideo(proj.videoId)}
-                        style={{ flex: 1, padding: "14px", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", background: "none", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink)" }}>
-                        Watch Demo Γû╢
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Tech stack for mobile */}
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "1.2rem", justifyContent: "flex-start" }}>
-                    {proj.tech.map(t => (
-                      <span key={t}
-                        style={{ fontFamily: "var(--mono)", fontSize: "0.7rem", letterSpacing: "0.15em", color: "var(--gold)", border: "1px solid var(--gold2)", padding: "10px 18px", borderRadius: 4, textTransform: "uppercase", transition: "all 0.3s" }}
-                        onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--bg)"; }}
-                        onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--gold)"; }}>
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div>
-                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem" }}>
-                    <h3 style={{ fontFamily: "var(--serif)", fontSize: "2.2rem", fontWeight: 300, color: "var(--ink)" }}>{proj.name}</h3>
-                    <span style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", color: "var(--ink3)" }}>{proj.year}</span>
-                  </div>
-                  <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "1rem", lineHeight: 1.6, color: "var(--ink2)", fontWeight: 300, marginBottom: "0" }}>
-                    {proj.desc}
-                  </p>
-                </div>
-              </div>
+      <div style={{ padding: "clamp(2rem,5vw,4rem) 0", minHeight: "100vh" }}>
+        <div style={{ padding: "0 clamp(1.5rem,6vw,5rem)" }}>
+          <SLabel n="02" text="Selected Work" />
+          
+          {/* CATEGORY FILTER */}
+          <div style={{ 
+            display: "flex", 
+            gap: "1.5rem", 
+            marginBottom: "4rem", 
+            flexWrap: "wrap",
+            borderBottom: "1px solid var(--rule)",
+            paddingBottom: "1rem"
+          }}>
+            {cats.map(c => (
+              <button
+                key={c}
+                onClick={() => setActiveCat(c)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  fontFamily: "var(--mono)",
+                  fontSize: "0.75rem",
+                  letterSpacing: "0.2em",
+                  color: activeCat === c ? "var(--gold)" : "var(--ink3)",
+                  cursor: "pointer",
+                  textTransform: "uppercase",
+                  padding: "8px 0",
+                  position: "relative",
+                  transition: "color 0.3s ease"
+                }}
+              >
+                {c}
+                {activeCat === c && (
+                  <motion.div 
+                    layoutId="catUnderline"
+                    style={{ position: "absolute", bottom: -1, left: 0, right: 0, height: 1, background: "var(--gold)" }} 
+                  />
+                )}
+              </button>
             ))}
           </div>
-        )}
+        </div>
+
+        {/* PROJECTS LIST */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <AnimatePresence mode="popLayout">
+            {filtered.length > 0 ? (
+              filtered.map((proj, i) => (
+                <ProjectItem 
+                  key={proj.name} 
+                  project={proj} 
+                  index={i} 
+                  isMobile={isMobile} 
+                  onPlayVideo={setVideo}
+                />
+              ))
+            ) : (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                style={{ 
+                  padding: "10rem 2rem", 
+                  textAlign: "center",
+                  alignItems: "center",
+                  justifyContent: "center"
+                }}
+              >
+                <motion.h3 
+                  animate={{ opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  style={{ 
+                    fontFamily: "var(--serif)", 
+                    fontSize: "2.5rem", 
+                    color: "var(--gold)",
+                    fontStyle: "italic" 
+                  }}
+                >
+                  Coming Soon ðŸš€
+                </motion.h3>
+                <p style={{ fontFamily: "var(--mono)", fontSize: "0.7rem", color: "var(--ink3)", marginTop: "1rem" }}>
+                  Currently crafting something special for this category.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
       {video && <VideoModal videoId={video} onClose={() => setVideo(null)} />}
@@ -839,7 +819,7 @@ function Work() {
   );
 }
 
-/* ═══════════════════════════════════ SKILLS ═══ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• SKILLS â•â•â• */
 function SkillCard({ skill, isRowHovered }) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -848,17 +828,69 @@ function SkillCard({ skill, isRowHovered }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        display: "flex", flexDirection: "column", alignItems: "center", gap: "0.9rem",
-        padding: "1.6rem 2rem", border: `1px solid ${hovered ? "var(--gold)" : "rgba(240,236,227,0.08)"}`,
-        borderRadius: 12, background: hovered ? "rgba(201,168,76,0.06)" : "rgba(240,236,227,0.02)",
-        boxShadow: hovered ? "0 0 20px rgba(201,168,76,0.15)" : "none",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: "0.9rem",
+        padding: "1.6rem 2rem",
+        border: `1px solid ${hovered ? "var(--gold)" : "rgba(240,236,227,0.08)"}`,
+        borderRadius: 12,
+        background: hovered
+          ? "rgba(201,168,76,0.06)"
+          : "rgba(240,236,227,0.02)",
+        boxShadow: hovered
+          ? "0 0 20px rgba(201,168,76,0.15), inset 0 0 20px rgba(201,168,76,0.04)"
+          : "none",
         transform: hovered ? "scale(1.06)" : (isRowHovered && !hovered ? "scale(0.97)" : "scale(1)"),
         opacity: isRowHovered && !hovered ? 0.5 : 1,
-        transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)", flexShrink: 0, cursor: "none",
+        transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)",
+        minWidth: "clamp(100px, 12vw, 140px)",
+        flexShrink: 0,
+        cursor: "none",
+        userSelect: "none",
       }}
     >
-      <img src={skill.icon} alt={skill.name} style={{ width: 26, height: 26, filter: hovered ? "none" : "brightness(0.8)" }} />
-      <p style={{ fontFamily: "var(--serif)", fontSize: "0.95rem", color: hovered ? "var(--gold)" : "var(--ink)", transition: "color 0.4s", margin: 0 }}>{skill.name}</p>
+      <div style={{
+        width: 44, height: 44,
+        display: "flex", alignItems: "center", justifyContent: "center",
+        background: "rgba(13,12,10,0.5)",
+        borderRadius: 10,
+        padding: 8,
+        border: `1px solid ${hovered ? "rgba(201,168,76,0.3)" : "rgba(240,236,227,0.06)"}`,
+        transition: "border-color 0.4s"
+      }}>
+        <img
+          src={skill.icon}
+          alt={skill.name}
+          style={{
+            width: 26, height: 26, objectFit: "contain",
+            filter: hovered ? "none" : "brightness(0.8)",
+            transition: "filter 0.4s"
+          }}
+          onError={e => { e.currentTarget.style.display = "none"; }}
+        />
+      </div>
+      <div style={{ textAlign: "center" }}>
+        <p style={{
+          fontFamily: "var(--serif)",
+          fontSize: "0.95rem",
+          fontWeight: 300,
+          color: hovered ? "var(--gold)" : "var(--ink)",
+          transition: "color 0.4s",
+          margin: 0,
+          lineHeight: 1.2,
+          whiteSpace: "nowrap"
+        }}>{skill.name}</p>
+        <p style={{
+          fontFamily: "var(--mono)",
+          fontSize: "0.48rem",
+          letterSpacing: "0.22em",
+          color: "var(--ink3)",
+          textTransform: "uppercase",
+          marginTop: 4,
+          margin: "4px 0 0 0"
+        }}>Technology</p>
+      </div>
     </div>
   );
 }
@@ -868,31 +900,52 @@ function SkillMarquee({ items, direction = "left", speed = 35 }) {
   const [isRowHovered, setIsRowHovered] = useState(false);
 
   // Ensure enough copies to prevent gaps at any viewport width
+  // Each card ~220px wide, we need each "half" to be >= 2400px
   const repsNeeded = Math.ceil(2400 / (items.length * 220)) * 2;
-  const reps = Math.max(repsNeeded, 6);
+  const reps = Math.max(repsNeeded, 6); // at least 6x
   const repeated = Array.from({ length: reps }, () => items).flat();
 
   return (
     <div
       onMouseEnter={() => { setPaused(true); setIsRowHovered(true); }}
       onMouseLeave={() => { setPaused(false); setIsRowHovered(false); }}
-      style={{
-        overflow: "hidden", width: "100%", position: "relative",
-        paddingTop: 20, paddingBottom: 20 // Vertical padding so scaled cards aren't clipped
-      }}
+      style={{ overflow: "hidden", width: "100%", position: "relative",
+        // Vertical padding so scaled cards (1.06x) aren't clipped
+        paddingTop: 20, paddingBottom: 20 }}
     >
+      {/* Fade edges */}
       <div style={{
-        display: "flex", gap: "1.2rem", width: "max-content",
+        position: "absolute", left: 0, top: 0, bottom: 0, width: 120,
+        background: "linear-gradient(to right, var(--bg2), transparent)",
+        zIndex: 2, pointerEvents: "none"
+      }} />
+      <div style={{
+        position: "absolute", right: 0, top: 0, bottom: 0, width: 120,
+        background: "linear-gradient(to left, var(--bg2), transparent)",
+        zIndex: 2, pointerEvents: "none"
+      }} />
+
+      <div style={{
+        display: "flex",
+        gap: "1.2rem",
+        width: "max-content",
         animation: `marquee-${direction} ${speed}s linear infinite`,
         animationPlayState: paused ? "paused" : "running",
       }}>
         {repeated.map((skill, i) => (
-          <SkillCard key={i} skill={skill} isRowHovered={isRowHovered} />
+          <SkillCard key={`${skill.name}-${i}`} skill={skill} isRowHovered={isRowHovered} />
         ))}
       </div>
+
       <style>{`
-        @keyframes marquee-left { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
-        @keyframes marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0%); } }
+        @keyframes marquee-left {
+          from { transform: translateX(0%); }
+          to   { transform: translateX(-50%); }
+        }
+        @keyframes marquee-right {
+          from { transform: translateX(-50%); }
+          to   { transform: translateX(0%); }
+        }
       `}</style>
     </div>
   );
@@ -902,131 +955,126 @@ function Skills() {
   const directions = ["left", "right", "left"];
   return (
     <Card id="skills" label="Skills" index={2} bgOverride="var(--bg2)">
-      <div style={{ padding: "4rem 0" }}>
-        <SLabel n="03" text="Skills" />
+      <div style={{
+        padding: "clamp(4rem,10vw,8rem) 0",
+        display: "flex",
+        flexDirection: "column",
+        gap: "clamp(4rem, 8vw, 7rem)"
+      }}>
+        <div style={{ padding: "0 clamp(1.5rem,6vw,5rem)" }}>
+          <SLabel n="03" text="Skills" />
+        </div>
+
         {D.skills.map((cat, ci) => (
-          <div key={cat.cat} style={{ margin: "3rem 0" }}>
-            <h3 style={{ color: "var(--gold)", paddingLeft: "5rem", marginBottom: "1.5rem" }}>{cat.cat}</h3>
-            <SkillMarquee items={cat.items} direction={directions[ci]} speed={ci === 1 ? 28 : 36} />
+          <div key={cat.cat}>
+            {/* Category heading */}
+            <motion.div
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                padding: "0 clamp(1.5rem,6vw,5rem)",
+                marginBottom: "2.5rem",
+                display: "flex",
+                alignItems: "baseline",
+                gap: "1.2rem"
+              }}
+            >
+              <span style={{
+                fontFamily: "var(--mono)",
+                fontSize: "0.65rem",
+                letterSpacing: "0.3em",
+                color: "var(--gold)",
+                textTransform: "uppercase"
+              }}>{String(ci + 1).padStart(2, "0")} â€”</span>
+              <h3 style={{
+                fontFamily: "var(--serif)",
+                fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                fontWeight: 300,
+                color: "var(--ink)",
+                lineHeight: 1,
+                margin: 0
+              }}>{cat.cat}</h3>
+            </motion.div>
+
+            {/* Marquee row */}
+            <SkillMarquee
+              items={cat.items}
+              direction={directions[ci]}
+              speed={ci === 1 ? 30 : 38}
+            />
           </div>
         ))}
       </div>
     </Card>
   );
 }
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ CREDENTIALS ΓòÉΓòÉΓòÉ */
-function CertCard({ cert, i }) {
-  const [hovered, setHovered] = useState(false);
-  const [open, setOpen] = useState(false);
-  const isMobile = useMobile();
 
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• HACKATHONS â•â•â• */
+function Hackathons() {
   return (
-    <>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-30px" }}
-        transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16,1,0.3,1] }}
-        data-cur
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onClick={() => setOpen(true)}
-        style={{
-          border: "1px solid var(--rule)",
-          borderRadius: 8, overflow: "hidden",
-          background: "var(--bg3)",
-          transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
-          cursor: "none",
-          position: "relative",
-          aspectRatio: "4/3",
-        }}>
-        {/* Certification Image - Main Background */}
-        <img src={cert.img} alt={cert.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: hovered ? 0.15 : 1, transition: "opacity 0.6s ease", filter: "sepia(10%) contrast(1.05) brightness(0.88)" }} />
-
-        {/* Hover Overlay */}
+    <Card id="hackathons" label="Hackathons" index={3} bgOverride="var(--bg)">
+      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
+        <SLabel n="04" text="Hackathons" />
+        
         <motion.div
-          animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 20 }}
-          transition={{ duration: 0.4 }}
-          style={{
-            position: "absolute", inset: 0,
-            padding: "1.5rem",
-            display: "flex", flexDirection: "column", justifyContent: "flex-end",
-            background: "linear-gradient(to top, rgba(13,12,10,0.9), transparent)",
-            pointerEvents: hovered ? "auto" : "none"
+           initial={{ opacity: 0, scale: 0.9 }}
+           whileInView={{ opacity: 1, scale: 1 }}
+           viewport={{ once: true }}
+           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <h2 style={{ 
+            fontFamily: "var(--serif)", 
+            fontSize: "clamp(3rem, 8vw, 6rem)", 
+            fontWeight: 300, 
+            color: "var(--gold)", 
+            lineHeight: 1, 
+            marginBottom: "1.5rem" 
           }}>
-          <p style={{ fontFamily: "var(--serif)", fontSize: "1.4rem", fontWeight: 300, color: "var(--ink)", lineHeight: 1.2, marginBottom: "0.5rem" }}>{cert.name}</p>
-          <p style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.08em", color: "var(--ink3)", marginBottom: "1rem" }}>{cert.org} ┬╖ {cert.year}</p>
-          <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "0.9rem", lineHeight: 1.5, color: "var(--ink2)", fontWeight: 300, marginBottom: "1.5rem" }}>
-            {cert.desc}
+            Coming <span style={{ color: "var(--ink)" }}>Soon.</span>
+          </h2>
+          <p style={{ 
+            fontFamily: "var(--mono)", 
+            fontSize: "0.8rem", 
+            letterSpacing: "0.3em", 
+            color: "var(--ink3)", 
+            textTransform: "uppercase" 
+          }}>
+            Preparing for the next challenge ðŸš€
           </p>
-          <button data-cur onClick={(e) => { e.stopPropagation(); setOpen(true); }}
-            style={{
-              fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.15em",
-              background: "var(--gold)", color: "var(--bg)", border: "none",
-              padding: "10px 20px", borderRadius: 4, width: "fit-content",
-              fontWeight: 600, textTransform: "uppercase"
-            }}>
-            View Certificate
-          </button>
         </motion.div>
-      </motion.div>
-
-      {/* Full cert modal */}
-      <AnimatePresence>
-        {open && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            onClick={() => setOpen(false)}
-            style={{ position: "fixed", inset: 0, zIndex: 9000, background: "rgba(13,12,10,0.93)", backdropFilter: "blur(16px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}>
-            <motion.div initial={{ scale: 0.9, y: 24, opacity: 0 }} animate={{ scale: 1, y: 0, opacity: 1 }} exit={{ scale: 0.9, y: 24, opacity: 0 }}
-              transition={{ duration: 0.42, ease: [0.16,1,0.3,1] }}
-              onClick={e => e.stopPropagation()}
-              style={{ maxWidth: 680, width: "100%", border: "1px solid var(--rule)", borderRadius: 8, overflow: "hidden", background: "var(--bg)" }}>
-              <img src={cert.img} alt={cert.name} style={{ width: "100%", display: "block", filter: "sepia(10%) contrast(1.05) brightness(0.88)" }} />
-              <div style={{ padding: "1.2rem 1.6rem", borderTop: "1px solid var(--rule)", display: "flex", flexDirection: "column", gap: "1rem", background: "var(--bg2)" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                  <div>
-                    <span style={{ fontFamily: "var(--serif)", fontSize: "1.1rem", color: "var(--ink)" }}>{cert.name}</span>
-                    <span style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", color: "var(--ink3)", marginLeft: 14, letterSpacing: "0.1em" }}>{cert.org}</span>
-                  </div>
-                  <button data-cur onClick={() => setOpen(false)}
-                    style={{ fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.14em", color: "var(--ink3)", background: "none", border: "1px solid var(--rule)", padding: "5px 14px", borderRadius: 3 }}>
-                    Close ├ù
-                  </button>
-                </div>
-                {isMobile && (
-                  <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "1rem", lineHeight: 1.6, color: "var(--ink2)", fontWeight: 300, borderTop: "1px solid var(--rule)", paddingTop: "0.8rem" }}>
-                    {cert.desc}
-                  </p>
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
-}
-
-function Credentials() {
-  return (
-    <Card id="credentials" label="Credentials" index={3} bgOverride="var(--bg)">
-      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <SLabel n="04" text="Credentials" />
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: "1rem" }}>
-          {D.certs.map((c, i) => <CertCard key={i} cert={c} i={i} />)}
-        </div>
       </div>
     </Card>
   );
 }
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ CONTACT ΓòÉΓòÉΓòÉ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• CREDENTIALS â•â•â• */
+function Credentials() {
+  const isMobile = useMobile();
+  return (
+    <Card id="credentials" label="Credentials" index={4} bgOverride="var(--bg2)">
+      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <SLabel n="05" text="Credentials" />
+        <CertificatesGrid certs={D.certs} isMobile={isMobile} />
+      </div>
+    </Card>
+  );
+}
+
+
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• CONTACT â•â•â• */
 function Contact() {
   const isMobile = useMobile();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle");
   const [focus, setFocus] = useState(null);
+
+  // GitHub theme (shared from previous logic)
+  const ghTheme = {
+    light: ['rgba(240,236,227,0.05)', 'rgba(201,168,76,0.2)', 'rgba(201,168,76,0.4)', 'rgba(201,168,76,0.7)', '#c9a84c'],
+    dark: ['rgba(240,236,227,0.05)', 'rgba(201,168,76,0.2)', 'rgba(201,168,76,0.4)', 'rgba(201,168,76,0.7)', '#c9a84c'],
+  };
 
   const send = async e => {
     e.preventDefault(); setStatus("sending");
@@ -1042,12 +1090,107 @@ function Contact() {
   };
 
   return (
-    <Card id="contact" label="Contact" index={4} bgOverride="var(--bg2)">
-      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <SLabel n="05" text="Contact" />
+    <Card id="contact" label="Contact" index={5} bgOverride="var(--bg)">
+      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)" }}>
+        <SLabel n="06" text="Contact" />
+
+        {/* GITHUB ACTIVITY BLOCK */}
+        <div style={{ 
+          marginBottom: "8rem", 
+          display: "flex", 
+          flexDirection: "column", 
+          alignItems: "center",
+          borderBottom: "1px solid var(--rule)",
+          paddingBottom: "8rem"
+        }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            style={{ textAlign: "center", marginBottom: "4rem" }}
+          >
+            <h2 style={{ 
+              fontFamily: "var(--serif)", 
+              fontSize: "clamp(2.5rem, 6vw, 5.5rem)", 
+              color: "var(--ink)", 
+              lineHeight: 1.1,
+              fontWeight: 300,
+              marginBottom: "1rem"
+            }}>
+              Powered by <i style={{ color: "var(--gold)", fontFamily: "inherit" }}>coffee & commits</i>
+            </h2>
+            <p style={{ 
+              fontFamily: "var(--mono)", 
+              fontSize: "0.75rem", 
+              letterSpacing: "0.4em", 
+              color: "var(--ink3)", 
+              textTransform: "uppercase" 
+            }}>
+              A chronicle of persistence and problem solving.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            style={{ width: "100%", maxWidth: 1000, display: "flex", justifyContent: "center" }}
+          >
+            <GitHubCalendar 
+              username="jaintulya" 
+              theme={ghTheme}
+              fontSize={12}
+              blockSize={isMobile ? 10 : 12}
+              blockMargin={4}
+              colorScheme="dark"
+              renderBlock={(block, activity) => (
+                React.cloneElement(block, {
+                  'data-tooltip-id': 'github-tooltip',
+                  'data-tooltip-content': `${activity.count} contributions on ${activity.date}`,
+                })
+              )}
+              style={{ color: "var(--ink2)", fontFamily: "var(--mono)" }}
+            />
+            <Tooltip id="github-tooltip" style={{ fontSize: '0.65rem', fontFamily: 'var(--mono)', borderRadius: '4px', background: 'var(--bg3)', color: 'var(--gold)', border: '1px solid var(--rule)' }} />
+          </motion.div>
+
+          {/* VISIT GITHUB BUTTON */}
+          <motion.a 
+            href="https://github.com/jaintulya"
+            target="_blank"
+            rel="noreferrer"
+            data-cur
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            style={{ 
+              marginTop: "4rem",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 15,
+              padding: "16px 32px",
+              border: "1px solid var(--rule)",
+              borderRadius: 6,
+              background: "rgba(240,236,227,0.03)",
+              fontFamily: "var(--mono)",
+              fontSize: "0.65rem",
+              letterSpacing: "0.2em",
+              color: "var(--ink)",
+              textDecoration: "none",
+              textTransform: "uppercase",
+              transition: "all 0.3s"
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.background = "rgba(201,168,76,0.08)"; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--rule)"; e.currentTarget.style.background = "rgba(240,236,227,0.03)"; }}
+          >
+            Visit Github Profile
+            <div style={{ height: 1, width: 24, background: "currentColor" }} />
+          </motion.a>
+        </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "3rem 4rem", alignItems: "start" }}>
-          {/* Left ΓÇö big text + links */}
+          {/* Left â€” big text + links */}
           <div>
             <h2 style={{ fontFamily: "var(--serif)", fontSize: "clamp(3.2rem,8.5vw,7.4rem)", fontWeight: 300, lineHeight: 0.9, letterSpacing: "-0.04em", color: "var(--gold)", marginBottom: "2.2rem" }}>
               Let's <span style={{ color: "var(--ink)" }}>Build.</span>
@@ -1087,7 +1230,7 @@ function Contact() {
             </div>
           </div>
 
-          {/* Right ΓÇö form */}
+          {/* Right â€” form */}
           <div style={{ paddingLeft: isMobile ? 0 : "3rem", borderLeft: isMobile ? "none" : "1px solid var(--rule)" }}>
             <p style={{ fontFamily: "var(--mono)", fontSize: "0.8rem", fontWeight: 900, letterSpacing: "0.26em", color: "var(--gold)", textTransform: "uppercase", marginBottom: "2rem" }}>
               Send a message
@@ -1101,7 +1244,7 @@ function Contact() {
                 <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "1rem", color: "var(--ink2)", fontWeight: 300, marginBottom: "1.5rem" }}>I'll respond within 24 hours.</p>
                 <button data-cur onClick={() => setStatus("idle")}
                   style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.12em", color: "var(--ink3)", background: "none", border: "none", borderBottom: "1px solid var(--rule)", paddingBottom: 1 }}>
-                  Send another ΓåÆ
+                  Send another â†’
                 </button>
               </motion.div>
             ) : (
@@ -1134,21 +1277,23 @@ function Contact() {
 
       {/* Footer inside last card */}
       <div style={{ padding: "2.5rem clamp(1.5rem,6vw,5rem)", borderTop: "1px solid var(--rule)", display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-        <span style={{ fontFamily: "var(--mono)", fontSize: "0.62rem", letterSpacing: "0.2em", color: "var(--ink3)", textTransform: "uppercase" }}>TULYA JAIN ┬⌐ {new Date().getFullYear()} ΓÇö Built with Passion</span>
+        <span style={{ fontFamily: "var(--mono)", fontSize: "0.62rem", letterSpacing: "0.2em", color: "var(--ink3)", textTransform: "uppercase" }}>TULYA JAIN Â© {new Date().getFullYear()} â€” Built with Passion</span>
       </div>
     </Card>
   );
 }
 
+
 function PageHead() {
   const { pathname } = useLocation();
   const titles = {
-    "/": "Tulya Jain ΓÇö Full Stack Developer",
-    "/about": "About ΓÇö Tulya Jain",
-    "/work": "Selected Work ΓÇö Tulya Jain",
-    "/skills": "Tech Stack ΓÇö Tulya Jain",
-    "/credentials": "Credentials ΓÇö Tulya Jain",
-    "/contact": "Contact ΓÇö Tulya Jain"
+    "/": "Tulya Jain â€” Full Stack Developer",
+    "/about": "About â€” Tulya Jain",
+    "/work": "Selected Work â€” Tulya Jain",
+    "/skills": "Tech Stack â€” Tulya Jain",
+    "/hackathons": "Hackathons â€” Tulya Jain",
+    "/credentials": "Credentials â€” Tulya Jain",
+    "/contact": "Contact â€” Tulya Jain"
   };
 
   useEffect(() => {
@@ -1171,12 +1316,13 @@ function RouterSync() {
 
   // Sync Titles Mapping
   const titles = {
-    "/": "Tulya Jain ΓÇö Full Stack Developer",
-    "/about": "About ΓÇö Tulya Jain",
-    "/work": "Selected Work ΓÇö Tulya Jain",
-    "/skills": "Tech Stack ΓÇö Tulya Jain",
-    "/credentials": "Credentials ΓÇö Tulya Jain",
-    "/contact": "Contact ΓÇö Tulya Jain"
+    "/": "Tulya Jain â€” Full Stack Developer",
+    "/about": "About â€” Tulya Jain",
+    "/work": "Selected Work â€” Tulya Jain",
+    "/skills": "Tech Stack â€” Tulya Jain",
+    "/hackathons": "Hackathons â€” Tulya Jain",
+    "/credentials": "Credentials â€” Tulya Jain",
+    "/contact": "Contact â€” Tulya Jain"
   };
 
   useEffect(() => {
@@ -1258,138 +1404,170 @@ function RouterSync() {
   return null;
 }
 
-function SolarPreloader() {
-  const isMobile = useMobile();
-  const radii = [105, 160, 215];
-  const orbits = [
-    { src: "https://cdn.simpleicons.org/react/61DAFB", r: radii[0], dur: 12, off: 0 },
-    { src: "https://cdn.simpleicons.org/github/FFFFFF", r: radii[1], dur: 22, off: 45 },
-    { src: "https://cdn.simpleicons.org/nodedotjs/339933", r: radii[1], dur: 18, off: 90 },
-    { src: "https://cdn.simpleicons.org/postman/FF6C37", r: radii[2], dur: 26, off: 135 },
-    { src: "https://cdn.simpleicons.org/javascript/F7DF1E", r: radii[1], dur: 20, off: 180 },
-    { src: "https://cdn.simpleicons.org/mongodb/47A248", r: radii[0], dur: 14, off: 225 },
-    { src: "https://cdn.simpleicons.org/tailwindcss/06B6D4", r: radii[2], dur: 22, off: 270 },
-    { src: "https://cdn.simpleicons.org/figma/F24E1E", r: radii[2], dur: 28, off: 315 }
-  ];
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• SIGNATURE INTRO â•â•â• */
+function SignatureIntro({ onEnter }) {
+  const [phase, setPhase] = useState(0);
+  const [hovered, setHovered] = useState(false);
+
+  // Both words reveal simultaneously via clip-path wipe â€” no flying letters, no jumping
+  // Tulya: leftâ†’right reveal | Jain: rightâ†’left reveal
+  // easeInOut visually completes ~1.8s. Phase 1 at 1950ms â†’ feels instant after names
+  useEffect(() => {
+    const t1 = setTimeout(() => setPhase(1), 1950);
+    return () => clearTimeout(t1);
+  }, []);
+
+  const nameStyle = {
+    fontFamily: "'Dancing Script', cursive",
+    fontSize: "clamp(4rem, 11vw, 9.5rem)",
+    fontWeight: 700,
+    lineHeight: 1.05,
+    display: "block",
+    willChange: "clip-path",
+  };
+
+  const afterV = {
+    hidden: { opacity: 0, y: 16 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+  };
 
   return (
     <motion.div
-      exit={{ opacity: 0, scale: 1.1 }}
+      key="signature-intro"
+      initial={{ opacity: 1 }}
+      exit={{ y: "-100vh", opacity: 0 }}
+      transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
       style={{
-        position: "fixed", inset: 0, zIndex: 10000,
-        background: "var(--bg)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center",
-        overflow: "hidden"
-      }}>
-      <motion.div 
-        animate={{ scale: isMobile ? 0.72 : 1 }}
-        style={{ position: "relative", width: "100%", height: isMobile ? 300 : 380, marginTop: "-8vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        {/* Core Dot */}
+        position: "fixed", inset: 0, zIndex: 10001,
+        background: "var(--bg)",
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "center",
+        overflow: "hidden",
+      }}
+    >
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+      `}</style>
+
+      {/* Vignette */}
+      <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.55) 100%)", pointerEvents: "none" }} />
+
+      {/* NAMES */}
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", lineHeight: 1 }}>
+
+        {/* TULYA â€” smooth wipe: left â†’ right, negative inset to avoid cutting cursive glyphs */}
         <motion.div
-          animate={{ scale: [1, 1.3, 1], opacity: [0.4, 0.8, 0.4] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-          style={{ width: 14, height: 14, background: "var(--gold)", borderRadius: "50%", boxShadow: "0 0 30px var(--gold)", zIndex: 10 }} 
+          initial={{ clipPath: "inset(-15% 115% -15% -15%)" }}
+          animate={{ clipPath: "inset(-15% -15% -15% -15%)" }}
+          transition={{ duration: 2.0, ease: "easeInOut" }}
+          style={{ ...nameStyle, color: "var(--gold)" }}
+        >Tulya</motion.div>
+
+        {/* JAIN â€” smooth wipe: right â†’ left, starts simultaneously */}
+        <motion.div
+          initial={{ clipPath: "inset(-15% -15% -15% 115%)" }}
+          animate={{ clipPath: "inset(-15% -15% -15% -15%)" }}
+          transition={{ duration: 2.0, ease: "easeInOut", delay: 0.05 }}
+          style={{ ...nameStyle, color: "var(--ink)", marginTop: "-0.15rem" }}
+        >Jain</motion.div>
+
+        {/* UNDERLINE â€” sweeps in from left */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={phase >= 1 ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          style={{ width: "65%", height: 1, background: "var(--gold)", marginTop: "1rem", transformOrigin: "left" }}
         />
-        
-        {/* Concentric Rings synced with Radii */}
-        {radii.map((r, i) => (
-          <motion.div
-            key={i}
-            animate={{ rotate: i % 2 === 0 ? 360 : -360 }}
-            transition={{ duration: 15 + i * 5, repeat: Infinity, ease: "linear" }}
-            style={{
-              position: "absolute",
-              width: r * 2,
-              height: r * 2,
-              border: "1px solid rgba(201, 168, 76, 0.12)",
-              borderRadius: "50%",
-              top: `calc(50% - ${r}px)`,
-              left: `calc(50% - ${r}px)`
-            }}>
-            {/* Spinning Arcs */}
-            <div style={{
-              position: "absolute", inset: -1,
-              borderRadius: "50%",
-              border: "1.5px solid transparent",
-              borderTopColor: "rgba(201, 168, 76, 0.4)",
-              opacity: 0.6
-            }} />
-          </motion.div>
-        ))}
+      </div>
 
-        {/* Floating Tech Stack Orbitals (Balanced 9 icons) */}
-        {orbits.map((icon, idx) => (
-          <motion.div
-            key={idx}
-            initial={{ rotate: icon.off }}
-            animate={{ rotate: icon.off + 360 }}
-            transition={{ duration: icon.dur, repeat: Infinity, ease: "linear" }}
-            style={{
-              position: "absolute",
-              width: icon.r * 2,
-              height: icon.r * 2,
-              top: `calc(50% - ${icon.r}px)`,
-              left: `calc(50% - ${icon.r}px)`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              pointerEvents: "none"
-            }}>
-            <motion.div
-               animate={{ rotate: -(icon.off + 360) }}
-               transition={{ duration: icon.dur, repeat: Infinity, ease: "linear" }}
-               style={{ 
-                 width: 40, height: 40, padding: 8, background: "rgba(13,12,10,0.9)", border: "1px solid var(--rule)", borderRadius: "8px", 
-                 display:"flex", alignItems:"center", justifyContent:"center" 
-               }}>
-               <img src={icon.src} style={{ width: "100%", height: "100%" }} />
-            </motion.div>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Branding Text - Optimized for LCP */}
+      {/* SUBTITLE + BUTTON â€” appear after words are fully drawn */}
       <motion.div
-        initial={{ opacity: 0, y: 15 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.9 }}
-        style={{ marginTop: "4rem", textAlign: "center", zIndex: 20 }}>
-        <h1 style={{ fontFamily: "var(--serif)", fontSize: "clamp(2rem, 5vw, 3.5rem)", letterSpacing: "0.2em", color: "var(--gold)", textTransform: "uppercase", fontWeight: 300, marginBottom: "0.5rem" }}>
-          LOADING
-        </h1>
-        <p style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.5em", color: "var(--ink3)", textTransform: "uppercase", opacity: 0.6 }}>
-          Portfolio Experience
-        </p>
+        variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.2, delayChildren: 0 } } }}
+        initial="hidden"
+        animate={phase >= 1 ? "visible" : "hidden"}
+        style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
+        <motion.p
+          variants={afterV}
+          style={{
+            fontFamily: "var(--mono)",
+            fontSize: "0.68rem",
+            letterSpacing: "0.44em",
+            color: "var(--ink3)",
+            textTransform: "uppercase",
+            margin: "2rem 0 2.8rem",
+          }}
+        >
+          Full Stack Developer
+        </motion.p>
+
+        <motion.button
+          variants={afterV}
+          onClick={onEnter}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
+          data-cur
+          style={{
+            background: "none",
+            border: `1px solid ${hovered ? "var(--gold)" : "rgba(240,236,227,0.2)"}`,
+            color: hovered ? "var(--gold)" : "var(--ink)",
+            fontFamily: "var(--mono)",
+            fontSize: "0.68rem",
+            letterSpacing: "0.28em",
+            textTransform: "uppercase",
+            padding: "1rem 3.2rem",
+            borderRadius: 40,
+            cursor: "none",
+            boxShadow: hovered ? "0 0 24px rgba(201,168,76,0.15)" : "none",
+            transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)",
+          }}
+        >
+          View Portfolio
+        </motion.button>
       </motion.div>
     </motion.div>
   );
 }
 
+
+
+
+
+
 export default function App() {
   const isMobile = useMobile();
-  const location = useLocation();
-  // LCP Hack: If user agent is a bot/Lighthouse, skip preloader so LCP is instant
   const isBot = typeof navigator !== "undefined" && /Lighthouse|Googlebot|Chrome-Lighthouse|PTST|PageSpeed/i.test(navigator.userAgent);
-  const [loading, setLoading] = useState(!isBot);
+  const [intro, setIntro] = useState(!isBot); // show signature intro unless bot
 
   useEffect(() => {
-    if (loading) {
-      const delay = location.pathname === "/" ? 2400 : 1000;
-      const timer = setTimeout(() => setLoading(false), delay);
-      return () => clearTimeout(timer);
-    }
-  }, [loading, location.pathname]);
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+    return () => lenis.destroy();
+  }, []);
 
   return (
     <div className="pg" style={{ position: "relative", background: "var(--bg)" }}>
       <style>{G}</style>
+      {/* Cursor rendered globally so it shows on the intro screen too */}
+      {!isMobile && <Cursor />}
       <AnimatePresence mode="wait">
-        {loading ? (
-          <SolarPreloader key="loader" />
+        {intro ? (
+          <SignatureIntro key="intro" onEnter={() => setIntro(false)} />
         ) : (
-          <motion.div key="content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
+          <motion.div key="content" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
             <PageHead />
             <RouterSync />
-            {!isMobile && <Cursor />}
             <Nav />
             <main style={{ position: "relative", zIndex: 1 }}>
               <Hero />
@@ -1397,6 +1575,7 @@ export default function App() {
               <SkillStrip />
               <Work />
               <Skills />
+              <Hackathons />
               <Credentials />
               <Contact />
             </main>
