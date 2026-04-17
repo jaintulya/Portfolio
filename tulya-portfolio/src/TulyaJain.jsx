@@ -10,7 +10,7 @@ import 'react-tooltip/dist/react-tooltip.css';
 import { ProjectItem, CertificatesGrid } from "./ProjectLayouts";
 import React from "react";
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• DATA â•â•â• */
+/* ═══════════════════════════════════ DATA ═══ */
 const D = {
   name: ["TULYA", "JAIN"],
   role: "Full Stack Developer",
@@ -76,7 +76,7 @@ const D = {
     },
     {
       n: "02", name: "AARKE Clone", year: "2025",
-      desc: "Premium kitchen appliance brand â€” bold editorial typography, scroll-reveal animations, and exacting fidelity to the original brand language.",
+      desc: "Premium kitchen appliance brand — bold editorial typography, scroll-reveal animations, and exacting fidelity to the original brand language.",
       tech: ["HTML5", "CSS3"],
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1000/v1770461065/aarke-cover_ghgd98.png",
       live: "https://aarke-tulya.netlify.app",
@@ -86,7 +86,7 @@ const D = {
     },
     {
       n: "03", name: "PRIME Clone", year: "2025",
-      desc: "A faithful recreation of Amazon Prime Video's interface. Responsive card grids, dynamic content layout, and smooth navigation â€” built to pixel precision.",
+      desc: "A faithful recreation of Amazon Prime Video's interface. Responsive card grids, dynamic content layout, and smooth navigation — built to pixel precision.",
       tech: ["HTML5", "CSS3"],
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1000/v1770461010/prime-coverpic_uvsmt9.png",
       live: "https://prime-tulya.netlify.app",
@@ -127,7 +127,7 @@ const D = {
   ],
   certs: [
     { name: "Solution Architecture", org: "Amazon Web Services", year: "2026",
-      desc: "Distributed systems on AWS â€” compute, storage, networking, security, and cost optimisation for scalable architectures.",
+      desc: "Distributed systems on AWS — compute, storage, networking, security, and cost optimisation for scalable architectures.",
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/aws_certificate_pages-to-jpg-0001_wsdave.jpg" },
     { name: "Software Engineering", org: "Wells Fargo", year: "2026",
       desc: "Agile workflows, code review, debugging, and building fintech features in a real engineering simulation.",
@@ -142,12 +142,12 @@ const D = {
       desc: "Accessible, internationalised React components using Skyscanner's Backpack design system.",
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/skyscanner_page-0001_xtalcr.jpg" },
     { name: "Excel Automation with AI", org: "Microsoft", year: "2025",
-      desc: "Automating Excel workflows with ChatGPT â€” intelligent formulas and spreadsheet solutions without code.",
+      desc: "Automating Excel workflows with ChatGPT — intelligent formulas and spreadsheet solutions without code.",
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/Excel_automation_using_chagpt_pages-to-jpg-0001_jc6nmq.jpg" },
   ],
 };
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• GLOBAL CSS â•â•â• */
+/* ═══════════════════════════════════ GLOBAL CSS ═══ */
 const G = `
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;background:#0d0c0a;}
@@ -209,7 +209,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 300; }
 `;
 
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• CURSOR â•â•â• */
+/* ═══════════════════════════════════ CURSOR ═══ */
 function Cursor() {
   const [p, setP] = useState({ x: -100, y: -100 });
   const [hov, setHov] = useState(false);
@@ -242,7 +242,7 @@ function Cursor() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• NAV â•â•â• */
+/* ═══════════════════════════════════ NAV ═══ */
 const NAVS = ["Home","About","Work","Skills","Hackathons","Credentials","Contact"];
 const useMobile = () => {
   const [m, setM] = useState(false);
@@ -358,7 +358,7 @@ function Nav() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• BREATHING RINGS BG â•â•â• */
+/* ═══════════════════════════════════ BREATHING RINGS BG ═══ */
 function BreathingRings() {
   const canvasRef = useRef(null);
   const mouse = useRef({ x: -2000, y: -2000 });
@@ -441,7 +441,7 @@ function BreathingRings() {
   return <canvas ref={canvasRef} style={{ position: "fixed", inset: 0, zIndex: 100, pointerEvents: "none", opacity: 1 }} />;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• PROJECT IMAGE â•â•â• */
+/* ═══════════════════════════════════ PROJECT IMAGE ═══ */
 function ProjectImage({ src, alt, live }) {
   const [hov, setHov] = useState(false);
   return (
@@ -462,7 +462,7 @@ function ProjectImage({ src, alt, live }) {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
             style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2, pointerEvents: "none" }}>
             <span style={{ fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.25em", color: "var(--ink)", padding: "10px 20px", border: "1px solid rgba(240,236,227,0.24)", background: "rgba(13,12,10,0.45)", backdropFilter: "blur(4px)", borderRadius: 4, textTransform: "uppercase" }}>
-              Click to Open â†—
+              Click to Open ↗
             </span>
           </motion.div>
         )}
@@ -471,7 +471,7 @@ function ProjectImage({ src, alt, live }) {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• STACKING CARD WRAPPER â•â•â• */
+/* ═══════════════════════════════════ STACKING CARD WRAPPER ═══ */
 function Card({ id, label, children, index, bgOverride }) {
   const ref = useRef(null);
 
@@ -495,7 +495,7 @@ function Card({ id, label, children, index, bgOverride }) {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• SECTION LABEL â•â•â• */
+/* ═══════════════════════════════════ SECTION LABEL ═══ */
 const SLabel = ({ n, text }) => (
   <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: "3.5rem" }}>
     <span style={{ fontFamily: "var(--mono)", fontSize: "0.95rem", color: "var(--gold)", letterSpacing: "0.22em", fontWeight: 400 }}>{n}</span>
@@ -504,7 +504,7 @@ const SLabel = ({ n, text }) => (
   </div>
 );
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• HERO â•â•â• */
+/* ═══════════════════════════════════ HERO ═══ */
 function Hero() {
   const [vis, setVis] = useState(false);
   useEffect(() => { setTimeout(() => setVis(true), 120); }, []);
@@ -515,7 +515,7 @@ function Hero() {
       <Background />
       {/* Corner coords */}
       <div style={{ position: "absolute", top: 72, left: 28, fontFamily: "var(--mono)", fontSize: "0.58rem", color: "var(--ink3)", letterSpacing: "0.15em" }}>
-        23.0225Â° N, 72.5714Â° E
+        23.0225° N, 72.5714° E
       </div>
       <div style={{ position: "absolute", top: 72, right: 28, fontFamily: "var(--mono)", fontSize: "0.58rem", color: "var(--ink3)", letterSpacing: "0.15em" }}>
         TJ. {new Date().getFullYear()}
@@ -570,7 +570,7 @@ function Hero() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• ABOUT â•â•â• */
+/* ═══════════════════════════════════ ABOUT ═══ */
 function About() {
   return (
     <Card id="about" label="About" index={0}>
@@ -618,7 +618,7 @@ function About() {
                   style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", letterSpacing: "0.12em", color: "var(--ink3)", textDecoration: "none", borderBottom: "1px solid var(--rule)", paddingBottom: 2, transition: "color 0.2s, border-color 0.2s" }}
                   onMouseEnter={e => { e.currentTarget.style.color = "var(--gold)"; e.currentTarget.style.borderColor = "var(--gold)"; }}
                   onMouseLeave={e => { e.currentTarget.style.color = "var(--ink3)"; e.currentTarget.style.borderColor = "var(--rule)"; }}>
-                  {s.label} â†—
+                  {s.label} ↗
                 </a>
               ))}
             </div>
@@ -657,7 +657,7 @@ function About() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• SKILL STRIP â•â•â• */
+/* ═══════════════════════════════════ SKILL STRIP ═══ */
 function SkillStrip() {
   const allSkills = D.skills.flatMap(c => c.items.map(s => s.name));
   const double = [...allSkills, ...allSkills, ...allSkills];
@@ -672,7 +672,7 @@ function SkillStrip() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• VIDEO MODAL â•â•â• */
+/* ═══════════════════════════════════ VIDEO MODAL ═══ */
 function VideoModal({ videoId, onClose }) {
   useEffect(() => {
     const fn = e => { if (e.key === "Escape") onClose(); };
@@ -694,7 +694,7 @@ function VideoModal({ videoId, onClose }) {
               style={{ fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.14em", color: "var(--ink3)", background: "none", border: "1px solid var(--rule)", padding: "4px 12px", borderRadius: 3, transition: "color 0.2s" }}
               onMouseEnter={e => e.currentTarget.style.color = "var(--ink)"}
               onMouseLeave={e => e.currentTarget.style.color = "var(--ink3)"}>
-              Close Ã—
+              Close ×
             </button>
           </div>
           <div style={{ position: "relative", paddingBottom: "56.25%" }}>
@@ -711,7 +711,7 @@ function VideoModal({ videoId, onClose }) {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• WORK â•â•â• */
+/* ═══════════════════════════════════ WORK ═══ */
 function Work() {
   const [activeCat, setActiveCat] = useState("All");
   const [video, setVideo] = useState(null);
@@ -819,7 +819,7 @@ function Work() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• SKILLS â•â•â• */
+/* ═══════════════════════════════════ SKILLS ═══ */
 function SkillCard({ skill, isRowHovered }) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -987,7 +987,7 @@ function Skills() {
                 letterSpacing: "0.3em",
                 color: "var(--gold)",
                 textTransform: "uppercase"
-              }}>{String(ci + 1).padStart(2, "0")} â€”</span>
+              }}>{String(ci + 1).padStart(2, "0")} —</span>
               <h3 style={{
                 fontFamily: "var(--serif)",
                 fontSize: "clamp(2rem, 4vw, 3.5rem)",
@@ -1011,7 +1011,7 @@ function Skills() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• HACKATHONS â•â•â• */
+/* ═══════════════════════════════════ HACKATHONS ═══ */
 function Hackathons() {
   return (
     <Card id="hackathons" label="Hackathons" index={3} bgOverride="var(--bg)">
@@ -1049,7 +1049,7 @@ function Hackathons() {
   );
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• CREDENTIALS â•â•â• */
+/* ═══════════════════════════════════ CREDENTIALS ═══ */
 function Credentials() {
   const isMobile = useMobile();
   return (
@@ -1063,7 +1063,7 @@ function Credentials() {
 }
 
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• CONTACT â•â•â• */
+/* ═══════════════════════════════════ CONTACT ═══ */
 function Contact() {
   const isMobile = useMobile();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -1190,7 +1190,7 @@ function Contact() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "3rem 4rem", alignItems: "start" }}>
-          {/* Left â€” big text + links */}
+          {/* Left — big text + links */}
           <div>
             <h2 style={{ fontFamily: "var(--serif)", fontSize: "clamp(3.2rem,8.5vw,7.4rem)", fontWeight: 300, lineHeight: 0.9, letterSpacing: "-0.04em", color: "var(--gold)", marginBottom: "2.2rem" }}>
               Let's <span style={{ color: "var(--ink)" }}>Build.</span>
@@ -1230,7 +1230,7 @@ function Contact() {
             </div>
           </div>
 
-          {/* Right â€” form */}
+          {/* Right — form */}
           <div style={{ paddingLeft: isMobile ? 0 : "3rem", borderLeft: isMobile ? "none" : "1px solid var(--rule)" }}>
             <p style={{ fontFamily: "var(--mono)", fontSize: "0.8rem", fontWeight: 900, letterSpacing: "0.26em", color: "var(--gold)", textTransform: "uppercase", marginBottom: "2rem" }}>
               Send a message
@@ -1244,7 +1244,7 @@ function Contact() {
                 <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "1rem", color: "var(--ink2)", fontWeight: 300, marginBottom: "1.5rem" }}>I'll respond within 24 hours.</p>
                 <button data-cur onClick={() => setStatus("idle")}
                   style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.12em", color: "var(--ink3)", background: "none", border: "none", borderBottom: "1px solid var(--rule)", paddingBottom: 1 }}>
-                  Send another â†’
+                  Send another →
                 </button>
               </motion.div>
             ) : (
@@ -1277,7 +1277,7 @@ function Contact() {
 
       {/* Footer inside last card */}
       <div style={{ padding: "2.5rem clamp(1.5rem,6vw,5rem)", borderTop: "1px solid var(--rule)", display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-        <span style={{ fontFamily: "var(--mono)", fontSize: "0.62rem", letterSpacing: "0.2em", color: "var(--ink3)", textTransform: "uppercase" }}>TULYA JAIN Â© {new Date().getFullYear()} â€” Built with Passion</span>
+        <span style={{ fontFamily: "var(--mono)", fontSize: "0.62rem", letterSpacing: "0.2em", color: "var(--ink3)", textTransform: "uppercase" }}>TULYA JAIN © {new Date().getFullYear()} — Built with Passion</span>
       </div>
     </Card>
   );
@@ -1287,13 +1287,13 @@ function Contact() {
 function PageHead() {
   const { pathname } = useLocation();
   const titles = {
-    "/": "Tulya Jain â€” Full Stack Developer",
-    "/about": "About â€” Tulya Jain",
-    "/work": "Selected Work â€” Tulya Jain",
-    "/skills": "Tech Stack â€” Tulya Jain",
-    "/hackathons": "Hackathons â€” Tulya Jain",
-    "/credentials": "Credentials â€” Tulya Jain",
-    "/contact": "Contact â€” Tulya Jain"
+    "/": "Tulya Jain — Full Stack Developer",
+    "/about": "About — Tulya Jain",
+    "/work": "Selected Work — Tulya Jain",
+    "/skills": "Tech Stack — Tulya Jain",
+    "/hackathons": "Hackathons — Tulya Jain",
+    "/credentials": "Credentials — Tulya Jain",
+    "/contact": "Contact — Tulya Jain"
   };
 
   useEffect(() => {
@@ -1316,13 +1316,13 @@ function RouterSync() {
 
   // Sync Titles Mapping
   const titles = {
-    "/": "Tulya Jain â€” Full Stack Developer",
-    "/about": "About â€” Tulya Jain",
-    "/work": "Selected Work â€” Tulya Jain",
-    "/skills": "Tech Stack â€” Tulya Jain",
-    "/hackathons": "Hackathons â€” Tulya Jain",
-    "/credentials": "Credentials â€” Tulya Jain",
-    "/contact": "Contact â€” Tulya Jain"
+    "/": "Tulya Jain — Full Stack Developer",
+    "/about": "About — Tulya Jain",
+    "/work": "Selected Work — Tulya Jain",
+    "/skills": "Tech Stack — Tulya Jain",
+    "/hackathons": "Hackathons — Tulya Jain",
+    "/credentials": "Credentials — Tulya Jain",
+    "/contact": "Contact — Tulya Jain"
   };
 
   useEffect(() => {
@@ -1404,14 +1404,14 @@ function RouterSync() {
   return null;
 }
 
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• SIGNATURE INTRO â•â•â• */
+/* ══════════════════════════════════ SIGNATURE INTRO ═══ */
 function SignatureIntro({ onEnter }) {
   const [phase, setPhase] = useState(0);
   const [hovered, setHovered] = useState(false);
 
-  // Both words reveal simultaneously via clip-path wipe â€” no flying letters, no jumping
-  // Tulya: leftâ†’right reveal | Jain: rightâ†’left reveal
-  // easeInOut visually completes ~1.8s. Phase 1 at 1950ms â†’ feels instant after names
+  // Both words reveal simultaneously via clip-path wipe — no flying letters, no jumping
+  // Tulya: left→right reveal | Jain: right→left reveal
+  // easeInOut visually completes ~1.8s. Phase 1 at 1950ms → feels instant after names
   useEffect(() => {
     const t1 = setTimeout(() => setPhase(1), 1950);
     return () => clearTimeout(t1);
@@ -1455,7 +1455,7 @@ function SignatureIntro({ onEnter }) {
       {/* NAMES */}
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", lineHeight: 1 }}>
 
-        {/* TULYA â€” smooth wipe: left â†’ right, negative inset to avoid cutting cursive glyphs */}
+        {/* TULYA — smooth wipe: left → right, negative inset to avoid cutting cursive glyphs */}
         <motion.div
           initial={{ clipPath: "inset(-15% 115% -15% -15%)" }}
           animate={{ clipPath: "inset(-15% -15% -15% -15%)" }}
@@ -1463,7 +1463,7 @@ function SignatureIntro({ onEnter }) {
           style={{ ...nameStyle, color: "var(--gold)" }}
         >Tulya</motion.div>
 
-        {/* JAIN â€” smooth wipe: right â†’ left, starts simultaneously */}
+        {/* JAIN — smooth wipe: right → left, starts simultaneously */}
         <motion.div
           initial={{ clipPath: "inset(-15% -15% -15% 115%)" }}
           animate={{ clipPath: "inset(-15% -15% -15% -15%)" }}
@@ -1471,7 +1471,7 @@ function SignatureIntro({ onEnter }) {
           style={{ ...nameStyle, color: "var(--ink)", marginTop: "-0.15rem" }}
         >Jain</motion.div>
 
-        {/* UNDERLINE â€” sweeps in from left */}
+        {/* UNDERLINE — sweeps in from left */}
         <motion.div
           initial={{ scaleX: 0 }}
           animate={phase >= 1 ? { scaleX: 1 } : {}}
@@ -1480,7 +1480,7 @@ function SignatureIntro({ onEnter }) {
         />
       </div>
 
-      {/* SUBTITLE + BUTTON â€” appear after words are fully drawn */}
+      {/* SUBTITLE + BUTTON — appear after words are fully drawn */}
       <motion.div
         variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.2, delayChildren: 0 } } }}
         initial="hidden"
