@@ -866,13 +866,20 @@ function SkillCard({ skill, isRowHovered }) {
 function SkillMarquee({ items, direction = "left", speed = 35 }) {
   const [paused, setPaused] = useState(false);
   const [isRowHovered, setIsRowHovered] = useState(false);
-  const repeated = [...items, ...items, ...items, ...items, ...items, ...items];
+
+  // Ensure enough copies to prevent gaps at any viewport width
+  const repsNeeded = Math.ceil(2400 / (items.length * 220)) * 2;
+  const reps = Math.max(repsNeeded, 6);
+  const repeated = Array.from({ length: reps }, () => items).flat();
 
   return (
     <div
       onMouseEnter={() => { setPaused(true); setIsRowHovered(true); }}
       onMouseLeave={() => { setPaused(false); setIsRowHovered(false); }}
-      style={{ overflow: "hidden", width: "100%", position: "relative" }}
+      style={{
+        overflow: "hidden", width: "100%", position: "relative",
+        paddingTop: 20, paddingBottom: 20 // Vertical padding so scaled cards aren't clipped
+      }}
     >
       <div style={{
         display: "flex", gap: "1.2rem", width: "max-content",
