@@ -839,28 +839,48 @@ function Work() {
   );
 }
 
-/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ SKILLS ΓòÉΓòÉΓòÉ */
+/* ═══════════════════════════════════ SKILLS ═══ */
+function SkillCard({ skill, isRowHovered }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      data-cur
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display: "flex", flexDirection: "column", alignItems: "center", gap: "0.9rem",
+        padding: "1.6rem 2rem", border: "1px solid rgba(240,236,227,0.08)", borderRadius: 12,
+        background: "rgba(240,236,227,0.02)", flexShrink: 0, transition: "all 0.4s",
+      }}
+    >
+      <img src={skill.icon} alt={skill.name} style={{ width: 26, height: 26 }} />
+      <p style={{ fontFamily: "var(--serif)", fontSize: "0.95rem", color: "var(--ink)" }}>{skill.name}</p>
+    </div>
+  );
+}
+
+function SkillMarquee({ items, direction = "left", speed = 35 }) {
+  const repeated = [...items, ...items, ...items, ...items];
+  return (
+    <div style={{ overflow: "hidden", width: "100%" }}>
+      <div style={{ display: "flex", gap: "1.2rem", width: "max-content", animation: `marquee-${direction} ${speed}s linear infinite` }}>
+        {repeated.map((skill, i) => (
+          <SkillCard key={i} skill={skill} />
+        ))}
+      </div>
+      <style>{`
+        @keyframes marquee-left { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
+        @keyframes marquee-right { from { transform: translateX(-50%); } to { transform: translateX(0%); } }
+      `}</style>
+    </div>
+  );
+}
+
 function Skills() {
   return (
     <Card id="skills" label="Skills" index={2} bgOverride="var(--bg2)">
-      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div style={{ padding: "4rem 0" }}>
         <SLabel n="03" text="Skills" />
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "2.5rem 3rem" }}>
-          {D.skills.map((cat, ci) => (
-            <div key={cat.cat}>
-              {/* Category header */}
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1.25rem", paddingBottom: "0.75rem", borderBottom: "1px solid var(--rule)" }}>
-                <span style={{ fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.25em", color: "var(--gold)", textTransform: "uppercase" }}>{cat.cat}</span>
-                <span style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", color: "var(--ink3)" }}>ΓÇö {String(cat.items.length).padStart(2,"0")}</span>
-              </div>
-
-              {/* Skill rows with icons */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
-                {cat.items.map((skill, si) => (
-                  <motion.div key={skill.name}
-                    initial={{ opacity: 0, x: -12 }}
-                    whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{ duration: 0.45, delay: si * 0.07, ease: [0.16,1,0.3,1] }}
                     style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "12px 0", borderBottom: "1px solid var(--rule)" }}
