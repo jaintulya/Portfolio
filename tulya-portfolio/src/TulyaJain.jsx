@@ -4,7 +4,7 @@ import { useLocation, useNavigate, NavLink, Link } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet";
 
-/* ═══════════════════════════════════ DATA ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ DATA ΓòÉΓòÉΓòÉ */
 const D = {
   name: ["TULYA", "JAIN"],
   role: "Full Stack Developer",
@@ -67,7 +67,7 @@ const D = {
     },
     {
       n: "02", name: "AARKE Clone", year: "2025",
-      desc: "Premium kitchen appliance brand — bold editorial typography, scroll-reveal animations, and exacting fidelity to the original brand language.",
+      desc: "Premium kitchen appliance brand ΓÇö bold editorial typography, scroll-reveal animations, and exacting fidelity to the original brand language.",
       tech: ["HTML5", "CSS3"],
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1000/v1770461065/aarke-cover_ghgd98.png",
       live: "https://aarke-tulya.netlify.app",
@@ -76,7 +76,7 @@ const D = {
     },
     {
       n: "03", name: "PRIME Clone", year: "2025",
-      desc: "A faithful recreation of Amazon Prime Video's interface. Responsive card grids, dynamic content layout, and smooth navigation — built to pixel precision.",
+      desc: "A faithful recreation of Amazon Prime Video's interface. Responsive card grids, dynamic content layout, and smooth navigation ΓÇö built to pixel precision.",
       tech: ["HTML5", "CSS3"],
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1000/v1770461010/prime-coverpic_uvsmt9.png",
       live: "https://prime-tulya.netlify.app",
@@ -113,7 +113,7 @@ const D = {
   ],
   certs: [
     { name: "Solution Architecture", org: "Amazon Web Services", year: "2026",
-      desc: "Distributed systems on AWS — compute, storage, networking, security, and cost optimisation for scalable architectures.",
+      desc: "Distributed systems on AWS ΓÇö compute, storage, networking, security, and cost optimisation for scalable architectures.",
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/aws_certificate_pages-to-jpg-0001_wsdave.jpg" },
     { name: "Software Engineering", org: "Wells Fargo", year: "2026",
       desc: "Agile workflows, code review, debugging, and building fintech features in a real engineering simulation.",
@@ -128,12 +128,12 @@ const D = {
       desc: "Accessible, internationalised React components using Skyscanner's Backpack design system.",
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/skyscanner_page-0001_xtalcr.jpg" },
     { name: "Excel Automation with AI", org: "Microsoft", year: "2025",
-      desc: "Automating Excel workflows with ChatGPT — intelligent formulas and spreadsheet solutions without code.",
+      desc: "Automating Excel workflows with ChatGPT ΓÇö intelligent formulas and spreadsheet solutions without code.",
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/Excel_automation_using_chagpt_pages-to-jpg-0001_jc6nmq.jpg" },
   ],
 };
 
-/* ═══════════════════════════════════ GLOBAL CSS ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ GLOBAL CSS ΓòÉΓòÉΓòÉ */
 const G = `
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;background:#0d0c0a;}
@@ -194,7 +194,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 300; }
 `;
 
 
-/* ═══════════════════════════════════ CURSOR ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ CURSOR ΓòÉΓòÉΓòÉ */
 function Cursor() {
   const [p, setP] = useState({ x: -100, y: -100 });
   const [hov, setHov] = useState(false);
@@ -227,7 +227,7 @@ function Cursor() {
   );
 }
 
-/* ═══════════════════════════════════ NAV ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ NAV ΓòÉΓòÉΓòÉ */
 const NAVS = ["Home","About","Work","Skills","Credentials","Contact"];
 const useMobile = () => {
   const [m, setM] = useState(false);
@@ -343,7 +343,7 @@ function Nav() {
   );
 }
 
-/* ═══════════════════════════════════ BREATHING RINGS BG ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ BREATHING RINGS BG ΓòÉΓòÉΓòÉ */
 function BreathingRings() {
   const canvasRef = useRef(null);
   const mouse = useRef({ x: -2000, y: -2000 });
@@ -426,7 +426,7 @@ function BreathingRings() {
   return <canvas ref={canvasRef} style={{ position: "fixed", inset: 0, zIndex: 100, pointerEvents: "none", opacity: 1 }} />;
 }
 
-/* ═══════════════════════════════════ PROJECT IMAGE ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ PROJECT IMAGE ΓòÉΓòÉΓòÉ */
 function ProjectImage({ src, alt, live }) {
   const [hov, setHov] = useState(false);
   return (
@@ -447,7 +447,7 @@ function ProjectImage({ src, alt, live }) {
           <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }}
             style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: 2, pointerEvents: "none" }}>
             <span style={{ fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.25em", color: "var(--ink)", padding: "10px 20px", border: "1px solid rgba(240,236,227,0.24)", background: "rgba(13,12,10,0.45)", backdropFilter: "blur(4px)", borderRadius: 4, textTransform: "uppercase" }}>
-              Click to Open ↗
+              Click to Open Γåù
             </span>
           </motion.div>
         )}
@@ -456,7 +456,7 @@ function ProjectImage({ src, alt, live }) {
   );
 }
 
-/* ═══════════════════════════════════ STACKING CARD WRAPPER ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ STACKING CARD WRAPPER ΓòÉΓòÉΓòÉ */
 function Card({ id, label, children, index, bgOverride }) {
   const ref = useRef(null);
 
@@ -480,7 +480,7 @@ function Card({ id, label, children, index, bgOverride }) {
   );
 }
 
-/* ═══════════════════════════════════ SECTION LABEL ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ SECTION LABEL ΓòÉΓòÉΓòÉ */
 const SLabel = ({ n, text }) => (
   <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: "3.5rem" }}>
     <span style={{ fontFamily: "var(--mono)", fontSize: "0.95rem", color: "var(--gold)", letterSpacing: "0.22em", fontWeight: 400 }}>{n}</span>
@@ -489,7 +489,7 @@ const SLabel = ({ n, text }) => (
   </div>
 );
 
-/* ═══════════════════════════════════ HERO ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ HERO ΓòÉΓòÉΓòÉ */
 function Hero() {
   const [vis, setVis] = useState(false);
   useEffect(() => { setTimeout(() => setVis(true), 120); }, []);
@@ -500,7 +500,7 @@ function Hero() {
       <Background />
       {/* Corner coords */}
       <div style={{ position: "absolute", top: 72, left: 28, fontFamily: "var(--mono)", fontSize: "0.58rem", color: "var(--ink3)", letterSpacing: "0.15em" }}>
-        23.0225° N, 72.5714° E
+        23.0225┬░ N, 72.5714┬░ E
       </div>
       <div style={{ position: "absolute", top: 72, right: 28, fontFamily: "var(--mono)", fontSize: "0.58rem", color: "var(--ink3)", letterSpacing: "0.15em" }}>
         TJ. {new Date().getFullYear()}
@@ -555,7 +555,7 @@ function Hero() {
   );
 }
 
-/* ═══════════════════════════════════ ABOUT ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ ABOUT ΓòÉΓòÉΓòÉ */
 function About() {
   return (
     <Card id="about" label="About" index={0}>
@@ -603,7 +603,7 @@ function About() {
                   style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", letterSpacing: "0.12em", color: "var(--ink3)", textDecoration: "none", borderBottom: "1px solid var(--rule)", paddingBottom: 2, transition: "color 0.2s, border-color 0.2s" }}
                   onMouseEnter={e => { e.currentTarget.style.color = "var(--gold)"; e.currentTarget.style.borderColor = "var(--gold)"; }}
                   onMouseLeave={e => { e.currentTarget.style.color = "var(--ink3)"; e.currentTarget.style.borderColor = "var(--rule)"; }}>
-                  {s.label} ↗
+                  {s.label} Γåù
                 </a>
               ))}
             </div>
@@ -642,7 +642,7 @@ function About() {
   );
 }
 
-/* ═══════════════════════════════════ SKILL STRIP ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ SKILL STRIP ΓòÉΓòÉΓòÉ */
 function SkillStrip() {
   const allSkills = D.skills.flatMap(c => c.items.map(s => s.name));
   const double = [...allSkills, ...allSkills, ...allSkills];
@@ -657,7 +657,7 @@ function SkillStrip() {
   );
 }
 
-/* ═══════════════════════════════════ VIDEO MODAL ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ VIDEO MODAL ΓòÉΓòÉΓòÉ */
 function VideoModal({ videoId, onClose }) {
   useEffect(() => {
     const fn = e => { if (e.key === "Escape") onClose(); };
@@ -679,7 +679,7 @@ function VideoModal({ videoId, onClose }) {
               style={{ fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.14em", color: "var(--ink3)", background: "none", border: "1px solid var(--rule)", padding: "4px 12px", borderRadius: 3, transition: "color 0.2s" }}
               onMouseEnter={e => e.currentTarget.style.color = "var(--ink)"}
               onMouseLeave={e => e.currentTarget.style.color = "var(--ink3)"}>
-              Close ×
+              Close ├ù
             </button>
           </div>
           <div style={{ position: "relative", paddingBottom: "56.25%" }}>
@@ -696,7 +696,7 @@ function VideoModal({ videoId, onClose }) {
   );
 }
 
-/* ═══════════════════════════════════ WORK ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ WORK ΓòÉΓòÉΓòÉ */
 function Work() {
   const [active, setActive] = useState(0);
   const [video, setVideo] = useState(null);
@@ -750,19 +750,19 @@ function Work() {
                    style={{ flex: 1, padding: "14px 0", border: "1px solid var(--gold2)", borderRadius: 4, background: "rgba(201,168,76,0.05)", textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.8rem", letterSpacing: "0.15em", color: "var(--gold)", textDecoration: "none", transition: "all 0.3s" }}
                    onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--bg)"; }}
                    onMouseLeave={e => { e.currentTarget.style.background = "rgba(201,168,76,0.05)"; e.currentTarget.style.color = "var(--gold)"; }}>
-                   Live Site ↗
+                   Live Site Γåù
                 </a>
                 <a href={p.repo} target="_blank" rel="noreferrer" data-cur
                    style={{ flex: 1, padding: "14px 0", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink2)", textDecoration: "none", transition: "all 0.3s" }}
                    onMouseEnter={e => { e.currentTarget.style.background = "var(--ink)"; e.currentTarget.style.color = "var(--bg)"; }}
                    onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--ink2)"; }}>
-                   Source ↗
+                   Source Γåù
                 </a>
                 <button data-cur onClick={() => setVideo(p.videoId)}
                    style={{ flex: 1, padding: "14px 0", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", background: "none", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink)", cursor: "none", transition: "all 0.3s" }}
                    onMouseEnter={e => { e.currentTarget.style.background = "rgba(240,236,227,0.08)"; e.currentTarget.style.borderColor = "var(--ink3)"; }}
                    onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "var(--rule)"; }}>
-                   Watch Demo ▶
+                   Watch Demo Γû╢
                 </button>
               </div>
 
@@ -793,16 +793,16 @@ function Work() {
                   <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem", marginTop: "1.2rem" }}>
                     <a href={proj.live} target="_blank" rel="noreferrer"
                       style={{ width: "100%", padding: "16px", border: "1px solid var(--gold2)", borderRadius: 4, background: "rgba(201,168,76,0.05)", textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.85rem", letterSpacing: "0.15em", color: "var(--gold)", textDecoration: "none" }}>
-                      Live Site ↗
+                      Live Site Γåù
                     </a>
                     <div style={{ display: "flex", gap: "0.8rem" }}>
                       <a href={proj.repo} target="_blank" rel="noreferrer"
                         style={{ flex: 1, padding: "14px", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink2)", textDecoration: "none" }}>
-                        Source ↗
+                        Source Γåù
                       </a>
                       <button onClick={() => setVideo(proj.videoId)}
                         style={{ flex: 1, padding: "14px", border: "1px solid var(--rule)", borderRadius: 4, textAlign: "center", background: "none", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.1em", color: "var(--ink)" }}>
-                        Watch Demo ▶
+                        Watch Demo Γû╢
                       </button>
                     </div>
                   </div>
@@ -839,7 +839,7 @@ function Work() {
   );
 }
 
-/* ═══════════════════════════════════ SKILLS ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ SKILLS ΓòÉΓòÉΓòÉ */
 function Skills() {
   return (
     <Card id="skills" label="Skills" index={2} bgOverride="var(--bg2)">
@@ -852,7 +852,7 @@ function Skills() {
               {/* Category header */}
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: "1.25rem", paddingBottom: "0.75rem", borderBottom: "1px solid var(--rule)" }}>
                 <span style={{ fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.25em", color: "var(--gold)", textTransform: "uppercase" }}>{cat.cat}</span>
-                <span style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", color: "var(--ink3)" }}>— {String(cat.items.length).padStart(2,"0")}</span>
+                <span style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", color: "var(--ink3)" }}>ΓÇö {String(cat.items.length).padStart(2,"0")}</span>
               </div>
 
               {/* Skill rows with icons */}
@@ -888,7 +888,7 @@ function Skills() {
   );
 }
 
-/* ═══════════════════════════════════ CREDENTIALS ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ CREDENTIALS ΓòÉΓòÉΓòÉ */
 function CertCard({ cert, i }) {
   const [hovered, setHovered] = useState(false);
   const [open, setOpen] = useState(false);
@@ -929,7 +929,7 @@ function CertCard({ cert, i }) {
             pointerEvents: hovered ? "auto" : "none"
           }}>
           <p style={{ fontFamily: "var(--serif)", fontSize: "1.4rem", fontWeight: 300, color: "var(--ink)", lineHeight: 1.2, marginBottom: "0.5rem" }}>{cert.name}</p>
-          <p style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.08em", color: "var(--ink3)", marginBottom: "1rem" }}>{cert.org} · {cert.year}</p>
+          <p style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.08em", color: "var(--ink3)", marginBottom: "1rem" }}>{cert.org} ┬╖ {cert.year}</p>
           <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "0.9rem", lineHeight: 1.5, color: "var(--ink2)", fontWeight: 300, marginBottom: "1.5rem" }}>
             {cert.desc}
           </p>
@@ -964,7 +964,7 @@ function CertCard({ cert, i }) {
                   </div>
                   <button data-cur onClick={() => setOpen(false)}
                     style={{ fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.14em", color: "var(--ink3)", background: "none", border: "1px solid var(--rule)", padding: "5px 14px", borderRadius: 3 }}>
-                    Close ×
+                    Close ├ù
                   </button>
                 </div>
                 {isMobile && (
@@ -995,7 +995,7 @@ function Credentials() {
   );
 }
 
-/* ═══════════════════════════════════ CONTACT ═══ */
+/* ΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉΓòÉ CONTACT ΓòÉΓòÉΓòÉ */
 function Contact() {
   const isMobile = useMobile();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -1021,7 +1021,7 @@ function Contact() {
         <SLabel n="05" text="Contact" />
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "3rem 4rem", alignItems: "start" }}>
-          {/* Left — big text + links */}
+          {/* Left ΓÇö big text + links */}
           <div>
             <h2 style={{ fontFamily: "var(--serif)", fontSize: "clamp(3.2rem,8.5vw,7.4rem)", fontWeight: 300, lineHeight: 0.9, letterSpacing: "-0.04em", color: "var(--gold)", marginBottom: "2.2rem" }}>
               Let's <span style={{ color: "var(--ink)" }}>Build.</span>
@@ -1061,7 +1061,7 @@ function Contact() {
             </div>
           </div>
 
-          {/* Right — form */}
+          {/* Right ΓÇö form */}
           <div style={{ paddingLeft: isMobile ? 0 : "3rem", borderLeft: isMobile ? "none" : "1px solid var(--rule)" }}>
             <p style={{ fontFamily: "var(--mono)", fontSize: "0.8rem", fontWeight: 900, letterSpacing: "0.26em", color: "var(--gold)", textTransform: "uppercase", marginBottom: "2rem" }}>
               Send a message
@@ -1075,7 +1075,7 @@ function Contact() {
                 <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "1rem", color: "var(--ink2)", fontWeight: 300, marginBottom: "1.5rem" }}>I'll respond within 24 hours.</p>
                 <button data-cur onClick={() => setStatus("idle")}
                   style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.12em", color: "var(--ink3)", background: "none", border: "none", borderBottom: "1px solid var(--rule)", paddingBottom: 1 }}>
-                  Send another →
+                  Send another ΓåÆ
                 </button>
               </motion.div>
             ) : (
@@ -1108,7 +1108,7 @@ function Contact() {
 
       {/* Footer inside last card */}
       <div style={{ padding: "2.5rem clamp(1.5rem,6vw,5rem)", borderTop: "1px solid var(--rule)", display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-        <span style={{ fontFamily: "var(--mono)", fontSize: "0.62rem", letterSpacing: "0.2em", color: "var(--ink3)", textTransform: "uppercase" }}>TULYA JAIN © {new Date().getFullYear()} — Built with Passion</span>
+        <span style={{ fontFamily: "var(--mono)", fontSize: "0.62rem", letterSpacing: "0.2em", color: "var(--ink3)", textTransform: "uppercase" }}>TULYA JAIN ┬⌐ {new Date().getFullYear()} ΓÇö Built with Passion</span>
       </div>
     </Card>
   );
@@ -1117,12 +1117,12 @@ function Contact() {
 function PageHead() {
   const { pathname } = useLocation();
   const titles = {
-    "/": "Tulya Jain — Full Stack Developer",
-    "/about": "About — Tulya Jain",
-    "/work": "Selected Work — Tulya Jain",
-    "/skills": "Tech Stack — Tulya Jain",
-    "/credentials": "Credentials — Tulya Jain",
-    "/contact": "Contact — Tulya Jain"
+    "/": "Tulya Jain ΓÇö Full Stack Developer",
+    "/about": "About ΓÇö Tulya Jain",
+    "/work": "Selected Work ΓÇö Tulya Jain",
+    "/skills": "Tech Stack ΓÇö Tulya Jain",
+    "/credentials": "Credentials ΓÇö Tulya Jain",
+    "/contact": "Contact ΓÇö Tulya Jain"
   };
 
   useEffect(() => {
@@ -1145,12 +1145,12 @@ function RouterSync() {
 
   // Sync Titles Mapping
   const titles = {
-    "/": "Tulya Jain — Full Stack Developer",
-    "/about": "About — Tulya Jain",
-    "/work": "Selected Work — Tulya Jain",
-    "/skills": "Tech Stack — Tulya Jain",
-    "/credentials": "Credentials — Tulya Jain",
-    "/contact": "Contact — Tulya Jain"
+    "/": "Tulya Jain ΓÇö Full Stack Developer",
+    "/about": "About ΓÇö Tulya Jain",
+    "/work": "Selected Work ΓÇö Tulya Jain",
+    "/skills": "Tech Stack ΓÇö Tulya Jain",
+    "/credentials": "Credentials ΓÇö Tulya Jain",
+    "/contact": "Contact ΓÇö Tulya Jain"
   };
 
   useEffect(() => {
