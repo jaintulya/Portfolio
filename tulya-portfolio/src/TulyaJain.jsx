@@ -1,7 +1,7 @@
 import Background from "./Background";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useLocation, useNavigate, NavLink, Link } from "react-router-dom";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet";
 import Lenis from 'lenis';
 import { GitHubCalendar } from 'react-github-calendar';
@@ -283,7 +283,6 @@ function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const isMobile = useMobile();
-  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -1252,7 +1251,6 @@ function SkillMarquee({ items, direction = "left", speed = 35 }) {
 
 function Skills() {
   const directions = ["left", "right", "left"];
-  const isMobile = useMobile();
 
   return (
     <Card id="skills" label="Skills" index={2} bgOverride="var(--bg2)">
