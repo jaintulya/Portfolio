@@ -1,4 +1,4 @@
-﻿import Background from "./Background";
+import Background from "./Background";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useLocation, useNavigate, NavLink, Link } from "react-router-dom";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
@@ -25,41 +25,41 @@ const D = {
   avatar: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_800/v1774937661/new_profile_brown_shirt_wpp7zr.jpg",
   ejs: { svc: "service_mik4w7c", tpl: "template_qkn4ddh", key: "IUgMaI57UFvt-q1Vz" },
   socials: [
-    { label: "GitHub",   href: "https://github.com/jaintulya" },
+    { label: "GitHub", href: "https://github.com/jaintulya" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/tulya-jain-b84827372/" },
     { label: "LeetCode", href: "https://leetcode.com/u/o08s0tJtFp/" },
-    { label: "YouTube",  href: "https://www.youtube.com/@TulyaJain" },
+    { label: "YouTube", href: "https://www.youtube.com/@TulyaJain" },
   ],
   skills: [
     {
       cat: "Frontend",
       items: [
-        { name: "HTML",          icon: "https://cdn.simpleicons.org/html5" },
-        { name: "CSS",           icon: "https://www.vectorlogo.zone/logos/w3_css/w3_css-icon.svg" },
-        { name: "JavaScript",     icon: "https://cdn.simpleicons.org/javascript" },
-        { name: "React",          icon: "https://cdn.simpleicons.org/react" },
-        { name: "Tailwind CSS",   icon: "https://cdn.simpleicons.org/tailwindcss" },
+        { name: "HTML", icon: "https://cdn.simpleicons.org/html5" },
+        { name: "CSS", icon: "https://www.vectorlogo.zone/logos/w3_css/w3_css-icon.svg" },
+        { name: "JavaScript", icon: "https://cdn.simpleicons.org/javascript" },
+        { name: "React", icon: "https://cdn.simpleicons.org/react" },
+        { name: "Tailwind CSS", icon: "https://cdn.simpleicons.org/tailwindcss" },
       ],
     },
     {
       cat: "Backend",
       items: [
-        { name: "Node.js",   icon: "https://cdn.simpleicons.org/nodedotjs" },
-        { name: "Express",   icon: "https://cdn.simpleicons.org/express/f0ece3" },
-        { name: "MongoDB",   icon: "https://cdn.simpleicons.org/mongodb" },
+        { name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs" },
+        { name: "Express", icon: "https://cdn.simpleicons.org/express/f0ece3" },
+        { name: "MongoDB", icon: "https://cdn.simpleicons.org/mongodb" },
       ],
     },
     {
       cat: "Tools & Languages",
       items: [
-        { name: "C",        icon: "https://cdn.simpleicons.org/c/f0ece3" },
-        { name: "C++",      icon: "https://cdn.simpleicons.org/cplusplus" },
-        { name: "Git",      icon: "https://cdn.simpleicons.org/git" },
-        { name: "GitHub",   icon: "https://cdn.simpleicons.org/github/f0ece3" },
-        { name: "Figma",    icon: "https://cdn.simpleicons.org/figma" },
-        { name: "Postman",  icon: "https://cdn.simpleicons.org/postman" },
-        { name: "Vercel",   icon: "https://cdn.simpleicons.org/vercel/f0ece3" },
-        { name: "Netlify",  icon: "https://cdn.simpleicons.org/netlify" },
+        { name: "C", icon: "https://cdn.simpleicons.org/c/f0ece3" },
+        { name: "C++", icon: "https://cdn.simpleicons.org/cplusplus" },
+        { name: "Git", icon: "https://cdn.simpleicons.org/git" },
+        { name: "GitHub", icon: "https://cdn.simpleicons.org/github/f0ece3" },
+        { name: "Figma", icon: "https://cdn.simpleicons.org/figma" },
+        { name: "Postman", icon: "https://cdn.simpleicons.org/postman" },
+        { name: "Vercel", icon: "https://cdn.simpleicons.org/vercel/f0ece3" },
+        { name: "Netlify", icon: "https://cdn.simpleicons.org/netlify" },
       ],
     },
   ],
@@ -126,24 +126,36 @@ const D = {
     },
   ],
   certs: [
-    { name: "Solution Architecture", org: "Amazon Web Services", year: "2026",
+    {
+      name: "Solution Architecture", org: "Amazon Web Services", year: "2026",
       desc: "Distributed systems on AWS — compute, storage, networking, security, and cost optimisation for scalable architectures.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/aws_certificate_pages-to-jpg-0001_wsdave.jpg" },
-    { name: "Software Engineering", org: "Wells Fargo", year: "2026",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/aws_certificate_pages-to-jpg-0001_wsdave.jpg"
+    },
+    {
+      name: "Software Engineering", org: "Wells Fargo", year: "2026",
       desc: "Agile workflows, code review, debugging, and building fintech features in a real engineering simulation.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/well_fargo_page-0001_tmy6tq.jpg" },
-    { name: "Software Engineering", org: "Walmart Global Tech", year: "2026",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/well_fargo_page-0001_tmy6tq.jpg"
+    },
+    {
+      name: "Software Engineering", org: "Walmart Global Tech", year: "2026",
       desc: "Data structures, algorithms, system design, and scalable software at global retail scale.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/walmart_page-0001_oedx1f.jpg" },
-    { name: "Generative AI Studio", org: "Google Cloud", year: "2025",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/walmart_page-0001_oedx1f.jpg"
+    },
+    {
+      name: "Generative AI Studio", org: "Google Cloud", year: "2025",
       desc: "Vertex AI, prompt engineering, foundation model tuning, multi-modal AI, and GCP pipeline deployment.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180240/introduction_to_generative_ai_studio_page-0001_xb6gpj.jpg" },
-    { name: "Front-End Engineering", org: "Skyscanner", year: "2026",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180240/introduction_to_generative_ai_studio_page-0001_xb6gpj.jpg"
+    },
+    {
+      name: "Front-End Engineering", org: "Skyscanner", year: "2026",
       desc: "Accessible, internationalised React components using Skyscanner's Backpack design system.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/skyscanner_page-0001_xtalcr.jpg" },
-    { name: "Excel Automation with AI", org: "Microsoft", year: "2025",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/skyscanner_page-0001_xtalcr.jpg"
+    },
+    {
+      name: "Excel Automation with AI", org: "Microsoft", year: "2025",
       desc: "Automating Excel workflows with ChatGPT — intelligent formulas and spreadsheet solutions without code.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/Excel_automation_using_chagpt_pages-to-jpg-0001_jc6nmq.jpg" },
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/Excel_automation_using_chagpt_pages-to-jpg-0001_jc6nmq.jpg"
+    },
   ],
 };
 
@@ -209,21 +221,26 @@ h1, h2, h3, h4, h5, h6 { font-weight: 300; }
 `;
 
 
-/* ═══════════════════════════════════ CURSOR ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  CURSOR ═ ═ ═  */
 function Cursor() {
   const [p, setP] = useState({ x: -100, y: -100 });
   const [hov, setHov] = useState(false);
+  const [mode, setMode] = useState("normal");
+
   useEffect(() => {
     const mv = e => setP({ x: e.clientX, y: e.clientY });
-    const over = e => setHov(!!e.target.closest("a,button,input,textarea,[data-cur]"));
+    const over = e => {
+      setHov(!!e.target.closest("a,button,input,textarea,[data-cur]"));
+      setMode(e.target.closest("[data-cursor-mode='design']") ? "design" : "normal");
+    };
     window.addEventListener("mousemove", mv);
     window.addEventListener("mouseover", over);
     return () => { window.removeEventListener("mousemove", mv); window.removeEventListener("mouseover", over); };
   }, []);
-  
-  const size = hov ? 32 : 18;
-  const col = "#c9a84c"; 
-  
+
+  const size = hov ? (mode === "design" ? 44 : 32) : (mode === "design" ? 28 : 18);
+  const col = mode === "design" ? "#f0ece3" : "#c9b84c";
+
   return (
     <div style={{
       position: "fixed", left: p.x, top: p.y,
@@ -233,17 +250,26 @@ function Cursor() {
       width: size, height: size,
       display: "flex", alignItems: "center", justifyContent: "center"
     }}>
-      {/* Precision Reticle */}
-      <div style={{ position: "absolute", borderRadius: "50%", border: `1px solid ${col}`, opacity: 0.35, width: "100%", height: "100%" }} />
-      <div style={{ position: "absolute", width: "120%", height: 1, background: col, opacity: 0.25 }} />
-      <div style={{ position: "absolute", height: "120%", width: 1, background: col, opacity: 0.25 }} />
-      <div style={{ width: 2, height: 2, background: col, borderRadius: "50%" }} />
+      {mode === "design" ? (
+        <>
+          <div style={{ position: "absolute", width: "100%", height: 1.5, background: col, opacity: 0.85 }} />
+          <div style={{ position: "absolute", height: "100%", width: 1.5, background: col, opacity: 0.85 }} />
+          {hov && <div style={{ position: "absolute", width: "70%", height: "70%", border: `1px dashed ${col}`, borderRadius: "50%", opacity: 0.4 }} />}
+        </>
+      ) : (
+        <>
+          {/* Precision Reticle */}
+          <div style={{ position: "absolute", borderRadius: "50%", border: `1px solid ${col}`, opacity: 0.35, width: "100%", height: "100%" }} />
+          <div style={{ position: "absolute", width: "120%", height: 1, background: col, opacity: 0.25 }} />
+          <div style={{ position: "absolute", height: "120%", width: 1, background: col, opacity: 0.25 }} />
+          <div style={{ width: 2, height: 2, background: col, borderRadius: "50%" }} />
+        </>
+      )}
     </div>
   );
 }
 
-/* ═══════════════════════════════════ NAV ═══ */
-const NAVS = ["Home","About","Work","Skills","Hackathons","Credentials","Contact"];
+const NAVS = ["Home", "About", "Work", "Skills", "Hackathons", "Credentials", "Contact"];
 const useMobile = () => {
   const [m, setM] = useState(false);
   useEffect(() => {
@@ -282,7 +308,7 @@ function Nav() {
 
   return (
     <>
-      <motion.nav initial={{ y: -60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.7, ease: [0.16,1,0.3,1] }}
+      <motion.nav initial={{ y: -60, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000,
           display: "flex", alignItems: "center", justifyContent: "space-between",
@@ -384,7 +410,7 @@ function BreathingRings() {
       for (let i = 0; i < count; i++) {
         rings.push({
           r: 60 + i * (isMobile ? 28 : 42),
-          s: (Math.random() - 0.5) * 0.005, 
+          s: (Math.random() - 0.5) * 0.005,
           off: Math.random() * Math.PI * 2,
           segs: Array.from({ length: 2 + Math.floor(Math.random() * 3) }, () => ({
             start: Math.random() * Math.PI * 2,
@@ -403,18 +429,18 @@ function BreathingRings() {
       rings.forEach((ring, ri) => {
         const currentR = ring.r + breath + (mRatio * 35 * (ri / rings.length));
         const rot = t * ring.s + ring.off;
-        
+
         // Warped Arc Geometry
         ctx.strokeStyle = `rgba(201, 168, 76, ${0.06 + mRatio * 0.28})`; // Primary Gold
         ctx.lineWidth = 0.7 + mRatio * 0.6;
         ctx.setLineDash([3, 12]);
-        
+
         ring.segs.forEach(s => {
           ctx.beginPath();
           ctx.arc(center.x, center.y, currentR, s.start + rot, s.start + s.len + rot);
           ctx.stroke();
         });
-        
+
         // Subtle Faint Ring Base
         ctx.setLineDash([]);
         ctx.strokeStyle = `rgba(240, 236, 227, ${0.012 + mRatio * 0.035})`; // Soft Ink White
@@ -441,7 +467,7 @@ function BreathingRings() {
   return <canvas ref={canvasRef} style={{ position: "fixed", inset: 0, zIndex: 100, pointerEvents: "none", opacity: 1 }} />;
 }
 
-/* ═══════════════════════════════════ PROJECT IMAGE ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  PROJECT IMAGE ═ ═ ═  */
 function ProjectImage({ src, alt, live }) {
   const [hov, setHov] = useState(false);
   return (
@@ -450,12 +476,12 @@ function ProjectImage({ src, alt, live }) {
       onMouseLeave={() => setHov(false)}
       style={{ display: "block", position: "relative", border: "1px solid var(--rule)", background: "var(--bg3)", overflow: "hidden", cursor: "none", aspectRatio: "1.4" }}>
       <img src={src} alt={alt} loading="lazy"
-        style={{ 
-          width: "100%", height: "100%", objectFit: "cover", display: "block", 
+        style={{
+          width: "100%", height: "100%", objectFit: "cover", display: "block",
           filter: hov ? "blur(10px) brightness(0.4) sepia(10%)" : "sepia(8%) contrast(1.06) brightness(0.87)",
           transition: "all 0.6s cubic-bezier(0.16,1,0.3,1)",
           transform: hov ? "scale(1.05)" : "scale(1)"
-        }} 
+        }}
       />
       <AnimatePresence>
         {hov && (
@@ -471,7 +497,7 @@ function ProjectImage({ src, alt, live }) {
   );
 }
 
-/* ═══════════════════════════════════ STACKING CARD WRAPPER ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  STACKING CARD WRAPPER ═ ═ ═  */
 function Card({ id, label, children, index, bgOverride }) {
   const ref = useRef(null);
 
@@ -495,7 +521,7 @@ function Card({ id, label, children, index, bgOverride }) {
   );
 }
 
-/* ═══════════════════════════════════ SECTION LABEL ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  SECTION LABEL ═ ═ ═  */
 const SLabel = ({ n, text }) => (
   <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: "3.5rem" }}>
     <span style={{ fontFamily: "var(--mono)", fontSize: "0.95rem", color: "var(--gold)", letterSpacing: "0.22em", fontWeight: 400 }}>{n}</span>
@@ -504,7 +530,7 @@ const SLabel = ({ n, text }) => (
   </div>
 );
 
-/* ═══════════════════════════════════ HERO ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  HERO ═ ═ ═  */
 function Hero() {
   const [vis, setVis] = useState(false);
   useEffect(() => { setTimeout(() => setVis(true), 120); }, []);
@@ -525,10 +551,10 @@ function Hero() {
         <div style={{ overflow: "hidden" }}>
           <motion.p initial={{ opacity: 0 }} animate={vis ? { opacity: 1 } : {}} transition={{ duration: 0.8, delay: 0 }}
             style={{ fontFamily: "var(--mono)", fontSize: "clamp(0.65rem,1.2vw,0.85rem)", color: "var(--gold)", letterSpacing: "0.25em", textTransform: "uppercase", marginBottom: "1rem" }}>
-            Hii, I am 
+            Hii, I am
           </motion.p>
           <motion.h1 initial={{ y: 140 }} animate={vis ? { y: 0 } : { y: 140 }}
-            transition={{ duration: 0.5, delay: 0, ease: [0.16,1,0.3,1] }}
+            transition={{ duration: 0.5, delay: 0, ease: [0.16, 1, 0.3, 1] }}
             style={{ fontFamily: "var(--serif)", fontSize: "clamp(4.5rem,15vw,14rem)", fontWeight: 300, lineHeight: 0.82, letterSpacing: "-0.04em", color: "var(--ink)", textTransform: "uppercase" }}>
             TULYA
           </motion.h1>
@@ -536,13 +562,13 @@ function Hero() {
 
         {/* Thin rule */}
         <motion.div initial={{ scaleX: 0 }} animate={vis ? { scaleX: 1 } : { scaleX: 0 }}
-          transition={{ duration: 0.9, delay: 0.55, ease: [0.76,0,0.24,1] }}
+          transition={{ duration: 0.9, delay: 0.55, ease: [0.76, 0, 0.24, 1] }}
           style={{ height: 1, background: "var(--rule)", margin: "0.6rem auto", maxWidth: 700, transformOrigin: "left" }} />
 
         {/* JAIN italic */}
         <div style={{ overflow: "hidden" }}>
           <motion.h1 initial={{ y: 140 }} animate={vis ? { y: 0 } : { y: 140 }}
-            transition={{ duration: 0.5, delay: 0.05, ease: [0.16,1,0.3,1] }}
+            transition={{ duration: 0.5, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}
             style={{ fontFamily: "var(--serif)", fontSize: "clamp(4.5rem,15vw,14rem)", fontWeight: 300, lineHeight: 0.82, letterSpacing: "-0.04em", color: "var(--gold)", fontStyle: "italic", textTransform: "uppercase" }}>
             JAIN
           </motion.h1>
@@ -570,7 +596,7 @@ function Hero() {
   );
 }
 
-/* ═══════════════════════════════════ ABOUT ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  ABOUT ═ ═ ═  */
 function About() {
   return (
     <Card id="about" label="About" index={0}>
@@ -582,9 +608,9 @@ function About() {
           <div style={{ position: "relative", justifySelf: "center" }}>
             <div style={{ position: "relative", maxWidth: 420 }}>
               {/* Corner marks */}
-              {[["0,0","tl"],["0,auto","bl"],["auto,0","tr"],["auto,auto","br"]].map(([pos,k],i) => {
-                const [t,l,bt,r] = pos === "0,0" ? ["0","0",undefined,undefined] : pos === "0,auto" ? ["auto","0","0",undefined] : pos === "auto,0" ? ["0",undefined,undefined,"0"] : ["auto",undefined,"0","0"];
-                return <div key={k} style={{ position:"absolute", width:20, height:20, top:t, left:l, bottom:bt, right:r, borderTop: (i===0||i===2) ? "1px solid var(--gold2)" : "none", borderBottom: (i===1||i===3) ? "1px solid var(--gold2)" : "none", borderLeft: (i===0||i===1) ? "1px solid var(--gold2)" : "none", borderRight: (i===2||i===3) ? "1px solid var(--gold2)" : "none", zIndex: 2 }} />;
+              {[["0,0", "tl"], ["0,buto", "bl"], ["auto,0", "tr"], ["auto,auto", "br"]].map(([pos, k], i) => {
+                const [t, l, at, r] = pos === "0,0" ? ["0", "0", undefined, undefined] : pos === "0,buto" ? ["auto", "0", "0", undefined] : pos === "auto,0" ? ["0", undefined, undefined, "0"] : ["auto", undefined, "0", "0"];
+                return <div key={k} style={{ position: "absolute", width: 20, height: 20, top: t, left: l, bottom: at, right: r, borderTop: (i === 0 || i === 2) ? "1px solid var(--gold2)" : "none", borderBottom: (i === 1 || i === 3) ? "1px solid var(--gold2)" : "none", borderLeft: (i === 0 || i === 1) ? "1px solid var(--gold2)" : "none", borderRight: (i === 2 || i === 3) ? "1px solid var(--gold2)" : "none", zIndex: 2 }} />;
               })}
               <img src={D.avatar} alt="Tulya Jain" fetchPriority="high" style={{ width: "100%", display: "block", filter: "sepia(10%) contrast(1.05) brightness(0.88)", border: "1px solid var(--rule)" }} />
             </div>
@@ -595,14 +621,14 @@ function About() {
                   style={{ width: 8, height: 8, borderRadius: "50%", background: "#22c55e" }} />
                 <span style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.18em", color: "#22c55e", textTransform: "uppercase" }}>Available for work</span>
               </div>
-              
+
               <Link to="/work" data-cur
                 style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", letterSpacing: "0.15em", color: "var(--ink)", background: "none", border: "1px solid var(--rule)", padding: "0 22px", borderRadius: 6, textTransform: "uppercase", height: 42, display: "flex", alignItems: "center", transition: "all 0.3s", textDecoration: "none" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--bg)"; e.currentTarget.style.borderColor = "var(--gold)"; }}
                 onMouseLeave={e => { e.currentTarget.style.background = "none"; e.currentTarget.style.color = "var(--ink)"; e.currentTarget.style.borderColor = "var(--rule)"; }}>
                 View Work
               </Link>
-              
+
               <a href="https://drive.google.com/file/d/1m71b0KgRAl64M0ePunAcATVhIvV0sF9k/view?usp=sharing" target="_blank" rel="noreferrer" data-cur
                 style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", letterSpacing: "0.15em", color: "var(--gold)", background: "none", border: "1px solid var(--gold2)", padding: "0 22px", borderRadius: 6, textTransform: "uppercase", textDecoration: "none", height: 42, display: "flex", alignItems: "center", transition: "all 0.3s" }}
                 onMouseEnter={e => { e.currentTarget.style.background = "var(--gold)"; e.currentTarget.style.color = "var(--bg)"; }}
@@ -657,7 +683,7 @@ function About() {
   );
 }
 
-/* ═══════════════════════════════════ SKILL STRIP ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  SKILL STRIP ═ ═ ═  */
 function SkillStrip() {
   const allSkills = D.skills.flatMap(c => c.items.map(s => s.name));
   const double = [...allSkills, ...allSkills, ...allSkills];
@@ -672,7 +698,7 @@ function SkillStrip() {
   );
 }
 
-/* ═══════════════════════════════════ VIDEO MODAL ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  VIDEO MODAL ═ ═ ═  */
 function VideoModal({ videoId, onClose }) {
   useEffect(() => {
     const fn = e => { if (e.key === "Escape") onClose(); };
@@ -686,7 +712,7 @@ function VideoModal({ videoId, onClose }) {
         onClick={onClose}
         style={{ position: "fixed", inset: 0, zIndex: 9000, background: "rgba(13,12,10,0.94)", backdropFilter: "blur(14px)", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem", cursor: "none" }}>
         <motion.div initial={{ scale: 0.92, y: 30 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.92, y: 30 }}
-          transition={{ duration: 0.45, ease: [0.16,1,0.3,1] }}
+          transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
           onClick={e => e.stopPropagation()}
           style={{ width: "100%", maxWidth: 860, background: "var(--bg)", border: "1px solid var(--rule)", borderRadius: 8, overflow: "hidden" }}>
           <div style={{ display: "flex", justifyContent: "flex-end", padding: "10px 14px", borderBottom: "1px solid var(--rule)" }}>
@@ -711,14 +737,14 @@ function VideoModal({ videoId, onClose }) {
   );
 }
 
-/* ═══════════════════════════════════ WORK ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  WORK ═ ═ ═  */
 function Work() {
   const [activeCat, setActiveCat] = useState("All");
   const [video, setVideo] = useState(null);
   const isMobile = useMobile();
-  
-  const cats = ["All", "Clones", "Frontend", "Full Stack", "Games", "Figma"];
-  
+
+  const cats = ["All", "Clones", "Frontend", "Full Stack", "Games"];
+
   const filtered = useMemo(() => {
     if (activeCat === "All") return D.projects;
     return D.projects.filter(p => p.cat === activeCat);
@@ -729,43 +755,52 @@ function Work() {
       <div style={{ padding: "clamp(2rem,5vw,4rem) 0", minHeight: "100vh" }}>
         <div style={{ padding: "0 clamp(1.5rem,6vw,5rem)" }}>
           <SLabel n="02" text="Selected Work" />
-          
-          {/* CATEGORY FILTER */}
-          <div style={{ 
-            display: "flex", 
-            gap: "1.5rem", 
-            marginBottom: "4rem", 
-            flexWrap: "wrap",
-            borderBottom: "1px solid var(--rule)",
-            paddingBottom: "1rem"
+
+          {/* CATEGORY FILTER - Centered Pill Design */}
+          <div style={{
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "6rem",
+            width: "100%",
           }}>
-            {cats.map(c => (
-              <button
-                key={c}
-                onClick={() => setActiveCat(c)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  fontFamily: "var(--mono)",
-                  fontSize: "0.75rem",
-                  letterSpacing: "0.2em",
-                  color: activeCat === c ? "var(--gold)" : "var(--ink3)",
-                  cursor: "pointer",
-                  textTransform: "uppercase",
-                  padding: "8px 0",
-                  position: "relative",
-                  transition: "color 0.3s ease"
-                }}
-              >
-                {c}
-                {activeCat === c && (
-                  <motion.div 
-                    layoutId="catUnderline"
-                    style={{ position: "absolute", bottom: -1, left: 0, right: 0, height: 1, background: "var(--gold)" }} 
-                  />
-                )}
-              </button>
-            ))}
+            <div style={{
+              display: "flex",
+              flexWrbp: "wrap",
+              background: "rgba(240,236,227,0.02)",
+              border: "1px solid rgba(240,236,227,0.08)",
+              borderRadius: 50,
+              padding: "6px",
+              gap: "8px",
+              justifyContent: "center",
+              boxShbdow: "0 10px 30px rgba(0,0,0,0.2)"
+            }}>
+              {cats.map(c => {
+                const isActive = activeCat === c;
+                return (
+                  <button
+                    key={c}
+                    onClick={() => setActiveCat(c)}
+                    data-cur
+                    style={{
+                      background: isActive ? "var(--gold)" : "transparent",
+                      border: "none",
+                      fontFamily: "var(--mono)",
+                      fontSize: "0.7rem",
+                      letterSpbcing: "0.2em",
+                      color: isActive ? "var(--bg)" : "var(--ink2)",
+                      padding: "14px 28px",
+                      borderRadius: 40,
+                      textTrbnsform: "uppercase",
+                      transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
+                      fontWeight: isActive ? 700 : 400,
+                      boxShbdow: isActive ? "0 4px 15px rgba(201,168,76,0.3)" : "none"
+                    }}
+                  >
+                    {c}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -774,36 +809,36 @@ function Work() {
           <AnimatePresence mode="popLayout">
             {filtered.length > 0 ? (
               filtered.map((proj, i) => (
-                <ProjectItem 
-                  key={proj.name} 
-                  project={proj} 
-                  index={i} 
-                  isMobile={isMobile} 
+                <ProjectItem
+                  key={proj.name}
+                  project={{ ...proj, n: String(i + 1).padStart(2, "0") }}
+                  index={i}
+                  isMobile={isMobile}
                   onPlayVideo={setVideo}
                 />
               ))
             ) : (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                style={{ 
-                  padding: "10rem 2rem", 
+                style={{
+                  padding: "10rem 2rem",
                   textAlign: "center",
                   alignItems: "center",
                   justifyContent: "center"
                 }}
               >
-                <motion.h3 
+                <motion.h3
                   animate={{ opacity: [0.4, 1, 0.4] }}
                   transition={{ duration: 2, repeat: Infinity }}
-                  style={{ 
-                    fontFamily: "var(--serif)", 
-                    fontSize: "2.5rem", 
+                  style={{
+                    fontFamily: "var(--serif)",
+                    fontSize: "2.5rem",
                     color: "var(--gold)",
-                    fontStyle: "italic" 
+                    fontStyle: "italic"
                   }}
                 >
-                  Coming Soon ðŸš€
+                  Coming Soon .
                 </motion.h3>
                 <p style={{ fontFamily: "var(--mono)", fontSize: "0.7rem", color: "var(--ink3)", marginTop: "1rem" }}>
                   Currently crafting something special for this category.
@@ -815,11 +850,273 @@ function Work() {
       </div>
 
       {video && <VideoModal videoId={video} onClose={() => setVideo(null)} />}
+
+      {/* Embedded UI/UX Lbb Showcase */}
+      <UIUXLab />
     </Card>
   );
 }
 
-/* ═══════════════════════════════════ SKILLS ═══ */
+/* ═══════════════════════════════════ UI/UX LAB ═══ */
+const FIGMA_DESIGNS = [
+  { id: 'hd', name: "Hospital Dashboard", img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776498364/zydushospitalprototype_k0uu1l.jpg", link: "https://www.figma.com/proto/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=325%3A3&starting-point-node-id=325%3A3", tags: ["UI/UX Design", "Dashboard"], desc: "Healthcare management interface prototype" },
+  { id: 'hb', name: "Hotel Booking", img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776498280/hotelbookiungappprototype_xhwqtk.jpg", link: "https://www.figma.com/proto/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=265%3A2&starting-point-node-id=265%3A2", tags: ["UI/UX Design", "Mobile Product"], desc: "Hotel booking mobile interface" },
+  { id: 'ew', name: "Education Web", img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776498280/eduspereprototype_haemu2.jpg", link: "https://www.figma.com/proto/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=184%3A2&starting-point-node-id=184%3A2", tags: ["UI/UX Design", "Web Interface"], desc: "Education platform interface" },
+  { id: 'bm', name: "BookMyShow", img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776497961/bookmyshow_gvul5e.jpg", link: "https://www.figma.com/design/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=60-2", tags: ["UI/UX Design", "App"], desc: "Entertainment booking interface" },
+  { id: 'lp', name: "Login Page", img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776507340/loginpage_ehf7z8.jpg", link: "https://www.figma.com/design/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=27-177", tags: ["UI/UX Design", "Login", "Auth Flow"], desc: "Authentication interface concept" },
+  { id: 'hbd', name: "Hotel Booking App Dashboard", img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776497770/bnbhomepage_ymgypk.png", link: "https://www.figma.com/design/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=21-39", tags: ["UI/UX Design", "App Dashboard"], desc: "Booking dashboard interface" },
+  { id: 'su', name: "Sign Up Page", img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776497769/loginpge_app_yollv2.png", link: "https://www.figma.com/design/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=113-2", tags: ["UI/UX Design", "Sign Up", "Auth Flow"], desc: "User onboarding interface" }
+];
+
+function UIUXLab() {
+  const [hoveredId, setHoveredId] = useState(null);
+  const [activeDesign, setActiveDesign] = useState(null);
+  const isMobile = useMobile();
+
+  return (
+    <>
+      <style>{`
+        .uiux-scroll-container::-webkit-scrollbar {
+          width: 6px;
+        }
+        .uiux-scroll-container::-webkit-scrollbar-track {
+          background: rgba(13,12,10,0.8);
+          border-radius: 4px;
+        }
+        .uiux-scroll-container::-webkit-scrollbar-thumb {
+          background: rgba(201,168,76,0.3);
+          border-radius: 4px;
+        }
+        .uiux-scroll-container::-webkit-scrollbar-thumb:hover {
+          background: rgba(201,168,76,0.5);
+        }
+      `}</style>
+      <div
+        style={{
+          position: "relative",
+        marginTop: "6rem",
+        padding: "clamp(4rem,10vw,8rem) clamp(1.5rem,6vw,5rem)",
+        background: "radial-gradient(ellipse at center, rgba(30,28,24,0.6) 0%, rgba(13,12,10,1) 80%)",
+        borderTop: "1px solid rgba(240,236,227,0.02)",
+        overflow: "hidden"
+      }}
+    >
+      {/* Intense design background pattern */}
+      <div style={{
+        position: "absolute", inset: 0,
+        backgroundImage: "linear-gradient(rgba(201, 168, 76, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201, 168, 76, 0.03) 1px, transparent 1px)",
+        backgroundSize: "40px 40px",
+        pointerEvents: "none", zIndex: 0
+      }} />
+      <div style={{
+        position: "absolute", inset: 0,
+        backgroundImage: "radial-gradient(rgba(201, 168, 76, 0.1) 1px, transparent 1px)",
+        backgroundSize: "20px 20px",
+        pointerEvents: "none", zIndex: 0
+      }} />
+
+      <div style={{ position: "relative", zIndex: 1, maxWidth: 1200, margin: "0 auto" }}>
+
+        {/* Thin gold divider line before heading */}
+        <div style={{ width: "100%", height: "1px", background: "linear-gradient(90deg, rgba(201,168,76,0) 0%, rgba(201,168,76,0.2) 50%, rgba(201,168,76,0) 100%)", marginBottom: "3rem" }}></div>
+
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <h3 style={{ fontFamily: "var(--serif)", fontSize: "clamp(3rem, 7vw, 6rem)", fontWeight: 300, color: "var(--gold)", marginBottom: "0.8rem", lineHeight: 1, textAlign: "center", fontStyle: "italic" }}>
+            Figma <span style={{ color: "var(--ink)", fontStyle: "normal" }}>Exploration</span>
+          </h3>
+          <p style={{ fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.4em", color: "var(--ink3)", textTransform: "uppercase", marginBottom: "4rem", textAlign: "center" }}>
+            Design Prototypes & Concepts
+          </p>
+        </motion.div>
+
+        {/* 2-column Grid setup (Fixed Size) */}
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+          gap: "2rem",
+          alignItems: "start"
+        }}>
+          {FIGMA_DESIGNS.map((item, idx) => {
+            const isHovered = hoveredId === item.id;
+
+            return (
+              <motion.div
+                key={item.id}
+                onMouseEnter={() => setHoveredId(item.id)}
+                onMouseLeave={() => setHoveredId(null)}
+                data-cur
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{
+                  opacity: { duration: 0.6, delay: Math.min(idx * 0.1, 0.6) }
+                }}
+                style={{
+                  height: "400px",
+                  background: "rgba(13,12,10,0.6)",
+                  border: isHovered ? "1px solid rgba(201,168,76,0.4)" : "1px solid rgba(240,236,227,0.06)",
+                  borderRadius: 16,
+                  overflow: "hidden",
+                  boxShadow: isHovered ? "0 20px 60px rgba(0,0,0,0.8), 0 0 40px rgba(201,168,76,0.08)" : "none",
+                  display: "flex",
+                  flexDirection: "column",
+                  position: "relative",
+                  zIndex: isHovered ? 10 : 1,
+                  transition: "border-color 0.4s, box-shadow 0.4s"
+                }}
+              >
+                {/* Scrollable Image Section */}
+                <div
+                  style={{
+                    flex: 1,
+                    width: "100%",
+                    overflowY: "hidden",
+                    overflowX: "hidden",
+                    position: "relative"
+                  }}
+                  className="uiux-scroll-container"
+                >
+                  <img
+                    src={item.img}
+                    alt={item.name}
+                    loading="lazy"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                      display: "block",
+                      filter: isHovered ? "none" : "brightness(0.7) sepia(10%)",
+                      transform: isHovered ? "scale(1.03)" : "scale(1)",
+                      transition: "filter 0.5s, transform 0.8s ease-out"
+                    }}
+                  />
+
+                  {/* Default Tag Overlay (Visible only when NOT expanded) */}
+                  <AnimatePresence>
+                    {!isHovered && (
+                      <motion.div
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        style={{ position: "absolute", top: 16, left: 16, display: "flex", gap: "8px", flexWrap: "wrap", paddingRight: 16, zIndex: 2 }}
+                      >
+                         {item.tags.slice(0, 2).map((t, i) => (
+                            <span key={i} style={{ fontFamily: "var(--mono)", fontSize: "0.5rem", color: "var(--gold)", border: "1px solid rgba(201,168,76,0.3)", padding: "4px 8px", borderRadius: 4, background: "rgba(13,12,10,0.75)", textTransform: "uppercase", backdropFilter: "blur(4px)" }}>
+                              {t}
+                            </span>
+                         ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {/* Default Title Header */}
+                  <AnimatePresence>
+                    {!isHovered && (
+                      <motion.div
+                        initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                        style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "linear-gradient(to top, rgba(13,12,10,0.95) 0%, transparent 100%)", padding: "40px 20px 20px", pointerEvents: "none", zIndex: 2 }}
+                      >
+                         <p style={{ fontFamily: "var(--serif)", fontSize: "1.4rem", color: "var(--ink)", margin: 0, fontWeight: 300, lineHeight: 1.1 }}>{item.name}</p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Hover Button Overlay */}
+                <AnimatePresence>
+                  {isHovered && (
+                    <motion.div
+                      key="full-atn"
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      style={{
+                        position: "absolute", inset: 0,
+                        background: "rgba(13,12,10,0.5)", backdropFilter: "blur(4px)",
+                        display: "flex", alignItems: "center", justifyContent: "center", zIndex: 10
+                      }}
+                    >
+                       <button onClick={() => setActiveDesign(item)} data-cur
+                          style={{
+                            fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.15em", color: "var(--bg)", background: "var(--gold)", padding: "14px 28px", border: "none", borderRadius: 40, textTransform: "uppercase", transition: "all 0.3s"
+                          }}
+                          onMouseEnter={e => { e.currentTarget.style.transform = "scale(1.05)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(201,168,76,0.3)"; }}
+                          onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; e.currentTarget.style.boxShadow = "none"; }}
+                       >
+                          Full Design
+                       </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+
+      {/* Design Modal */}
+      <AnimatePresence>
+        {activeDesign && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            style={{
+              position: "fixed", inset: 0, zIndex: 9999, background: "rgba(13,12,10,0.95)", backdropFilter: "blur(18px)",
+              display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem"
+            }}
+            onClick={() => setActiveDesign(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.95, y: 20 }}
+              onClick={e => e.stopPropagation()}
+              style={{
+                width: "100%", maxWidth: 1000, height: "85vh", background: "var(--bg)", border: "1px solid var(--rule)", borderRadius: 16, overflow: "hidden", display: "flex", flexDirection: isMobile ? "column" : "row"
+              }}
+            >
+              {/* Left: Scrollable Image */}
+              <div className="uiux-scroll-container" style={{ flex: "1 1 60%", height: "100%", overflowY: "auto", borderRight: isMobile ? "none" : "1px solid var(--rule)", borderBottom: isMobile ? "1px solid var(--rule)" : "none", background: "var(--bg2)" }}>
+                <img src={activeDesign.img} alt={activeDesign.name} style={{ width: "100%", height: "auto", display: "block" }} />
+              </div>
+
+              {/* Right: Info */}
+              <div style={{ flex: "1 1 40%", padding: "2.5rem", display: "flex", flexDirection: "column", height: "100%", overflowY: "auto" }}>
+                <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "1rem" }}>
+                  <button data-cur onClick={() => setActiveDesign(null)}
+                    style={{ fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.14em", color: "var(--ink)", background: "rgba(240,236,227,0.06)", border: "1px solid var(--rule)", padding: "8px 16px", borderRadius: 4, transition: "background 0.2s" }}
+                    onMouseEnter={e => e.currentTarget.style.background = "rgba(240,236,227,0.1)"}
+                    onMouseLeave={e => e.currentTarget.style.background = "rgba(240,236,227,0.06)"}>
+                    Close ×
+                  </button>
+                </div>
+
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "1.5rem" }}>
+                  {activeDesign.tags.map(t => (
+                    <span key={t} style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", color: "var(--gold)", border: "1px solid rgba(201,168,76,0.3)", padding: "6px 14px", borderRadius: 30, textTransform: "uppercase" }}>
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <h2 style={{ fontFamily: "var(--serif)", fontSize: "2.5rem", fontWeight: 300, color: "var(--ink)", lineHeight: 1.1, marginBottom: "1rem" }}>{activeDesign.name}</h2>
+                <p style={{ fontFamily: "var(--mono)", fontSize: "0.85rem", color: "var(--ink2)", lineHeight: 1.6, marginBottom: "2rem" }}>{activeDesign.desc}</p>
+
+                <div style={{ marginTop: "auto", paddingTop: "2rem" }}>
+                  <a href={activeDesign.link} target="_blank" rel="noreferrer" data-cur
+                     style={{ display: "inline-flex", width: "100%", justifyContent: "center", fontFamily: "var(--mono)", fontSize: "0.75rem", letterSpacing: "0.15em", color: "var(--bg)", background: "var(--gold)", padding: "16px 24px", border: "none", borderRadius: 4, textTransform: "uppercase", transition: "all 0.3s", textDecoration: "none" }}
+                     onMouseEnter={e => e.currentTarget.style.background = "#e0b84e"}
+                     onMouseLeave={e => e.currentTarget.style.background = "var(--gold)"}
+                  >
+                    {activeDesign.tags.includes("Prototype") ? "View Prototype →" : "View Figma →"}
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  SKILLS ═ ═ ═  */
 function SkillCard({ skill, isRowHovered }) {
   const [hovered, setHovered] = useState(false);
   return (
@@ -909,9 +1206,11 @@ function SkillMarquee({ items, direction = "left", speed = 35 }) {
     <div
       onMouseEnter={() => { setPaused(true); setIsRowHovered(true); }}
       onMouseLeave={() => { setPaused(false); setIsRowHovered(false); }}
-      style={{ overflow: "hidden", width: "100%", position: "relative",
+      style={{
+        overflow: "hidden", width: "100%", position: "relative",
         // Vertical padding so scaled cards (1.06x) aren't clipped
-        paddingTop: 20, paddingBottom: 20 }}
+        paddingTop: 20, paddingBottom: 20
+      }}
     >
       {/* Fade edges */}
       <div style={{
@@ -953,6 +1252,8 @@ function SkillMarquee({ items, direction = "left", speed = 35 }) {
 
 function Skills() {
   const directions = ["left", "right", "left"];
+  const isMobile = useMobile();
+
   return (
     <Card id="skills" label="Skills" index={2} bgOverride="var(--bg2)">
       <div style={{
@@ -1011,37 +1312,37 @@ function Skills() {
   );
 }
 
-/* ═══════════════════════════════════ HACKATHONS ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  HACKATHONS ═ ═ ═  */
 function Hackathons() {
   return (
     <Card id="hackathons" label="Hackathons" index={3} bgOverride="var(--bg)">
       <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
         <SLabel n="04" text="Hackathons" />
-        
+
         <motion.div
-           initial={{ opacity: 0, scale: 0.9 }}
-           whileInView={{ opacity: 1, scale: 1 }}
-           viewport={{ once: true }}
-           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 style={{ 
-            fontFamily: "var(--serif)", 
-            fontSize: "clamp(3rem, 8vw, 6rem)", 
-            fontWeight: 300, 
-            color: "var(--gold)", 
-            lineHeight: 1, 
-            marginBottom: "1.5rem" 
+          <h2 style={{
+            fontFamily: "var(--serif)",
+            fontSize: "clamp(3rem, 8vw, 6rem)",
+            fontWeight: 300,
+            color: "var(--gold)",
+            lineHeight: 1,
+            marginBottom: "1.5rem"
           }}>
             Coming <span style={{ color: "var(--ink)" }}>Soon.</span>
           </h2>
-          <p style={{ 
-            fontFamily: "var(--mono)", 
-            fontSize: "0.8rem", 
-            letterSpacing: "0.3em", 
-            color: "var(--ink3)", 
-            textTransform: "uppercase" 
+          <p style={{
+            fontFamily: "var(--mono)",
+            fontSize: "0.8rem",
+            letterSpacing: "0.3em",
+            color: "var(--ink3)",
+            textTransform: "uppercase"
           }}>
-            Preparing for the next challenge ðŸš€
+            Prepbring for the next challenge .
           </p>
         </motion.div>
       </div>
@@ -1049,7 +1350,7 @@ function Hackathons() {
   );
 }
 
-/* ═══════════════════════════════════ CREDENTIALS ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  CREDENTIALS ═ ═ ═  */
 function Credentials() {
   const isMobile = useMobile();
   return (
@@ -1063,26 +1364,22 @@ function Credentials() {
 }
 
 
-/* ═══════════════════════════════════ CONTACT ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  CONTACT ═ ═ ═  */
 function Contact() {
   const isMobile = useMobile();
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle");
   const [focus, setFocus] = useState(null);
 
-  // GitHub theme (shared from previous logic)
-  const ghTheme = {
-    light: ['rgba(240,236,227,0.05)', 'rgba(201,168,76,0.2)', 'rgba(201,168,76,0.4)', 'rgba(201,168,76,0.7)', '#c9a84c'],
-    dark: ['rgba(240,236,227,0.05)', 'rgba(201,168,76,0.2)', 'rgba(201,168,76,0.4)', 'rgba(201,168,76,0.7)', '#c9a84c'],
-  };
-
   const send = async e => {
     e.preventDefault(); setStatus("sending");
     try {
       const r = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
         method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ service_id: D.ejs.svc, template_id: D.ejs.tpl, user_id: D.ejs.key,
-          template_params: { from_name: form.name, from_email: form.email, message: form.message, to_name: "Tulya Jain" } }),
+        body: JSON.stringify({
+          service_id: D.ejs.svc, template_id: D.ejs.tpl, user_id: D.ejs.key,
+          template_params: { from_name: form.name, from_email: form.email, message: form.message, to_name: "Tulya Jain" }
+        }),
       });
       setStatus(r.ok ? "sent" : "error");
       if (r.ok) setForm({ name: "", email: "", message: "" });
@@ -1091,103 +1388,8 @@ function Contact() {
 
   return (
     <Card id="contact" label="Contact" index={5} bgOverride="var(--bg)">
-      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)" }}>
+      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh" }}>
         <SLabel n="06" text="Contact" />
-
-        {/* GITHUB ACTIVITY BLOCK */}
-        <div style={{ 
-          marginBottom: "8rem", 
-          display: "flex", 
-          flexDirection: "column", 
-          alignItems: "center",
-          borderBottom: "1px solid var(--rule)",
-          paddingBottom: "8rem"
-        }}>
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            style={{ textAlign: "center", marginBottom: "4rem" }}
-          >
-            <h2 style={{ 
-              fontFamily: "var(--serif)", 
-              fontSize: "clamp(2.5rem, 6vw, 5.5rem)", 
-              color: "var(--ink)", 
-              lineHeight: 1.1,
-              fontWeight: 300,
-              marginBottom: "1rem"
-            }}>
-              Powered by <i style={{ color: "var(--gold)", fontFamily: "inherit" }}>coffee & commits</i>
-            </h2>
-            <p style={{ 
-              fontFamily: "var(--mono)", 
-              fontSize: "0.75rem", 
-              letterSpacing: "0.4em", 
-              color: "var(--ink3)", 
-              textTransform: "uppercase" 
-            }}>
-              A chronicle of persistence and problem solving.
-            </p>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            style={{ width: "100%", maxWidth: 1000, display: "flex", justifyContent: "center" }}
-          >
-            <GitHubCalendar 
-              username="jaintulya" 
-              theme={ghTheme}
-              fontSize={12}
-              blockSize={isMobile ? 10 : 12}
-              blockMargin={4}
-              colorScheme="dark"
-              renderBlock={(block, activity) => (
-                React.cloneElement(block, {
-                  'data-tooltip-id': 'github-tooltip',
-                  'data-tooltip-content': `${activity.count} contributions on ${activity.date}`,
-                })
-              )}
-              style={{ color: "var(--ink2)", fontFamily: "var(--mono)" }}
-            />
-            <Tooltip id="github-tooltip" style={{ fontSize: '0.65rem', fontFamily: 'var(--mono)', borderRadius: '4px', background: 'var(--bg3)', color: 'var(--gold)', border: '1px solid var(--rule)' }} />
-          </motion.div>
-
-          {/* VISIT GITHUB BUTTON */}
-          <motion.a 
-            href="https://github.com/jaintulya"
-            target="_blank"
-            rel="noreferrer"
-            data-cur
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            style={{ 
-              marginTop: "4rem",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 15,
-              padding: "16px 32px",
-              border: "1px solid var(--rule)",
-              borderRadius: 6,
-              background: "rgba(240,236,227,0.03)",
-              fontFamily: "var(--mono)",
-              fontSize: "0.65rem",
-              letterSpacing: "0.2em",
-              color: "var(--ink)",
-              textDecoration: "none",
-              textTransform: "uppercase",
-              transition: "all 0.3s"
-            }}
-            onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.background = "rgba(201,168,76,0.08)"; }}
-            onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--rule)"; e.currentTarget.style.background = "rgba(240,236,227,0.03)"; }}
-          >
-            Visit Github Profile
-            <div style={{ height: 1, width: 24, background: "currentColor" }} />
-          </motion.a>
-        </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "3rem 4rem", alignItems: "start" }}>
           {/* Left — big text + links */}
@@ -1214,14 +1416,14 @@ function Contact() {
                   };
                   return (
                     <a key={s.label} href={s.href} target="_blank" rel="noreferrer" data-cur title={s.label}
-                      style={{ 
-                        width: 44, height: 44, borderRadius: "50%", border: "1px solid var(--rule)", 
-                        display: "flex", alignItems: "center", justifyContent: "center", 
-                        background: "rgba(240,236,227,0.03)", transition: "all 0.3s" 
+                      style={{
+                        width: 44, height: 44, borderRadius: "50%", border: "1px solid var(--rule)",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        background: "rgba(240,236,227,0.03)", transition: "all 0.3s"
                       }}
                       onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--gold)"; e.currentTarget.style.background = "rgba(201,168,76,0.08)"; }}
                       onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--rule)"; e.currentTarget.style.background = "rgba(240,236,227,0.03)"; }}>
-                      <img src={icons[s.label] || s.icon} alt={s.label} 
+                      <img src={icons[s.label] || s.icon} alt={s.label}
                         style={{ width: 20, height: 20, filter: "brightness(0) invert(1) sepia(100%) saturate(200%) hue-rotate(10deg) brightness(0.9)" }} />
                     </a>
                   );
@@ -1244,12 +1446,12 @@ function Contact() {
                 <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "1rem", color: "var(--ink2)", fontWeight: 300, marginBottom: "1.5rem" }}>I'll respond within 24 hours.</p>
                 <button data-cur onClick={() => setStatus("idle")}
                   style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.12em", color: "var(--ink3)", background: "none", border: "none", borderBottom: "1px solid var(--rule)", paddingBottom: 1 }}>
-                  Send another →
+                  Send bnother →
                 </button>
               </motion.div>
             ) : (
               <form onSubmit={send} style={{ display: "flex", flexDirection: "column", gap: "1.8rem" }}>
-                {[{ k:"name",l:"Name",t:"text",p:"Your name" },{ k:"email",l:"Email",t:"email",p:"your@email.com" }].map(f => (
+                {[{ k: "name", l: "Name", t: "text", p: "Your name" }, { k: "email", l: "Email", t: "email", p: "your@email.com" }].map(f => (
                   <div key={f.k}>
                     <label style={{ fontFamily: "var(--mono)", fontSize: "0.57rem", letterSpacing: "0.24em", color: focus === f.k ? "var(--gold)" : "var(--ink3)", display: "block", marginBottom: 6, textTransform: "uppercase", transition: "color 0.3s" }}>{f.l}</label>
                     <input type={f.t} value={form[f.k]} placeholder={f.p} required
@@ -1374,12 +1576,12 @@ function RouterSync() {
         scrollTimeout = setTimeout(() => {
           handleScroll();
           scrollTimeout = null;
-        }, 100); 
+        }, 100);
       }
     };
 
     window.addEventListener("scroll", throttledScroll, { passive: true });
-    
+
     // Sync URL -> Section (Initial load or Click)
     if (pathname !== lastPath.current) {
       const targetId = pathname === "/" ? "home" : pathname.substring(1);
@@ -1387,7 +1589,7 @@ function RouterSync() {
       if (targetEl) {
         isNavigatingRef.current = true;
         targetEl.scrollIntoView({ behavior: "smooth" });
-        
+
         setTimeout(() => {
           isNavigatingRef.current = false;
         }, 1200); // Wait for smooth scroll to finish
@@ -1404,12 +1606,12 @@ function RouterSync() {
   return null;
 }
 
-/* ══════════════════════════════════ SIGNATURE INTRO ═══ */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  SIGNATURE INTRO ═ ═ ═  */
 function SignatureIntro({ onEnter }) {
   const [phase, setPhase] = useState(0);
   const [hovered, setHovered] = useState(false);
 
-  // Both words reveal simultaneously via clip-path wipe — no flying letters, no jumping
+  // Both words revebl simultaneously via clip-path wipe — no flying letters, no jumping
   // Tulya: left→right reveal | Jain: right→left reveal
   // easeInOut visually completes ~1.8s. Phase 1 at 1950ms → feels instant after names
   useEffect(() => {
@@ -1480,7 +1682,7 @@ function SignatureIntro({ onEnter }) {
         />
       </div>
 
-      {/* SUBTITLE + BUTTON — appear after words are fully drawn */}
+      {/* SUBTITLE + BUTTON — bppear after words are fully drawn */}
       <motion.div
         variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.2, delayChildren: 0 } } }}
         initial="hidden"
