@@ -1610,95 +1610,46 @@ function ChallengeModal({ hack, isMobile, onClose }) {
   };
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 999999,
-        background: "rgba(13,12,10,0.95)",
-        backdropFilter: "blur(20px)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: isMobile ? "1rem" : "2rem",
-        cursor: "auto",
-        pointerEvents: "auto"
-      }}
-    >
-      <div
-        onClick={e => e.stopPropagation()}
-        style={{
-          maxWidth: isMobile ? "100%" : 1000,
-          width: "100%",
-          background: "var(--bg)",
-          border: "1px solid var(--rule)",
-          borderRadius: 12,
-          overflow: "hidden",
-          boxShadow: "0 30px 60px rgba(0,0,0,0.5)"
-        }}
-      >
-        <div style={{ width: "100%", maxHeight: isMobile ? "60vh" : "80vh", overflow: "hidden" }}>
-          <img
-            src={hack.img}
-            alt={hack.name}
-            style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
-          />
-        </div>
+    <div style={{
+      position: "fixed",
+      inset: 0,
+      zIndex: 999999,
+      background: "rgba(0,0,0,0.92)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }}>
+      <div style={{ position: "relative", paddingTop: 40 }}>
+        <button
+          onClick={handleClose}
+          style={{
+            position: "absolute",
+            top: 0,
+            right: 0,
+            fontFamily: "var(--mono)",
+            fontSize: "0.8rem",
+            color: "#f0ece3",
+            background: "transparent",
+            border: "1px solid #f0ece3",
+            padding: "10px 22px",
+            borderRadius: 4,
+            cursor: "pointer",
+            letterSpacing: "0.15em"
+          }}
+        >
+          CLOSE
+        </button>
 
-        <div style={{
-          padding: isMobile ? "1.5rem" : "1.8rem 2.2rem",
-          background: "var(--bg2)",
-          borderTop: "1px solid var(--rule)"
-        }}>
-          {!isMobile ? (
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                <h3 style={{ fontFamily: "var(--serif)", fontSize: "1.6rem", color: "var(--gold)" }}>{hack.name}</h3>
-                <span style={{ fontFamily: "var(--mono)", fontSize: "0.7rem", color: "var(--ink3)", letterSpacing: "0.15em", textTransform: "uppercase" }}>{hack.issuer} · {hack.year}</span>
-              </div>
-              <button
-                onClick={handleClose}
-                style={{
-                  fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.14em",
-                  color: "var(--ink3)", background: "none", border: "1px solid var(--rule)",
-                  padding: "8px 24px", borderRadius: 4, cursor: "pointer", transition: "all 0.3s"
-                }}
-                onMouseEnter={e => { e.currentTarget.style.color = "var(--ink)"; e.currentTarget.style.borderColor = "var(--ink3)"; }}
-                onMouseLeave={e => { e.currentTarget.style.color = "var(--ink3)"; e.currentTarget.style.borderColor = "var(--rule)"; }}
-              >
-                Close ×
-              </button>
-            </div>
-          ) : (
-            <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                <div>
-                  <h3 style={{ fontFamily: "var(--serif)", fontSize: "1.4rem", color: "var(--gold)", lineHeight: 1.2 }}>{hack.name}</h3>
-                  <p style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", color: "var(--ink3)", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: 4 }}>{hack.issuer} · {hack.year}</p>
-                </div>
-                <button
-                  onClick={handleClose}
-                  style={{
-                    fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.12em",
-                    color: "var(--ink3)", background: "none", border: "1px solid var(--rule)",
-                    padding: "6px 16px", borderRadius: 4
-                  }}
-                >
-                  Close ×
-                </button>
-              </div>
-
-              <div style={{ height: 1.5, background: "var(--rule)", width: "100%" }} />
-
-              <p style={{
-                fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "0.95rem",
-                lineHeight: 1.6, color: "var(--ink2)", fontWeight: 300
-              }}>
-                {hack.desc}
-              </p>
-            </div>
-          )}
-        </div>
+        <img
+          src={hack.img}
+          alt={hack.name}
+          style={{
+            maxWidth: "60vw",
+            maxHeight: "70vh",
+            objectFit: "contain",
+            border: "1px solid rgba(240,236,227,0.15)"
+          }}
+        />
       </div>
     </div>
   );
