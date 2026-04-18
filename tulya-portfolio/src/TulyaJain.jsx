@@ -156,6 +156,37 @@ const D = {
       desc: "Automating Excel workflows with ChatGPT — intelligent formulas and spreadsheet solutions without code.",
       img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/Excel_automation_using_chagpt_pages-to-jpg-0001_jc6nmq.jpg"
     },
+    {
+      name: "Claude Code in Action", org: "Anthropic", year: "2025",
+      desc: "Completed Claude Code in Action focused on AI-assisted development workflows, prompt engineering, and practical coding productivity.",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508203/clode_code_in_action_antropic_page-0001_hsvu1j.jpg"
+    },
+  ],
+  hackathons: [
+    {
+      name: "Neural Nexus", issuer: "IIT Jammu", year: "2025",
+      desc: "Participated in Neural Nexus, a hackathon centered around innovation, collaborative problem solving, and prototype-driven challenges.",
+      tags: ["Hackathon", "Innovation", "AI/ML", "Team Challenge"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508222/neural_nexus_iit_jammu_page-0001_xgaqka.jpg"
+    },
+    {
+      name: "ArtForge", issuer: "IISc Bangalore", year: "2025",
+      desc: "Participated in ArtForge, an innovation-oriented challenge focused on creative thinking and solution building.",
+      tags: ["Hackathon", "Innovation", "Design Challenge", "Problem Solving"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508222/Artforge_iisc_bnaglore_page-0001_p0ukyc.jpg"
+    },
+    {
+      name: "Dev Heat", issuer: "IIIT Surat", year: "2025",
+      desc: "Participated in Dev Heat, a development-focused coding challenge involving technical problem solving and software ideation.",
+      tags: ["Hackathon", "Development", "Coding Challenge", "Problem Solving"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508221/Dev_Heat_IIIT_surat_page-0001_cfnycb.jpg"
+    },
+    {
+      name: "MetaCode", issuer: "IIT Kharagpur", year: "2025",
+      desc: "Participated in MetaCode, a competitive technical challenge focused on problem solving and software innovation.",
+      tags: ["Hackathon", "Tech Challenge", "Problem Solving", "Competitive Coding"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508220/iiit_kharakpur_metacode_page-0001_nkngox.jpg"
+    },
   ],
 };
 
@@ -1315,41 +1346,361 @@ function Skills() {
   );
 }
 
-/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  HACKATHONS ═ ═ ═  */
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  HACKATHON CHALLENGE BOARD ═ ═ ═  */
 function Hackathons() {
+  const isMobile = useMobile();
   return (
     <Card id="hackathons" label="Hackathons" index={3} bgOverride="var(--bg)">
-      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "80vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", textAlign: "center" }}>
-        <SLabel n="04" text="Hackathons" />
+      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: "4rem" }}>
+          <SLabel n="04" text="Hackathon Challenge Board" />
+          <span style={{ fontFamily: "var(--mono)", fontSize: "0.7rem", letterSpacing: "0.4em", color: "var(--ink3)", textTransform: "uppercase", marginTop: "-2.5rem", marginBottom: "2rem" }}>Innovation • Code • Challenges</span>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+        <div style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          gap: isMobile ? "3rem" : "4rem",
+          maxWidth: isMobile ? "100%" : 1100,
+          margin: "0 auto",
+        }}>
+          {D.hackathons.map((hack, i) => (
+            <ChallengeCard key={i} hack={hack} index={i} isMobile={isMobile} />
+          ))}
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <h2 style={{
+          transition={{ delay: 0.5 }}
+          style={{
+            textAlign: "center",
+            marginTop: "4rem",
             fontFamily: "var(--serif)",
-            fontSize: "clamp(3rem, 8vw, 6rem)",
-            fontWeight: 300,
-            color: "var(--gold)",
-            lineHeight: 1,
-            marginBottom: "1.5rem"
-          }}>
-            Coming <span style={{ color: "var(--ink)" }}>Soon.</span>
-          </h2>
-          <p style={{
-            fontFamily: "var(--mono)",
-            fontSize: "0.8rem",
-            letterSpacing: "0.3em",
-            color: "var(--ink3)",
-            textTransform: "uppercase"
-          }}>
-            Prepbring for the next challenge .
-          </p>
-        </motion.div>
+            fontSize: "1.2rem",
+            fontStyle: "italic",
+            color: "var(--ink2)"
+          }}
+        >
+          More challenges ahead.
+        </motion.p>
       </div>
     </Card>
+  );
+}
+
+function ChallengeCard({ hack, index, isMobile }) {
+  const [hover, setHover] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [imgHover, setImgHover] = useState(false);
+
+  const offset = [
+    { rotate: "-2deg", x: -120 },
+    { rotate: "1.5deg", x: 120 },
+    { rotate: "-1deg", x: -120 },
+    { rotate: "2deg", x: 120 },
+  ][index % 4];
+
+  return (
+    <>
+      <motion.div
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.2 }}
+        transition={{ duration: 0.6, delay: index * 0.12, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+          gap: isMobile ? "2rem" : "3rem",
+          alignItems: "center",
+          background: "var(--bg3)",
+          border: "1px solid var(--rule)",
+          borderRadius: 12,
+          padding: isMobile ? "0" : "2rem",
+          overflow: "hidden",
+          minHeight: isMobile ? "auto" : 280,
+        }}
+      >
+        {/* IMAGE CONTAINER - Left side (or top on mobile) */}
+        <motion.div
+          initial={{ x: offset.x, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: index * 0.12 + 0.1, ease: [0.16, 1, 0.3, 1] }}
+          onMouseEnter={() => { setHover(true); setImgHover(true); }}
+          onMouseLeave={() => { setHover(false); setImgHover(false); }}
+          onClick={() => setShowModal(true)}
+          style={{
+            position: "relative",
+            borderRadius: 8,
+            overflow: "hidden",
+            cursor: "pointer",
+            aspectRatio: isMobile ? "16/10" : "4/3",
+            background: "var(--bg2)",
+          }}
+        >
+          <img
+            src={hack.img}
+            alt={hack.name}
+            loading="lazy"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              filter: imgHover ? "blur(8px) brightness(0.5)" : "blur(0px) brightness(0.9)",
+              transition: "all 0.5s cubic-bezier(0.16,1,0.3,1)",
+              transform: imgHover ? "scale(1.05)" : "scale(1)",
+            }}
+          />
+          
+          {/* Hover overlay with text */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: imgHover ? 1 : 0 }}
+            style={{
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "rgba(13,12,10,0.4)",
+              backdropFilter: "blur(4px)",
+            }}
+          >
+            <span style={{
+              fontFamily: "var(--mono)",
+              fontSize: "0.75rem",
+              letterSpacing: "0.2em",
+              color: "var(--ink)",
+              textTransform: "uppercase",
+              border: "1px solid var(--gold)",
+              padding: "12px 24px",
+              borderRadius: 4,
+            }}>
+              Click to View
+            </span>
+          </motion.div>
+        </motion.div>
+
+        {/* CONTENT CONTAINER - Right side (or bottom on mobile) */}
+        <motion.div
+          initial={{ x: -offset.x, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 0.7, delay: index * 0.12 + 0.2, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: isMobile ? "0.8rem" : "1rem",
+            padding: isMobile ? "1rem" : "0",
+          }}
+        >
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <h3 style={{
+              fontFamily: "var(--serif)",
+              fontSize: isMobile ? "1.3rem" : "1.5rem",
+              fontWeight: 400,
+              color: "var(--gold)",
+              lineHeight: 1.1
+            }}>{hack.name}</h3>
+            <span style={{
+              fontFamily: "var(--mono)",
+              fontSize: "0.58rem",
+              letterSpacing: "0.1em",
+              color: "var(--ink3)",
+              textTransform: "uppercase",
+              border: "1px solid var(--rule)",
+              padding: "4px 8px",
+              borderRadius: 4,
+            }}>{hack.year}</span>
+          </div>
+
+          <p style={{
+            fontFamily: "var(--mono)",
+            fontSize: "0.68rem",
+            letterSpacing: "0.08em",
+            color: "var(--ink2)",
+          }}>{hack.issuer}</p>
+
+          <p style={{
+            fontFamily: "var(--serif)",
+            fontStyle: "italic",
+            fontSize: isMobile ? "0.85rem" : "0.9rem",
+            lineHeight: 1.6,
+            color: "var(--ink2)",
+            fontWeight: 300,
+          }}>{hack.desc}</p>
+
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+            {hack.tags.map(tag => (
+              <span key={tag} style={{
+                fontFamily: "var(--mono)",
+                fontSize: "0.52rem",
+                letterSpacing: "0.08em",
+                color: "var(--gold)",
+                background: "rgba(201,168,76,0.08)",
+                border: "1px solid rgba(201,168,76,0.2)",
+                padding: "3px 8px",
+                borderRadius: 4,
+                textTransform: "uppercase"
+              }}>{tag}</span>
+            ))}
+          </div>
+
+          <motion.button
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.12 + 0.3 }}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            onClick={() => setShowModal(true)}
+            style={{
+              marginTop: isMobile ? "0.5rem" : "0.8rem",
+              alignSelf: "flex-start",
+              fontFamily: "var(--mono)",
+              fontSize: "0.65rem",
+              letterSpacing: "0.15em",
+              color: hover ? "var(--bg)" : "var(--ink)",
+              background: hover ? "var(--gold)" : "transparent",
+              border: "1px solid var(--gold)",
+              padding: "10px 20px",
+              borderRadius: 4,
+              textTransform: "uppercase",
+              fontWeight: 600,
+              cursor: "pointer",
+              transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
+            }}
+          >
+            View Credential →
+          </motion.button>
+        </motion.div>
+      </motion.div>
+
+      <AnimatePresence>
+        {showModal && (
+          <ChallengeModal hack={hack} isMobile={isMobile} onClose={() => setShowModal(false)} />
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+function ChallengeModal({ hack, isMobile, onClose }) {
+  const scrollYRef = React.useRef(0);
+
+  useEffect(() => {
+    scrollYRef.current = window.scrollY;
+    const fn = e => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", fn);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", fn);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  const handleClose = () => {
+    onClose();
+    setTimeout(() => {
+      window.scrollTo(0, scrollYRef.current);
+    }, 50);
+  };
+
+  return (
+    <div
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 999999,
+        background: "rgba(13,12,10,0.95)",
+        backdropFilter: "blur(20px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: isMobile ? "1rem" : "2rem",
+        cursor: "auto",
+        pointerEvents: "auto"
+      }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{
+          maxWidth: isMobile ? "100%" : 1000,
+          width: "100%",
+          background: "var(--bg)",
+          border: "1px solid var(--rule)",
+          borderRadius: 12,
+          overflow: "hidden",
+          boxShadow: "0 30px 60px rgba(0,0,0,0.5)"
+        }}
+      >
+        <div style={{ width: "100%", maxHeight: isMobile ? "60vh" : "80vh", overflow: "hidden" }}>
+          <img
+            src={hack.img}
+            alt={hack.name}
+            style={{ width: "100%", height: "100%", objectFit: "contain", display: "block" }}
+          />
+        </div>
+
+        <div style={{
+          padding: isMobile ? "1.5rem" : "1.8rem 2.2rem",
+          background: "var(--bg2)",
+          borderTop: "1px solid var(--rule)"
+        }}>
+          {!isMobile ? (
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                <h3 style={{ fontFamily: "var(--serif)", fontSize: "1.6rem", color: "var(--gold)" }}>{hack.name}</h3>
+                <span style={{ fontFamily: "var(--mono)", fontSize: "0.7rem", color: "var(--ink3)", letterSpacing: "0.15em", textTransform: "uppercase" }}>{hack.issuer} · {hack.year}</span>
+              </div>
+              <button
+                onClick={handleClose}
+                style={{
+                  fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.14em",
+                  color: "var(--ink3)", background: "none", border: "1px solid var(--rule)",
+                  padding: "8px 24px", borderRadius: 4, cursor: "pointer", transition: "all 0.3s"
+                }}
+                onMouseEnter={e => { e.currentTarget.style.color = "var(--ink)"; e.currentTarget.style.borderColor = "var(--ink3)"; }}
+                onMouseLeave={e => { e.currentTarget.style.color = "var(--ink3)"; e.currentTarget.style.borderColor = "var(--rule)"; }}
+              >
+                Close ×
+              </button>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <div>
+                  <h3 style={{ fontFamily: "var(--serif)", fontSize: "1.4rem", color: "var(--gold)", lineHeight: 1.2 }}>{hack.name}</h3>
+                  <p style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", color: "var(--ink3)", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: 4 }}>{hack.issuer} · {hack.year}</p>
+                </div>
+                <button
+                  onClick={handleClose}
+                  style={{
+                    fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.12em",
+                    color: "var(--ink3)", background: "none", border: "1px solid var(--rule)",
+                    padding: "6px 16px", borderRadius: 4
+                  }}
+                >
+                  Close ×
+                </button>
+              </div>
+
+              <div style={{ height: 1.5, background: "var(--rule)", width: "100%" }} />
+
+              <p style={{
+                fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "0.95rem",
+                lineHeight: 1.6, color: "var(--ink2)", fontWeight: 300
+              }}>
+                {hack.desc}
+              </p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
   );
 }
 

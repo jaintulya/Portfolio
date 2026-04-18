@@ -291,32 +291,38 @@ export function CertificatesGrid({ certs, isMobile }) {
 }
 
 function CertModal({ cert, onClose, isMobile }) {
+  const scrollYRef = React.useRef(0);
+
   useEffect(() => {
+    scrollYRef.current = window.scrollY;
     const fn = e => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", fn);
-    return () => window.removeEventListener("keydown", fn);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", fn);
+      document.body.style.overflow = "";
+    };
   }, [onClose]);
 
+  const handleClose = () => {
+    onClose();
+    setTimeout(() => {
+      window.scrollTo(0, scrollYRef.current);
+    }, 50);
+  };
+
   return (
-    <motion.div 
-      initial={{ opacity: 0 }} 
-      animate={{ opacity: 1 }} 
-      exit={{ opacity: 0 }}
-      onClick={onClose}
+    <div 
       style={{ 
-        position: "fixed", inset: 0, zIndex: 10000, 
-        background: "rgba(13,12,10,0.85)", backdropFilter: "blur(20px)", 
+        position: "fixed", inset: 0, zIndex: 999999, 
+        background: "rgba(13,12,10,0.95)", backdropFilter: "blur(20px)", 
         display: "flex", alignItems: "center", justifyContent: "center", 
         padding: isMobile ? "1rem" : "2rem",
-        cursor: "auto"
+        cursor: "auto",
+        pointerEvents: "auto"
       }}
     >
-      <motion.div 
-        initial={{ scale: 0.9, y: 20, opacity: 0 }} 
-        animate={{ scale: 1, y: 0, opacity: 1 }} 
-        exit={{ scale: 0.9, y: 20, opacity: 0 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        onClick={e => e.stopPropagation()}
+      <div
         style={{ 
           maxWidth: isMobile ? "100%" : 1000, 
           width: "100%", 
@@ -350,7 +356,7 @@ function CertModal({ cert, onClose, isMobile }) {
                 <span style={{ fontFamily: "var(--mono)", fontSize: "0.7rem", color: "var(--ink3)", letterSpacing: "0.15em", textTransform: "uppercase" }}>{cert.org}</span>
               </div>
               <button 
-                onClick={onClose}
+                onClick={handleClose}
                 style={{ 
                   fontFamily: "var(--mono)", fontSize: "0.68rem", letterSpacing: "0.14em", 
                   color: "var(--ink3)", background: "none", border: "1px solid var(--rule)", 
@@ -371,7 +377,7 @@ function CertModal({ cert, onClose, isMobile }) {
                   <p style={{ fontFamily: "var(--mono)", fontSize: "0.6rem", color: "var(--ink3)", textTransform: "uppercase", letterSpacing: "0.1em", marginTop: 4 }}>{cert.org}</p>
                 </div>
                 <button 
-                  onClick={onClose}
+                  onClick={handleClose}
                   style={{ 
                     fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.12em", 
                     color: "var(--ink3)", background: "none", border: "1px solid var(--rule)", 
@@ -382,8 +388,8 @@ function CertModal({ cert, onClose, isMobile }) {
                 </button>
               </div>
               
-              <div style={{ height: 1.5, background: "var(--rule)", width: "100%" }} />
-              
+<div style={{ height: 1.5, background: "var(--rule)", width: "100%" }} />
+               
               <p style={{ 
                 fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "0.95rem", 
                 lineHeight: 1.6, color: "var(--ink2)", fontWeight: 300 
@@ -393,8 +399,8 @@ function CertModal({ cert, onClose, isMobile }) {
             </div>
           )}
         </div>
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
@@ -404,11 +410,7 @@ function CertCard({ cert, index, isMobile }) {
   
   return (
     <>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      <div
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         onClick={() => setShowModal(true)}
@@ -523,7 +525,7 @@ function CertCard({ cert, index, isMobile }) {
           pointerEvents: "none",
           transition: "opacity 0.4s"
         }} />
-      </motion.div>
+      </div>
 
       {/* MODAL IN PORTFOLIO */}
       <AnimatePresence>
