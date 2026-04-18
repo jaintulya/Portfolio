@@ -291,28 +291,32 @@ export function CertificatesGrid({ certs, isMobile }) {
 }
 
 function CertModal({ cert, onClose, isMobile }) {
-  const scrollYRef = React.useRef(0);
+  const scrollYRef = useRef(0);
 
   useEffect(() => {
     scrollYRef.current = window.scrollY;
-    const fn = e => { if (e.key === "Escape") onClose(); };
-    window.addEventListener("keydown", fn);
     document.body.style.overflow = "hidden";
     return () => {
-      window.removeEventListener("keydown", fn);
       document.body.style.overflow = "";
     };
-  }, [onClose]);
+  }, []);
 
   const handleClose = () => {
     onClose();
-    setTimeout(() => {
+    window.requestAnimationFrame(() => {
       window.scrollTo(0, scrollYRef.current);
-    }, 50);
+    });
+  };
+
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      handleClose();
+    }
   };
 
   return (
-    <div 
+    <div
+      onClick={handleBackdropClick}
       style={{ 
         position: "fixed", inset: 0, zIndex: 999999, 
         background: "rgba(13,12,10,0.95)", backdropFilter: "blur(20px)", 
@@ -323,6 +327,7 @@ function CertModal({ cert, onClose, isMobile }) {
       }}
     >
       <div
+        onClick={e => e.stopPropagation()}
         style={{ 
           maxWidth: isMobile ? "100%" : 1000, 
           width: "100%", 
@@ -408,12 +413,16 @@ function CertCard({ cert, index, isMobile }) {
   const [hover, setHover] = useState(false);
   const [showModal, setShowModal] = useState(false);
   
+  const handleClick = () => {
+    setShowModal(true);
+  };
+  
   return (
     <>
       <div
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        onClick={() => setShowModal(true)}
+        onClick={handleClick}
         style={{
           border: "1px solid var(--rule)",
           borderRadius: 8,
@@ -528,15 +537,13 @@ function CertCard({ cert, index, isMobile }) {
       </div>
 
       {/* MODAL IN PORTFOLIO */}
-      <AnimatePresence>
-        {showModal && (
-          <CertModal 
-            cert={cert} 
-            isMobile={isMobile} 
-            onClose={() => setShowModal(false)} 
-          />
-        )}
-      </AnimatePresence>
+      {showModal && (
+        <CertModal 
+          cert={cert} 
+          isMobile={isMobile} 
+          onClose={() => setShowModal(false)} 
+        />
+      )}
     </>
   );
 }
