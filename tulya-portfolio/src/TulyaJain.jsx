@@ -529,7 +529,12 @@ const SLabel = ({ n, text }) => (
   </div>
 );
 
-/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  HERO ═ ═ ═  */
+const ghTheme = {
+  light: ['rgba(240,236,227,0.05)', 'rgba(201,168,76,0.2)', 'rgba(201,168,76,0.4)', 'rgba(201,168,76,0.7)', '#c9a84c'],
+  dark: ['rgba(240,236,227,0.05)', 'rgba(201,168,76,0.2)', 'rgba(201,168,76,0.4)', 'rgba(201,168,76,0.7)', '#c9a84c'],
+};
+
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  DATA ═ ═ ═  */
 function Hero() {
   const [vis, setVis] = useState(false);
   useEffect(() => { setTimeout(() => setVis(true), 120); }, []);
@@ -1356,6 +1361,92 @@ function Credentials() {
       <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <SLabel n="05" text="Credentials" />
         <CertificatesGrid certs={D.certs} isMobile={isMobile} />
+      </div>
+
+      {/* GITHUB ACTIVITY BLOCK */}
+      <div style={{ 
+        padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,10vw,8rem)",
+        display: "flex", 
+        flexDirection: "column", 
+        alignItems: "center",
+      }}>
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          style={{ textAlign: "center", marginBottom: "4rem" }}
+        >
+          <h2 style={{ 
+            fontFamily: "var(--serif)", 
+            fontSize: "clamp(2.5rem, 6vw, 5.5rem)", 
+            color: "var(--ink)", 
+            lineHeight: 1.1,
+            fontWeight: 300,
+            marginBottom: "1rem"
+          }}>
+            Powered by <i style={{ color: "var(--gold)", fontFamily: "inherit" }}>coffee & commits</i>
+          </h2>
+          <p style={{ 
+            fontFamily: "var(--mono)", 
+            fontSize: "0.75rem", 
+            letterSpacing: "0.4em", 
+            color: "var(--ink3)", 
+            textTransform: "uppercase" 
+          }}>
+            A chronicle of persistence and problem solving.
+          </p>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          style={{ width: "100%", maxWidth: 1000, display: "flex", justifyContent: "center" }}
+        >
+          <GitHubCalendar 
+            username="jaintulya" 
+            theme={ghTheme}
+            fontSize={12}
+            blockSize={isMobile ? 10 : 12}
+            blockMargin={4}
+            colorScheme="dark"
+            renderBlock={(block, activity) => (
+              React.cloneElement(block, {
+                'data-tooltip-id': 'github-tooltip',
+                'data-tooltip-content': `${activity.count} contributions on ${activity.date}`,
+              })
+            )}
+            style={{ color: "var(--ink2)", fontFamily: "var(--mono)" }}
+          />
+          <Tooltip id="github-tooltip" style={{ fontSize: '0.65rem', fontFamily: 'var(--mono)', borderRadius: '4px', background: 'var(--bg3)', color: 'var(--gold)', border: '1px solid var(--rule)' }} />
+        </motion.div>
+
+        {/* VISIT GITHUB BUTTON */}
+        <motion.a 
+          href="https://github.com/jaintulya"
+          target="_blank"
+          rel="noreferrer"
+          data-cur
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          style={{ 
+            marginTop: "4rem",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "1.2rem",
+            fontFamily: "var(--mono)",
+            fontSize: "0.68rem",
+            letterSpacing: "0.2em",
+            color: "var(--gold)",
+            textDecoration: "none",
+            textTransform: "uppercase"
+          }}
+        >
+          Visit Github Profile
+          <div style={{ height: 1, width: 24, background: "currentColor" }} />
+        </motion.a>
       </div>
     </Card>
   );
