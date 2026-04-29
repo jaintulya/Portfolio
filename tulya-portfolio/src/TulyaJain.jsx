@@ -124,68 +124,168 @@ const D = {
       videoId: "zcg205b-HYk",
       cat: "Frontend"
     },
+    {
+      name: "Hospital Dashboard", year: "2025",
+      desc: "Healthcare management interface prototype designed for seamless patient tracking and hospital administration.",
+      tech: ["Figma", "UI/UX", "Dashboard"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776498364/zydushospitalprototype_k0uu1l.jpg",
+      live: "https://www.figma.com/proto/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=325%3A3&starting-point-node-id=325%3A3",
+      cat: "UI/UX Lab",
+      btnLabel: "View Prototype"
+    },
+    {
+      name: "Hotel Booking", year: "2025",
+      desc: "Immersive hotel booking mobile interface focusing on intuitive user flow and premium aesthetics.",
+      tech: ["Figma", "Mobile Design", "Prototyping"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776498280/hotelbookiungappprototype_xhwqtk.jpg",
+      live: "https://www.figma.com/proto/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=265%3A2&starting-point-node-id=265%3A2",
+      cat: "UI/UX Lab",
+      btnLabel: "View Prototype"
+    },
+    {
+      name: "Education Web", year: "2025",
+      desc: "Modern education platform interface designed to enhance online learning experiences.",
+      tech: ["Figma", "Web Design", "UX Research"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776498280/eduspereprototype_haemu2.jpg",
+      live: "https://www.figma.com/proto/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=184%3A2&starting-point-node-id=184%3A2",
+      cat: "UI/UX Lab",
+      btnLabel: "View Prototype"
+    },
+    {
+      name: "BookMyShow Redesign", year: "2025",
+      desc: "Clean and efficient redesign of the popular entertainment booking platform.",
+      tech: ["Figma", "Interface Design"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776497961/bookmyshow_gvul5e.jpg",
+      live: "https://www.figma.com/design/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=60-2",
+      cat: "UI/UX Lab",
+      cropTop: true
+    },
+    {
+      name: "Login Page Concept", year: "2025",
+      desc: "Experimental authentication interface focusing on minimal design and smooth transitions.",
+      tech: ["Figma", "UI Design", "Micro-interactions"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/w_1000,f_auto,q_auto/v1776507340/loginpage_ehf7z8.jpg",
+      live: "https://www.figma.com/design/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=27-177",
+      cat: "UI/UX Lab",
+      cropTop: true
+    },
+    {
+      name: "Hotel App Dashboard", year: "2025",
+      desc: "Comprehensive dashboard for hotel property management and booking analytics.",
+      tech: ["Figma", "Dashboard Design", "SaaS"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/w_1000,f_auto,q_auto/v1776497770/bnbhomepage_ymgypk.png",
+      live: "https://www.figma.com/design/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=21-39",
+      cat: "UI/UX Lab",
+      cropTop: true
+    },
+    {
+      name: "Sign Up Flow", year: "2025",
+      desc: "Optimized user onboarding experience with focus on conversion and accessibility.",
+      tech: ["Figma", "UX Flow", "Onboarding"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/w_1000,f_auto,q_auto/v1776497769/loginpge_app_yollv2.png",
+      live: "https://www.figma.com/design/adYtyU8zPOoO1hOih9ppAs/Untitled?node-id=113-2",
+      cat: "UI/UX Lab",
+      cropTop: true
+    },
   ],
   certs: [
     {
-      name: "Solution Architecture", org: "Amazon Web Services", year: "2026",
-      desc: "Distributed systems on AWS — compute, storage, networking, security, and cost optimisation for scalable architectures.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/aws_certificate_pages-to-jpg-0001_wsdave.jpg"
+      name: "Solutions Architecture", org: "AWS (via Forage)", year: "2026",
+      desc: "Completed a comprehensive Solutions Architecture job simulation focusing on distributed systems, security, and scalability on AWS.",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/aws_certificate_pages-to-jpg-0001_wsdave.jpg",
+      cat: "Courses"
     },
     {
-      name: "Software Engineering", org: "Wells Fargo", year: "2026",
-      desc: "Agile workflows, code review, debugging, and building fintech features in a real engineering simulation.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/well_fargo_page-0001_tmy6tq.jpg"
+      name: "Software Engineering", org: "Wells Fargo (via Forage)", year: "2026",
+      desc: "Participated in a Software Engineering simulation involving agile workflows, code review, and building fintech features.",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/well_fargo_page-0001_tmy6tq.jpg",
+      cat: "Courses"
     },
     {
-      name: "Software Engineering", org: "Walmart Global Tech", year: "2026",
-      desc: "Data structures, algorithms, system design, and scalable software at global retail scale.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/walmart_page-0001_oedx1f.jpg"
+      name: "Software Engineering", org: "Walmart Global Tech (via Forage)", year: "2026",
+      desc: "Advanced software engineering simulation covering data structures, algorithms, and system design at retail scale.",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/walmart_page-0001_oedx1f.jpg",
+      cat: "Courses"
     },
     {
-      name: "Generative AI Studio", org: "Google Cloud", year: "2025",
-      desc: "Vertex AI, prompt engineering, foundation model tuning, multi-modal AI, and GCP pipeline deployment.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180240/introduction_to_generative_ai_studio_page-0001_xb6gpj.jpg"
+      name: "Generative AI Studio", org: "Google Cloud (via Simplilearn)", year: "2025",
+      desc: "Explored Vertex AI, prompt engineering, and foundation model tuning in the Google Cloud ecosystem.",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180240/introduction_to_generative_ai_studio_page-0001_xb6gpj.jpg",
+      cat: "Courses"
     },
     {
-      name: "Front-End Engineering", org: "Skyscanner", year: "2026",
-      desc: "Accessible, internationalised React components using Skyscanner's Backpack design system.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/skyscanner_page-0001_xtalcr.jpg"
+      name: "Front-End Engineering", org: "Skyscanner (via Forage)", year: "2026",
+      desc: "Built accessible, internationalised React components using the Backpack design system during a job simulation.",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/skyscanner_page-0001_xtalcr.jpg",
+      cat: "Courses"
     },
     {
-      name: "Excel Automation with AI", org: "Microsoft", year: "2025",
-      desc: "Automating Excel workflows with ChatGPT — intelligent formulas and spreadsheet solutions without code.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/Excel_automation_using_chagpt_pages-to-jpg-0001_jc6nmq.jpg"
+      name: "Excel Automation with AI", org: "Microsoft (via Simplilearn)", year: "2025",
+      desc: "Mastered automating complex Excel workflows using ChatGPT and AI-driven spreadsheet solutions.",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1770180238/Excel_automation_using_chagpt_pages-to-jpg-0001_jc6nmq.jpg",
+      cat: "Courses"
     },
     {
-      name: "Claude Code in Action", org: "Anthropic", year: "2025",
-      desc: "Completed Claude Code in Action focused on AI-assisted development workflows, prompt engineering, and practical coding productivity.",
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508203/clode_code_in_action_antropic_page-0001_hsvu1j.jpg"
+      name: "Claude 101", org: "Anthropic", year: "2026",
+      desc: "Fundamentals of AI-assisted development, prompt engineering, and practical workflows using Claude.",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1777461507/claude101_page-0001_up3c3r.jpg",
+      cat: "Courses"
+    },
+    {
+      name: "Claude Code in Action", org: "Anthropic", year: "2026",
+      desc: "Advanced exploration of Claude Code for professional development productivity and AI integration.",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508203/clode_code_in_action_antropic_page-0001_hsvu1j.jpg",
+      cat: "Courses"
     },
   ],
   hackathons: [
     {
-      name: "Neural Nexus", issuer: "IIT Jammu", year: "2025",
-      desc: "Participated in Neural Nexus, a hackathon centered around innovation, collaborative problem solving, and prototype-driven challenges.",
+      name: "Craftathon 2026", 
+      issuer: "Gandhinagar University", 
+      year: "2026",
+      desc: "Participated in my first offline hackathon at Gandhinagar University, competing among 130+ teams in a 36-hour intense environment. Team: Saptak Bhattacharyya, Atul Singh, and Nitish Kumar.",
+      tags: ["Offline Hackathon", "36-Hour Challenge", "Teamwork"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1777462504/craftathon_img1_luzgqe.jpg",
+      imgs: [
+        "https://res.cloudinary.com/dob8kltpc/image/upload/v1777462504/craftathon_img1_luzgqe.jpg",
+        "https://res.cloudinary.com/dob8kltpc/image/upload/v1777462505/craftathon_img2_eqekp7.jpg"
+      ],
+      cat: "Hackathons"
+    },
+    {
+      name: "Tic Tech Toe '26", issuer: "IEEE SB DA-IICT", year: "2026",
+      desc: "Participated in Tic Tech Toe '26 at DA-IICT, focused on technical challenges, innovation, and collaborative problem solving.",
+      tags: ["Hackathon", "Innovation", "Technical Challenges"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1777461517/tic-tech-toe_daiict_page-0001_d315bc.jpg",
+      cat: "Hackathons"
+    },
+    {
+      name: "Neural Nexus '25", issuer: "IIT Jammu (via Unstop)", year: "2025",
+      desc: "Participated in Neural Nexus '25 centered around innovation, collaborative problem solving, and prototype-driven challenges.",
       tags: ["Hackathon", "Innovation", "AI/ML", "Team Challenge"],
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508222/neural_nexus_iit_jammu_page-0001_xgaqka.jpg"
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508222/neural_nexus_iit_jammu_page-0001_xgaqka.jpg",
+      cat: "Hackathons"
     },
     {
-      name: "ArtForge", issuer: "IISc Bangalore", year: "2025",
-      desc: "Participated in ArtForge, an innovation-oriented challenge focused on creative thinking and solution building.",
+      name: "ArtPark CodeForge", issuer: "IISc Bangalore", year: "2026",
+      desc: "Participated in the ArtPark CodeForge Hackathon at IISc Bangalore, focusing on creative thinking and engineering solution building.",
       tags: ["Hackathon", "Innovation", "Design Challenge", "Problem Solving"],
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508222/Artforge_iisc_bnaglore_page-0001_p0ukyc.jpg"
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508222/Artforge_iisc_bnaglore_page-0001_p0ukyc.jpg",
+      cat: "Hackathons"
     },
     {
-      name: "Dev Heat", issuer: "IIIT Surat", year: "2025",
-      desc: "Participated in Dev Heat, a development-focused coding challenge involving technical problem solving and software ideation.",
+      name: "Dev Heat Hackathon", issuer: "IIIT Surat", year: "2025",
+      desc: "Development-focused coding challenge involving technical problem solving and software ideation during Spring Fiesta at IIIT Surat.",
       tags: ["Hackathon", "Development", "Coding Challenge", "Problem Solving"],
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508221/Dev_Heat_IIIT_surat_page-0001_cfnycb.jpg"
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508221/Dev_Heat_IIIT_surat_page-0001_cfnycb.jpg",
+      cat: "Hackathons"
     },
     {
       name: "MetaCode", issuer: "IIT Kharagpur", year: "2025",
-      desc: "Participated in MetaCode, a competitive technical challenge focused on problem solving and software innovation.",
+      desc: "Participated in MetaCode during COMPOSIT 31st Edition at IIT Kharagpur, a competitive technical challenge focused on software innovation.",
       tags: ["Hackathon", "Tech Challenge", "Problem Solving", "Competitive Coding"],
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508220/iiit_kharakpur_metacode_page-0001_nkngox.jpg"
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1776508220/iiit_kharakpur_metacode_page-0001_nkngox.jpg",
+      cat: "Hackathons"
     },
   ],
 };
@@ -774,11 +874,11 @@ function VideoModal({ videoId, onClose }) {
 
 /* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  WORK ═ ═ ═  */
 function Work() {
-  const [activeCat, setActiveCat] = useState("All");
+  const [activeCat, setActiveCat] = useState("Clones");
   const [video, setVideo] = useState(null);
   const isMobile = useMobile();
 
-  const cats = ["All", "Clones", "Frontend", "Full Stack", "Games"];
+  const cats = ["All", "Clones", "Frontend", "Full Stack", "Games", "UI/UX Lab"];
 
   const filtered = useMemo(() => {
     if (activeCat === "All") return D.projects;
@@ -885,9 +985,6 @@ function Work() {
       </div>
 
       {video && <VideoModal videoId={video} onClose={() => setVideo(null)} />}
-
-      {/* Embedded UI/UX Lbb Showcase */}
-      <UIUXLab />
     </Card>
   );
 }
@@ -1395,6 +1492,16 @@ function ChallengeCard({ hack, index, isMobile }) {
   const [hover, setHover] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [imgHover, setImgHover] = useState(false);
+  const [imgIndex, setImgIndex] = useState(0);
+
+  useEffect(() => {
+    if (hack.imgs && hack.imgs.length > 1) {
+      const interval = setInterval(() => {
+        setImgIndex((prev) => (prev + 1) % hack.imgs.length);
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [hack.imgs]);
 
   const offset = [
     { rotate: "-2deg", x: -120 },
@@ -1441,8 +1548,11 @@ function ChallengeCard({ hack, index, isMobile }) {
             background: "var(--bg2)",
           }}
         >
-          <img
-            src={hack.img}
+          <motion.img
+            key={imgIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            src={hack.imgs ? hack.imgs[imgIndex] : hack.img}
             alt={hack.name}
             loading="lazy"
             style={{
@@ -1590,17 +1700,30 @@ function ChallengeCard({ hack, index, isMobile }) {
 
 function ChallengeModal({ hack, isMobile, onClose }) {
   const scrollYRef = React.useRef(0);
+  const [imgIndex, setImgIndex] = useState(0);
 
   useEffect(() => {
     scrollYRef.current = window.scrollY;
     const fn = e => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", fn);
     document.body.style.overflow = "hidden";
+
+    if (hack.imgs && hack.imgs.length > 1) {
+      const interval = setInterval(() => {
+        setImgIndex((prev) => (prev + 1) % hack.imgs.length);
+      }, 3000);
+      return () => {
+        clearInterval(interval);
+        window.removeEventListener("keydown", fn);
+        document.body.style.overflow = "";
+      };
+    }
+
     return () => {
       window.removeEventListener("keydown", fn);
       document.body.style.overflow = "";
     };
-  }, [onClose]);
+  }, [onClose, hack.imgs]);
 
   const handleClose = () => {
     onClose();
@@ -1614,55 +1737,144 @@ function ChallengeModal({ hack, isMobile, onClose }) {
       position: "fixed",
       inset: 0,
       zIndex: 999999,
-      background: "rgba(0,0,0,0.92)",
+      background: "rgba(13,12,10,0.94)",
+      backdropFilter: "blur(14px)",
       display: "flex",
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+      padding: "1.5rem"
     }}>
-      <div style={{ position: "relative", paddingTop: 40 }}>
-        <button
-          onClick={handleClose}
-          style={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            fontFamily: "var(--mono)",
-            fontSize: "0.8rem",
-            color: "#f0ece3",
-            background: "transparent",
-            border: "1px solid #f0ece3",
-            padding: "10px 22px",
-            borderRadius: 4,
-            cursor: "pointer",
-            letterSpacing: "0.15em"
-          }}
-        >
-          CLOSE
-        </button>
-
-        <img
-          src={hack.img}
-          alt={hack.name}
-          style={{
-            maxWidth: "60vw",
-            maxHeight: "70vh",
-            objectFit: "contain",
-            border: "1px solid rgba(240,236,227,0.15)"
-          }}
-        />
-      </div>
+      <motion.div 
+        initial={{ scale: 0.92, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        style={{ 
+          width: "90%", 
+          maxWidth: 800, 
+          background: "var(--bg)", 
+          border: "1px solid var(--rule)", 
+          borderRadius: 8, 
+          overflow: "hidden" 
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "flex-end", padding: "10px 14px", borderBottom: "1px solid var(--rule)" }}>
+          <button data-cur onClick={handleClose}
+            style={{ 
+              fontFamily: "var(--mono)", 
+              fontSize: "0.68rem", 
+              letterSpacing: "0.14em", 
+              color: "var(--ink3)", 
+              background: "none", 
+              border: "1px solid var(--rule)", 
+              padding: "4px 12px", 
+              borderRadius: 3, 
+              transition: "color 0.2s",
+              cursor: "pointer"
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = "var(--ink)"}
+            onMouseLeave={e => e.currentTarget.style.color = "var(--ink3)"}>
+            Close ×
+          </button>
+        </div>
+        <div style={{ padding: isMobile ? "1rem" : "2rem", display: "flex", justifyContent: "center", background: "var(--bg2)" }}>
+          <motion.img
+            key={imgIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            src={hack.imgs ? hack.imgs[imgIndex] : hack.img}
+            alt={hack.name}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "70vh",
+              objectFit: "contain",
+              borderRadius: 4,
+              boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
+            }}
+          />
+        </div>
+      </motion.div>
     </div>
   );
 }
 
 /* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  CREDENTIALS ═ ═ ═  */
 function Credentials() {
+  const [activeCat, setActiveCat] = useState("All");
   const isMobile = useMobile();
+
+  const cats = ["All", "Courses", "Hackathons"];
+
+  const allCreds = useMemo(() => {
+    const courseCerts = D.certs.map(c => ({ ...c, cat: "Courses" }));
+    const hackCerts = D.hackathons
+      .filter(h => h.name !== "Craftathon 2026") // Remove Craftathon from general Credentials
+      .map(h => ({
+        name: h.name,
+        org: h.issuer,
+        year: h.year,
+        desc: h.desc,
+        img: h.img || (h.imgs ? h.imgs[0] : null),
+        imgs: h.imgs,
+        cat: "Hackathons"
+      }));
+    return [...courseCerts, ...hackCerts];
+  }, []);
+
+  const filtered = useMemo(() => {
+    if (activeCat === "All") return allCreds;
+    return allCreds.filter(c => c.cat === activeCat);
+  }, [activeCat, allCreds]);
+
   return (
     <Card id="credentials" label="Credentials" index={4} bgOverride="var(--bg2)">
-      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
         <SLabel n="05" text="Credentials" />
-        <CertificatesGrid certs={D.certs} isMobile={isMobile} />
+
+        {/* CATEGORY FILTER */}
+        <div style={{
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: "4rem",
+          width: "100%",
+        }}>
+          <div style={{
+            display: "flex",
+            flexWrap: "wrap",
+            background: "rgba(240,236,227,0.02)",
+            border: "1px solid rgba(240,236,227,0.08)",
+            borderRadius: 50,
+            padding: "6px",
+            gap: "8px",
+            justifyContent: "center"
+          }}>
+            {cats.map(c => {
+              const isActive = activeCat === c;
+              return (
+                <button
+                  key={c}
+                  onClick={() => setActiveCat(c)}
+                  data-cur
+                  style={{
+                    background: isActive ? "var(--gold)" : "transparent",
+                    border: "none",
+                    fontFamily: "var(--mono)",
+                    fontSize: "0.65rem",
+                    letterSpacing: "0.15em",
+                    color: isActive ? "var(--bg)" : "var(--ink2)",
+                    padding: "12px 24px",
+                    borderRadius: 40,
+                    textTransform: "uppercase",
+                    transition: "all 0.3s",
+                    fontWeight: isActive ? 700 : 400,
+                  }}
+                >
+                  {c}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        <CertificatesGrid certs={filtered} isMobile={isMobile} />
       </div>
 
       {/* GITHUB ACTIVITY BLOCK */}

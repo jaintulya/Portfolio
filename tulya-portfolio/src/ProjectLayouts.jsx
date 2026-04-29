@@ -82,7 +82,8 @@ export function ProjectItem({ project, index, isMobile, onPlayVideo }) {
             border: "1px solid rgba(240,236,227,0.1)",
             boxShadow: imgHover ? "0 30px 60px rgba(0,0,0,0.6)" : "0 20px 40px rgba(0,0,0,0.4)",
             cursor: "pointer",
-            transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)"
+            transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+            willChange: "transform, box-shadow"
           }}
         >
           <motion.img 
@@ -90,12 +91,15 @@ export function ProjectItem({ project, index, isMobile, onPlayVideo }) {
             alt={project.name}
             style={{ 
               width: "100%", 
-              height: "auto", 
+              height: project.cropTop ? "450px" : "auto", 
+              objectFit: project.cropTop ? "cover" : "unset",
+              objectPosition: project.cropTop ? "top" : "unset",
               display: "block",
-              y: yParallax,
+              y: project.cat === "UI/UX Lab" ? 0 : yParallax, // Disable parallax for UI/UX to save performance
               scale: 1.1,
-              filter: imgHover ? "brightness(0.3) contrast(1.1) blur(4px)" : "brightness(0.9) contrast(1.1) blur(0)",
-              transition: "filter 0.6s ease"
+              filter: imgHover ? "brightness(0.3) contrast(1.1)" : "brightness(0.9) contrast(1.1)",
+              transition: "filter 0.5s ease",
+              willChange: "transform, filter"
             }}
           />
           
@@ -211,9 +215,15 @@ export function ProjectItem({ project, index, isMobile, onPlayVideo }) {
           flexWrap: "wrap",
           justifyContent: isMobile ? "flex-start" : (isRight ? "flex-end" : "flex-start")
         }}>
-          <ProjectButton href={project.live} label="Live" highlight />
-          <ProjectButton href={project.repo} label="Source" />
-          <ProjectButton onClick={() => onPlayVideo(project.videoId)} label="Demo" />
+          {project.cat === "UI/UX Lab" ? (
+            <ProjectButton href={project.live} label={project.btnLabel || "Figma"} highlight />
+          ) : (
+            <>
+              <ProjectButton href={project.live} label="Live" highlight />
+              <ProjectButton href={project.repo} label="Source" />
+              <ProjectButton onClick={() => onPlayVideo(project.videoId)} label="Demo" />
+            </>
+          )}
         </div>
       </motion.div>
     </motion.section>
@@ -292,14 +302,26 @@ export function CertificatesGrid({ certs, isMobile }) {
 
 function CertModal({ cert, onClose, isMobile }) {
   const scrollYRef = useRef(0);
+  const [imgIndex, setImgIndex] = useState(0);
 
   useEffect(() => {
     scrollYRef.current = window.scrollY;
     document.body.style.overflow = "hidden";
+    
+    if (cert.imgs && cert.imgs.length > 1) {
+      const interval = setInterval(() => {
+        setImgIndex((prev) => (prev + 1) % cert.imgs.length);
+      }, 3000);
+      return () => {
+        clearInterval(interval);
+        document.body.style.overflow = "";
+      };
+    }
+
     return () => {
       document.body.style.overflow = "";
     };
-  }, []);
+  }, [cert.imgs]);
 
   const handleClose = () => {
     onClose();
@@ -315,47 +337,67 @@ function CertModal({ cert, onClose, isMobile }) {
   };
 
 return (
-    <div style={{
-      position: "fixed",
-      inset: 0,
-      zIndex: 999999,
-      background: "rgba(0,0,0,0.92)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    }}>
-      <div style={{ position: "relative", paddingTop: 40 }}>
-        <button
-          onClick={handleClose}
-          style={{
-            position: "absolute",
-            top: 0,
-            right: 0,
-            fontFamily: "var(--mono)",
-            fontSize: "0.8rem",
-            color: "#f0ece3",
-            background: "transparent",
-            border: "1px solid #f0ece3",
-            padding: "10px 22px",
-            borderRadius: 4,
-            cursor: "pointer",
-            letterSpacing: "0.15em"
-          }}
-        >
-          CLOSE
-        </button>
-
-        <img
-          src={cert.img}
-          alt={cert.name}
-          style={{
-            maxWidth: "60vw",
-            maxHeight: "70vh",
-            objectFit: "contain",
-            border: "1px solid rgba(240,236,227,0.15)"
-          }}
-        />
-      </div>
+    <div 
+      onClick={handleBackdropClick}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 999999,
+        background: "rgba(13,12,10,0.94)",
+        backdropFilter: "blur(14px)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "1.5rem"
+      }}>
+      <motion.div 
+        initial={{ scale: 0.92, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        style={{ 
+          width: "90%", 
+          maxWidth: 800, 
+          background: "var(--bg)", 
+          border: "1px solid var(--rule)", 
+          borderRadius: 8, 
+          overflow: "hidden" 
+        }}
+      >
+        <div style={{ display: "flex", justifyContent: "flex-end", padding: "10px 14px", borderBottom: "1px solid var(--rule)" }}>
+          <button data-cur onClick={handleClose}
+            style={{ 
+              fontFamily: "var(--mono)", 
+              fontSize: "0.68rem", 
+              letterSpacing: "0.14em", 
+              color: "var(--ink3)", 
+              background: "none", 
+              border: "1px solid var(--rule)", 
+              padding: "4px 12px", 
+              borderRadius: 3, 
+              transition: "color 0.2s",
+              cursor: "pointer"
+            }}
+            onMouseEnter={e => e.currentTarget.style.color = "var(--ink)"}
+            onMouseLeave={e => e.currentTarget.style.color = "var(--ink3)"}>
+            Close ×
+          </button>
+        </div>
+        <div style={{ padding: isMobile ? "1rem" : "2rem", display: "flex", justifyContent: "center", background: "var(--bg2)" }}>
+          <motion.img
+            key={imgIndex}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            src={cert.imgs ? cert.imgs[imgIndex] : cert.img}
+            alt={cert.name}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "70vh",
+              objectFit: "contain",
+              borderRadius: 4,
+              boxShadow: "0 20px 40px rgba(0,0,0,0.4)"
+            }}
+          />
+        </div>
+      </motion.div>
     </div>
   );
 }
@@ -363,7 +405,17 @@ return (
 function CertCard({ cert, index, isMobile }) {
   const [hover, setHover] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  
+  const [imgIndex, setImgIndex] = useState(0);
+
+  useEffect(() => {
+    if (cert.imgs && cert.imgs.length > 1) {
+      const interval = setInterval(() => {
+        setImgIndex((prev) => (prev + 1) % cert.imgs.length);
+      }, 3000);
+      return () => clearInterval(interval);
+    }
+  }, [cert.imgs]);
+
   const handleClick = () => {
     setShowModal(true);
   };
@@ -386,18 +438,21 @@ function CertCard({ cert, index, isMobile }) {
         }}
       >
         {/* BASE IMAGE */}
-        <img 
-          src={cert.img} 
+        <motion.img 
+          key={imgIndex}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: hover ? 0.25 : 1 }}
+          src={cert.imgs ? cert.imgs[imgIndex] : cert.img} 
           alt={cert.name}
           loading="lazy"
           style={{ 
             width: "100%", 
             height: "100%", 
             objectFit: "cover", 
-            opacity: hover ? 0.25 : 1, // Reduced opacity for focus
             transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
             filter: `sepia(10%) contrast(1.05) brightness(0.88) ${hover ? "blur(8px)" : "blur(0)"}`, // Added blur
-            transform: hover ? "scale(1.1)" : "scale(1)" // Increased scale slightly
+            transform: hover ? "scale(1.1)" : "scale(1)",
+            willChange: "transform, opacity"
           }}
         />
 
