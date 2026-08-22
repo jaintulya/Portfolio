@@ -1,7 +1,7 @@
 import Background from "./Background";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useLocation, useNavigate, NavLink, Link } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Helmet } from "react-helmet";
 import Lenis from 'lenis';
 import { GitHubCalendar } from 'react-github-calendar';
@@ -30,6 +30,15 @@ const D = {
     { label: "LeetCode", href: "https://leetcode.com/u/o08s0tJtFp/" },
     { label: "YouTube", href: "https://www.youtube.com/@TulyaJain" },
   ],
+  leetcode: {
+    username: "o08s0tJtFp",
+    profile: "https://leetcode.com/u/o08s0tJtFp/",
+    api: "/api/leetcode?username=o08s0tJtFp",
+    apis: [
+      "/api/leetcode?username=o08s0tJtFp",
+      "https://alfa-leetcode-api.onrender.com/userProfile/o08s0tJtFp",
+    ],
+  },
   skills: [
     {
       cat: "Frontend",
@@ -38,6 +47,9 @@ const D = {
         { name: "CSS", icon: "https://www.vectorlogo.zone/logos/w3_css/w3_css-icon.svg" },
         { name: "JavaScript", icon: "https://cdn.simpleicons.org/javascript" },
         { name: "React", icon: "https://cdn.simpleicons.org/react" },
+        { name: "Angular", icon: "https://cdn.simpleicons.org/angular/f0ece3" },
+        { name: "React Native", icon: "https://cdn.simpleicons.org/react/f0ece3" },
+        { name: "Expo", icon: "https://cdn.simpleicons.org/expo/f0ece3" },
         { name: "Tailwind CSS", icon: "https://cdn.simpleicons.org/tailwindcss" },
       ],
     },
@@ -47,6 +59,10 @@ const D = {
         { name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs" },
         { name: "Express", icon: "https://cdn.simpleicons.org/express/f0ece3" },
         { name: "MongoDB", icon: "https://cdn.simpleicons.org/mongodb" },
+        { name: "MySQL", icon: "https://cdn.simpleicons.org/mysql" },
+        { name: "SQL", icon: "https://api.iconify.design/mdi/database.svg?color=%23f0ece3" },
+        { name: "Redis", icon: "https://cdn.simpleicons.org/redis" },
+        { name: "REST APIs", icon: "https://api.iconify.design/mdi/api.svg?color=%23f0ece3" },
       ],
     },
     {
@@ -60,6 +76,7 @@ const D = {
         { name: "Postman", icon: "https://cdn.simpleicons.org/postman" },
         { name: "Vercel", icon: "https://cdn.simpleicons.org/vercel/f0ece3" },
         { name: "Netlify", icon: "https://cdn.simpleicons.org/netlify" },
+        { name: "Render", icon: "https://cdn.simpleicons.org/render/f0ece3" },
       ],
     },
   ],
@@ -245,11 +262,29 @@ const D = {
       year: "2026",
       desc: "Participated in my first offline hackathon at Gandhinagar University, competing among 130+ teams in a 36-hour intense environment. Team: Saptak Bhattacharyya, Atul Singh, and Nitish Kumar.",
       tags: ["Offline Hackathon", "36-Hour Challenge", "Teamwork"],
-      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1777462504/craftathon_img1_luzgqe.jpg",
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1787379155/crafathon_iqrsia.png",
       imgs: [
-        "https://res.cloudinary.com/dob8kltpc/image/upload/v1777462504/craftathon_img1_luzgqe.jpg",
-        "https://res.cloudinary.com/dob8kltpc/image/upload/v1777462505/craftathon_img2_eqekp7.jpg"
+        "https://res.cloudinary.com/dob8kltpc/image/upload/v1787379155/crafathon_iqrsia.png",
+        "https://res.cloudinary.com/dob8kltpc/image/upload/v1777462504/craftathon_img1_luzgqe.jpg"
       ],
+      cat: "Hackathons"
+    },
+    {
+      name: "Hack Aarambh 2026",
+      issuer: "Swarrnim Institute of Technology",
+      year: "2026",
+      desc: "Actively participated in Hack Aarambh 2026, a national-level hackathon focused on innovation, creativity, and problem-solving.",
+      tags: ["Hackathon", "Innovation", "Problem Solving", "AI/ML"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1787379142/hackarambh_jhjshh.jpg",
+      cat: "Hackathons"
+    },
+    {
+      name: "Adivya 2.0 – Developer Hackathon",
+      issuer: "Enginow · Swaminarayan University, Gujarat",
+      year: "2026",
+      desc: "Participated in Adivya 2.0 – Developer Hackathon organized by Enginow as part of a team, focusing on software development, coding, and problem-solving.",
+      tags: ["Developer Hackathon", "Coding", "Problem Solving", "Teamwork"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/v1787379147/adivya2.0_page-0001_cudiqd.jpg",
       cat: "Hackathons"
     },
     {
@@ -340,6 +375,8 @@ input:-webkit-autofill,textarea:-webkit-autofill{
 }
 @keyframes grn{0%,100%{transform:translate(0,0)}25%{transform:translate(-1%,-2%)}50%{transform:translate(2%,1%)}75%{transform:translate(-1%,2%)}};
 h1, h2, h3, h4, h5, h6 { font-weight: 300; }
+.no-scrollbar::-webkit-scrollbar{display:none;}
+.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none;}
 .card-wrap{will-change:transform, opacity;}
 .skill-icon-bg{width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 .skill-icon-img{filter:brightness(1) contrast(1.1);}
@@ -400,7 +437,7 @@ function Cursor() {
   );
 }
 
-const NAVS = ["Home", "About", "Work", "Skills", "Hackathons", "Credentials", "Contact"];
+const NAVS = ["Home", "About", "Work", "Skills", "Hackathons", "Activities", "Credentials", "Contact"];
 const useMobile = () => {
   const [m, setM] = useState(false);
   useEffect(() => {
@@ -891,51 +928,17 @@ function Work() {
         <div style={{ padding: "0 clamp(1.5rem,6vw,5rem)" }}>
           <SLabel n="02" text="Selected Work" />
 
-          {/* CATEGORY FILTER - Centered Pill Design */}
+          {/* CATEGORY FILTER — pills on desktop, circular 3D coverflow on mobile */}
           <div style={{
             display: "flex",
             justifyContent: "center",
-            marginBottom: "6rem",
+            marginBottom: isMobile ? "3rem" : "6rem",
             width: "100%",
+            overflow: "hidden",
           }}>
-            <div style={{
-              display: "flex",
-              flexWrbp: "wrap",
-              background: "rgba(240,236,227,0.02)",
-              border: "1px solid rgba(240,236,227,0.08)",
-              borderRadius: 50,
-              padding: "6px",
-              gap: "8px",
-              justifyContent: "center",
-              boxShbdow: "0 10px 30px rgba(0,0,0,0.2)"
-            }}>
-              {cats.map(c => {
-                const isActive = activeCat === c;
-                return (
-                  <button
-                    key={c}
-                    onClick={() => setActiveCat(c)}
-                    data-cur
-                    style={{
-                      background: isActive ? "var(--gold)" : "transparent",
-                      border: "none",
-                      fontFamily: "var(--mono)",
-                      fontSize: "0.7rem",
-                      letterSpbcing: "0.2em",
-                      color: isActive ? "var(--bg)" : "var(--ink2)",
-                      padding: "14px 28px",
-                      borderRadius: 40,
-                      textTrbnsform: "uppercase",
-                      transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
-                      fontWeight: isActive ? 700 : 400,
-                      boxShbdow: isActive ? "0 4px 15px rgba(201,168,76,0.3)" : "none"
-                    }}
-                  >
-                    {c}
-                  </button>
-                );
-              })}
-            </div>
+            {isMobile
+              ? <Coverflow cats={cats} active={activeCat} onSelect={setActiveCat} />
+              : <PillFilter cats={cats} active={activeCat} onSelect={setActiveCat} />}
           </div>
         </div>
 
@@ -1796,7 +1799,695 @@ function ChallengeModal({ hack, isMobile, onClose }) {
   );
 }
 
+/* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  ACTIVITIES · GITHUB + LEETCODE ═ ═ ═  */
+function fromGraphql(d) {
+  const mu = d.data && d.data.matchedUser;
+  if (!mu || !mu.submitStats) return null;
+  const get = (arr, diff) => (arr || []).find(x => x.difficulty === diff) || {};
+  const ac = mu.submitStats.acSubmissionNum;
+  const tot = mu.submitStats.totalSubmissionNum;
+  const aqc = d.data.allQuestionsCount;
+  let cal = {};
+  try { cal = JSON.parse((mu.userCalendar && mu.userCalendar.submissionCalendar) || "{}"); } catch { cal = {}; }
+  const acAll = get(ac, "All"), totAll = get(tot, "All");
+  return {
+    totalSolved: acAll.count,
+    totalQuestions: get(aqc, "All").count,
+    easySolved: get(ac, "Easy").count,
+    totalEasy: get(aqc, "Easy").count,
+    mediumSolved: get(ac, "Medium").count,
+    totalMedium: get(aqc, "Medium").count,
+    hardSolved: get(ac, "Hard").count,
+    totalHard: get(aqc, "Hard").count,
+    streak: mu.userCalendar ? mu.userCalendar.streak : null,
+    acceptanceRate: totAll.submissions > 0 ? (acAll.submissions / totAll.submissions) * 100 : null,
+    rating: d.data.userContestRanking ? d.data.userContestRanking.rating : null,
+    submissionCalendar: cal,
+  };
+}
+
+function normalizeLc(raw) {
+  const d = raw && raw.data && raw.data.matchedUser ? fromGraphql(raw) : raw;
+  if (!d || typeof d.totalSolved !== "number") return null;
+  let calendar = null, submissions = null, activeDays = null, maxStreak = null, streak = typeof d.streak === "number" ? d.streak : null;
+  if (d.submissionCalendar && typeof d.submissionCalendar === "object") {
+    const DAY = 24 * 3600 * 1000;
+    const yearAgo = Date.now() - 365 * DAY;
+    const keyOf = dt => `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, "0")}-${String(dt.getDate()).padStart(2, "0")}`;
+    const byDate = {};
+    Object.entries(d.submissionCalendar).forEach(([ts, count]) => {
+      const t = Number(ts) * 1000;
+      if (t < yearAgo || !(count > 0)) return;
+      const key = keyOf(new Date(t));
+      byDate[key] = (byDate[key] || 0) + count;
+    });
+    calendar = Object.entries(byDate).map(([date, count]) => ({ date, count }));
+    submissions = calendar.reduce((s, e) => s + e.count, 0);
+    activeDays = calendar.length;
+    const times = calendar.map(e => new Date(e.date + "T00:00:00").getTime()).sort((a, b) => a - b);
+    let run = 0;
+    times.forEach((t, i) => {
+      run = i > 0 && t - times[i - 1] === DAY ? run + 1 : 1;
+      if (run > (maxStreak || 0)) maxStreak = run;
+    });
+    if (streak === null) {
+      const today = new Date(); today.setHours(0, 0, 0, 0);
+      let cursor = today;
+      if (!byDate[keyOf(cursor)]) cursor = new Date(cursor.getTime() - DAY);
+      streak = 0;
+      while (byDate[keyOf(cursor)]) { streak += 1; cursor = new Date(cursor.getTime() - DAY); }
+    }
+  }
+  let acceptance = d.acceptanceRate;
+  const ms = d.matchedUserStats;
+  if (typeof acceptance !== "number" && ms && Array.isArray(ms.acSubmissionNum) && Array.isArray(ms.totalSubmissionNum)) {
+    const ac = ms.acSubmissionNum.find(x => x.difficulty === "All");
+    const tot = ms.totalSubmissionNum.find(x => x.difficulty === "All");
+    if (ac && tot && tot.submissions > 0) acceptance = (ac.submissions / tot.submissions) * 100;
+  }
+  return {
+    total: d.totalSolved,
+    totalQuestions: d.totalQuestions || 0,
+    easy: d.easySolved,
+    easyTotal: d.totalEasy || 0,
+    medium: d.mediumSolved,
+    mediumTotal: d.totalMedium || 0,
+    hard: d.hardSolved,
+    hardTotal: d.totalHard || 0,
+    streak,
+    maxStreak,
+    rating: d.rating || d.contestRating || (d.userContestRankingInfo && d.userContestRankingInfo.rating),
+    acceptance,
+    calendar,
+    submissions,
+    activeDays,
+  };
+}
+
+function useLcStats() {
+  const [stats, setStats] = useState(null);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    let on = true;
+    const CACHE_KEY = "lc-stats-cache";
+    const endpoints = D.leetcode.apis && D.leetcode.apis.length ? D.leetcode.apis : [D.leetcode.api];
+
+    const apply = raw => {
+      if (!on) return false;
+      const s = normalizeLc(raw);
+      if (!s) return false;
+      try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), d: raw })); } catch { /* ignore */ }
+      setStats(s);
+      return true;
+    };
+
+    const tryFetch = async i => {
+      if (i >= endpoints.length) {
+        try {
+          const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || "null");
+          if (cached && cached.d && apply(cached.d)) return;
+        } catch { /* ignore */ }
+        if (on) setFailed(true);
+        return;
+      }
+      try {
+        const r = await fetch(endpoints[i]);
+        const d = r.ok ? await r.json() : null;
+        if (apply(d)) return;
+        tryFetch(i + 1);
+      } catch {
+        tryFetch(i + 1);
+      }
+    };
+
+    tryFetch(0);
+    return () => { on = false; };
+  }, []);
+  return { stats, failed };
+}
+
+function CountUp({ value, duration = 1.1, size }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const [display, setDisplay] = useState(0);
+
+  useEffect(() => {
+    if (!inView || typeof value !== "number") return;
+    let raf;
+    const t0 = performance.now();
+    const tick = t => {
+      const p = Math.min(1, (t - t0) / (duration * 1000));
+      const eased = 1 - Math.pow(2, -10 * p);
+      setDisplay(Math.round(value * eased));
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [inView, value, duration]);
+
+  return (
+    <span ref={ref} style={{ fontFamily: "var(--serif)", fontSize: size || "clamp(1.1rem,2.4vw,1.5rem)", color: "var(--gold)", letterSpacing: "0.02em", fontWeight: 400 }}>
+      {typeof value === "number" ? display : value}
+    </span>
+  );
+}
+
+function useGhContributions() {
+  const [total, setTotal] = useState(null);
+  useEffect(() => {
+    let on = true;
+    fetch("https://github-contributions-api.jogruber.de/v4/jaintulya")
+      .then(r => (r.ok ? r.json() : null))
+      .then(d => {
+        if (!on || !d || !Array.isArray(d.contributions)) return;
+        const sum = d.contributions.reduce((s, c) => s + (c.count || 0), 0);
+        if (on) setTotal(sum);
+      })
+      .catch(() => {});
+    return () => { on = false; };
+  }, []);
+  return total;
+}
+
+function MiniStat({ value, label, delay = 0 }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.6 }}
+      transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
+      style={{ display: "flex", alignItems: "baseline", gap: 10 }}
+    >
+      <CountUp value={value} size="1.35rem" />
+      <span style={{ fontFamily: "var(--mono)", fontSize: "0.52rem", letterSpacing: "0.16em", color: "var(--ink3)", textTransform: "uppercase" }}>{label}</span>
+    </motion.div>
+  );
+}
+
+function SolvedRing({ solved, total }) {
+  const pct = total > 0 ? Math.min(1, solved / total) : 0;
+  const R = 66, C = 2 * Math.PI * R;
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.92 }}
+      whileInView={{ opacity: 1, scale: 1 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      style={{ position: "relative", width: 176, height: 176, flexShrink: 0, alignSelf: "center" }}
+    >
+      <svg width="176" height="176" viewBox="0 0 176 176">
+        <circle cx="88" cy="88" r={R} fill="none" stroke="rgba(240,236,227,0.06)" strokeWidth="2" />
+        <motion.circle
+          cx="88" cy="88" r={R} fill="none"
+          stroke="var(--gold)" strokeWidth="2.5" strokeLinecap="round"
+          strokeDasharray={C}
+          initial={{ strokeDashoffset: C }}
+          whileInView={{ strokeDashoffset: C * (1 - pct) }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+          transform="rotate(-90 88 88)"
+        />
+      </svg>
+      <div style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+        <div>
+          <CountUp value={solved} size="1.7rem" />
+          {total > 0 && <span style={{ fontFamily: "var(--mono)", fontSize: "0.85rem", color: "var(--ink3)" }}> / {total}</span>}
+        </div>
+        <span style={{ fontFamily: "var(--mono)", fontSize: "0.5rem", letterSpacing: "0.28em", color: "var(--ink3)", marginTop: 4, textTransform: "uppercase" }}>Solved</span>
+      </div>
+    </motion.div>
+  );
+}
+
+function DiffBar({ name, value, total, delay = 0 }) {
+  const pct = total > 0 ? Math.min(1, value / total) : 0;
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.6 }}
+      transition={{ duration: 0.5, delay, ease: [0.16, 1, 0.3, 1] }}
+      style={{ width: "100%" }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", fontFamily: "var(--mono)", fontSize: "0.6rem", letterSpacing: "0.16em", color: "var(--ink2)", textTransform: "uppercase", marginBottom: 6 }}>
+        <span>{name}</span>
+        <CountUp value={value} size="0.8rem" />
+      </div>
+      <div style={{ height: 3, background: "rgba(240,236,227,0.06)", borderRadius: 2, overflow: "hidden" }}>
+        <motion.div
+          style={{ height: "100%", background: "var(--gold)", borderRadius: 2, transformOrigin: "left" }}
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: pct }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+        />
+      </div>
+    </motion.div>
+  );
+}
+
+function LcHeatmap({ data, isMobile }) {
+  const cell = isMobile ? 12 : 15;
+  const gap = 4;
+
+  const weeks = useMemo(() => {
+    const map = {};
+    const hasData = Array.isArray(data);
+    if (hasData) data.forEach(e => { map[e.date] = (map[e.date] || 0) + (e.count || 0); });
+    const out = [];
+    const end = new Date(); end.setHours(0, 0, 0, 0);
+    const start = new Date(end);
+    start.setDate(start.getDate() - (53 * 7 - 1));
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+      out.push({ date: new Date(d), key, count: hasData ? (map[key] || 0) : 0, hasData });
+    }
+    const cols = [];
+    for (let i = 0; i < out.length; i += 7) cols.push(out.slice(i, i + 7));
+    return cols;
+  }, [data]);
+
+  const monthLabels = useMemo(() => {
+    const labels = [];
+    let last = null;
+    const M = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    weeks.forEach((col, i) => {
+      const m = col[0].date.getMonth();
+      if (m !== last) { labels.push({ i, label: M[m] }); last = m; }
+    });
+    return labels;
+  }, [weeks]);
+
+  const level = c => c <= 0 ? 0 : c <= 3 ? 1 : c <= 6 ? 2 : c <= 9 ? 3 : 4;
+  const shades = ["rgba(240,236,227,0.05)", "rgba(201,168,76,0.2)", "rgba(201,168,76,0.4)", "rgba(201,168,76,0.7)", "#c9a84c"];
+
+  return (
+    <div style={{ width: "100%" }}>
+      <div style={{ overflowX: "auto", paddingBottom: 4 }}>
+        <div style={{ position: "relative", height: 14, marginBottom: 4, minWidth: weeks.length * (cell + gap) }}>
+          {monthLabels.map(m => (
+            <span key={m.i} style={{ position: "absolute", left: m.i * (cell + gap), fontFamily: "var(--mono)", fontSize: "0.5rem", letterSpacing: "0.1em", color: "var(--ink3)", textTransform: "uppercase" }}>{m.label}</span>
+          ))}
+        </div>
+        <div style={{ display: "flex", gap }}>
+          {weeks.map((col, ci) => (
+            <div key={ci} style={{ display: "flex", flexDirection: "column", gap }}>
+              {col.map((d, di) => (
+                <div
+                  key={di}
+                  data-tooltip-id="lc-tooltip"
+                  data-tooltip-content={d.hasData ? `${d.count} submissions on ${d.key}` : `No submission data for ${d.key}`}
+                  style={{ width: cell, height: cell, borderRadius: 2, background: shades[level(d.count)] }}
+                />
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 10, fontFamily: "var(--mono)", fontSize: "0.5rem", letterSpacing: "0.12em", color: "var(--ink3)", textTransform: "uppercase" }}>
+        <span>Less</span>
+        <div style={{ display: "flex", gap: 3 }}>
+          {shades.map((s, i) => <div key={i} style={{ width: 8, height: 8, borderRadius: 2, background: s }} />)}
+        </div>
+        <span>More</span>
+      </div>
+      <Tooltip id="lc-tooltip" style={{ fontSize: '0.65rem', fontFamily: 'var(--mono)', borderRadius: '4px', background: 'var(--bg3)', color: 'var(--gold)', border: '1px solid var(--rule)' }} />
+    </div>
+  );
+}
+
+const ActivityCTA = ({ href, children }) => (
+  <motion.a
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+    data-cur
+    initial={{ opacity: 0, y: 10 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ delay: 0.25 }}
+    style={{
+      marginTop: "auto",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "1.2rem",
+      fontFamily: "var(--mono)",
+      fontSize: "0.66rem",
+      letterSpacing: "0.2em",
+      color: "var(--gold)",
+      textDecoration: "none",
+      textTransform: "uppercase",
+      transition: "color 0.3s, letter-spacing 0.3s",
+    }}
+    onMouseEnter={e => { e.currentTarget.style.color = "var(--ink)"; e.currentTarget.style.letterSpacing = "0.26em"; }}
+    onMouseLeave={e => { e.currentTarget.style.color = "var(--gold)"; e.currentTarget.style.letterSpacing = "0.2em"; }}
+  >
+    {children}
+    <div style={{ height: 1, width: 24, background: "currentColor" }} />
+  </motion.a>
+);
+
+function Activities() {
+  const isMobile = useMobile();
+  const { stats: lc, failed: lcFailed } = useLcStats();
+
+  const panelStyle = {
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    gap: "1.8rem",
+    background: "var(--bg3)",
+    border: "1px solid var(--rule)",
+    borderRadius: 12,
+    padding: isMobile ? "1.75rem 1.25rem" : "2.5rem",
+    overflow: "hidden",
+  };
+
+  const ghostStyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    fontFamily: "var(--serif)",
+    fontSize: "clamp(6rem,18vw,12rem)",
+    fontWeight: 300,
+    color: "var(--gold)",
+    opacity: 0.05,
+    letterSpacing: "-0.02em",
+    pointerEvents: "none",
+    userSelect: "none",
+    whiteSpace: "nowrap",
+  };
+
+  return (
+    <Card id="activities" label="Activities" index={4} bgOverride="var(--bg2)">
+      <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", marginBottom: "4rem" }}>
+          <SLabel n="05" text="Activities" />
+          <h2 style={{
+            fontFamily: "var(--serif)",
+            fontSize: "clamp(2.5rem, 6vw, 5.5rem)",
+            color: "var(--ink)",
+            lineHeight: 1.1,
+            fontWeight: 300,
+            marginBottom: "1rem"
+          }}>
+            Powered by <i style={{ color: "var(--gold)", fontFamily: "inherit" }}>Code & Challenges</i>
+          </h2>
+          <p style={{
+            fontFamily: "var(--mono)",
+            fontSize: "0.75rem",
+            letterSpacing: "0.4em",
+            color: "var(--ink3)",
+            textTransform: "uppercase"
+          }}>
+            A chronicle of building, solving, and persistence.
+          </p>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: isMobile ? "2.5rem" : "3rem", maxWidth: 1000, margin: "0 auto" }}>
+
+          {/* ═══ GITHUB — BUILD ═══ */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            style={panelStyle}
+          >
+            <span style={ghostStyle}>BUILD</span>
+
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div>
+                <h3 style={{ fontFamily: "var(--serif)", fontSize: "1.8rem", fontWeight: 400, color: "var(--ink)", marginBottom: "0.3rem" }}>GitHub</h3>
+                <p style={{ fontFamily: "var(--mono)", fontSize: "0.58rem", letterSpacing: "0.2em", color: "var(--ink3)", textTransform: "uppercase" }}>Building & contributing</p>
+              </div>
+              <span style={{ fontFamily: "var(--mono)", fontSize: "0.55rem", letterSpacing: "0.2em", color: "var(--gold)", border: "1px solid rgba(201,168,76,0.2)", background: "rgba(201,168,76,0.08)", padding: "4px 10px", borderRadius: 4, textTransform: "uppercase" }}>
+                BUILD · CONTRIBUTE · SHIP
+              </span>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.15 }}
+              style={{ overflowX: "auto", maxWidth: "100%", paddingBottom: 4, display: "flex", justifyContent: "center" }}
+            >
+              <GitHubCalendar
+                username="jaintulya"
+                theme={ghTheme}
+                fontSize={12}
+                blockSize={isMobile ? 10 : 12}
+                blockMargin={4}
+                colorScheme="dark"
+                renderBlock={(block, activity) => (
+                  React.cloneElement(block, {
+                    'data-tooltip-id': 'github-tooltip',
+                    'data-tooltip-content': `${activity.count} contributions on ${activity.date}`,
+                  })
+                )}
+                style={{ color: "var(--ink2)", fontFamily: "var(--mono)" }}
+              />
+              <Tooltip id="github-tooltip" style={{ fontSize: '0.65rem', fontFamily: 'var(--mono)', borderRadius: '4px', background: 'var(--bg3)', color: 'var(--gold)', border: '1px solid var(--rule)' }} />
+            </motion.div>
+
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <ActivityCTA href="https://github.com/jaintulya">Visit GitHub Profile →</ActivityCTA>
+            </div>
+          </motion.div>
+
+          {/* ═══ TRANSITION — BUILD → SOLVE ═══ */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.8 }}
+            transition={{ duration: 0.8 }}
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 16, padding: isMobile ? "0.5rem 0" : "1rem 0" }}
+          >
+            <div style={{ height: 1, width: 64, background: "var(--rule)" }} />
+            <span style={{ fontFamily: "var(--mono)", fontSize: "0.52rem", letterSpacing: "0.32em", color: "var(--ink3)", textTransform: "uppercase" }}>Build → Solve</span>
+            <div style={{ height: 1, width: 64, background: "var(--rule)" }} />
+          </motion.div>
+
+          {/* ═══ LEETCODE — SOLVE ═══ */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            style={panelStyle}
+          >
+            <span style={ghostStyle}>SOLVE</span>
+
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+              <div>
+                <h3 style={{ fontFamily: "var(--serif)", fontSize: "1.8rem", fontWeight: 400, color: "var(--ink)", marginBottom: "0.3rem" }}>LeetCode</h3>
+                <p style={{ fontFamily: "var(--mono)", fontSize: "0.58rem", letterSpacing: "0.2em", color: "var(--ink3)", textTransform: "uppercase" }}>Problem solving & DSA</p>
+              </div>
+              <span style={{ fontFamily: "var(--mono)", fontSize: "0.55rem", letterSpacing: "0.2em", color: "var(--gold)", border: "1px solid rgba(201,168,76,0.2)", background: "rgba(201,168,76,0.08)", padding: "4px 10px", borderRadius: 4, textTransform: "uppercase" }}>
+                SOLVE · PRACTICE · GROW
+              </span>
+            </div>
+
+            <div style={{ display: "flex", gap: isMobile ? "1.5rem" : "3rem", alignItems: "center", flexWrap: "wrap", justifyContent: "center" }}>
+              <SolvedRing solved={lc ? lc.total : "—"} total={lc ? lc.totalQuestions : 0} />
+              <div style={{ display: "flex", flexDirection: "column", gap: "1.1rem", flex: "1 1 260px", minWidth: isMobile ? "100%" : 260 }}>
+                <DiffBar name="Easy" value={lc ? lc.easy : "—"} total={lc ? lc.easyTotal : 0} delay={0.15} />
+                <DiffBar name="Medium" value={lc ? lc.medium : "—"} total={lc ? lc.mediumTotal : 0} delay={0.3} />
+                <DiffBar name="Hard" value={lc ? lc.hard : "—"} total={lc ? lc.hardTotal : 0} delay={0.45} />
+              </div>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              <LcHeatmap data={lc ? lc.calendar : null} isMobile={isMobile} />
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "baseline", gap: isMobile ? "1.2rem" : "2.5rem", flexWrap: "wrap", marginTop: "1.4rem" }}>
+                <MiniStat value={lc && typeof lc.submissions === "number" ? lc.submissions : "—"} label="Submissions / year" delay={0.1} />
+                <div style={{ width: 1, height: 22, background: "var(--rule)" }} />
+                <MiniStat value={lc && typeof lc.activeDays === "number" ? lc.activeDays : "—"} label="Active days" delay={0.18} />
+                <div style={{ width: 1, height: 22, background: "var(--rule)" }} />
+                <MiniStat value={lc && typeof lc.maxStreak === "number" ? lc.maxStreak : "—"} label="Max streak" delay={0.26} />
+              </div>
+            </motion.div>
+
+            {(lc && (typeof lc.streak === "number" || typeof lc.rating === "number" || typeof lc.acceptance === "number")) && (
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "baseline", gap: isMobile ? "1.2rem" : "2.5rem", flexWrap: "wrap", borderTop: "1px solid var(--rule)", paddingTop: "1.4rem" }}>
+                {typeof lc.streak === "number" && <MiniStat value={lc.streak} label="Current streak" delay={0.1} />}
+                {typeof lc.streak === "number" && (typeof lc.rating === "number" || typeof lc.acceptance === "number") && <div style={{ width: 1, height: 22, background: "var(--rule)" }} />}
+                {typeof lc.rating === "number" && <MiniStat value={lc.rating} label="Contest rating" delay={0.18} />}
+                {typeof lc.rating === "number" && typeof lc.acceptance === "number" && <div style={{ width: 1, height: 22, background: "var(--rule)" }} />}
+                {typeof lc.acceptance === "number" && <MiniStat value={`${Math.round(lc.acceptance)}%`} label="Acceptance" delay={0.26} />}
+              </div>
+            )}
+
+            {lcFailed && (
+              <p style={{ fontFamily: "var(--mono)", fontSize: "0.55rem", letterSpacing: "0.08em", color: "var(--ink3)", lineHeight: 1.6, textAlign: "center" }}>
+                Live stats pending — connect your LeetCode data source in the D.leetcode configuration.
+              </p>
+            )}
+
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <ActivityCTA href={D.leetcode.profile}>Visit LeetCode Profile →</ActivityCTA>
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+    </Card>
+  );
+}
+
 /* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  CREDENTIALS ═ ═ ═  */
+function PillFilter({ cats, active, onSelect }) {
+  return (
+    <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+      <div
+        className="no-scrollbar"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          background: "rgba(240,236,227,0.02)",
+          border: "1px solid rgba(240,236,227,0.08)",
+          borderRadius: 50,
+          padding: "6px",
+          gap: "8px",
+          justifyContent: "center",
+          maxWidth: "100%",
+          boxShadow: "0 10px 30px rgba(0,0,0,0.2)"
+        }}>
+        {cats.map(c => {
+          const isActive = active === c;
+          return (
+            <button
+              key={c}
+              onClick={() => onSelect(c)}
+              data-cur
+              style={{
+                background: isActive ? "var(--gold)" : "transparent",
+                border: "none",
+                fontFamily: "var(--mono)",
+                fontSize: "0.7rem",
+                letterSpacing: "0.2em",
+                color: isActive ? "var(--bg)" : "var(--ink2)",
+                padding: "14px 28px",
+                borderRadius: 40,
+                textTransform: "uppercase",
+                transition: "all 0.3s cubic-bezier(0.16,1,0.3,1)",
+                fontWeight: isActive ? 700 : 400,
+                boxShadow: "none",
+                whiteSpace: "nowrap",
+                flexShrink: 0,
+                cursor: "pointer",
+              }}
+            >
+              {c}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function Coverflow({ cats, active, onSelect }) {
+  const activeIndex = Math.max(0, cats.indexOf(active));
+  const N = cats.length;
+  const compact = N > 3;
+  const spacing = compact ? 74 : 92;
+  const btnW = compact ? 92 : 104;
+  const btnH = 40;
+  const dragMoved = useRef(false);
+
+  const handleDragEnd = (e, info) => {
+    const threshold = 40;
+    if (info.offset.x < -threshold) onSelect(cats[(activeIndex + 1) % N]);
+    else if (info.offset.x > threshold) onSelect(cats[(activeIndex - 1 + N) % N]);
+    setTimeout(() => { dragMoved.current = false; }, 80);
+  };
+
+  return (
+    <div style={{ perspective: 900, perspectiveOrigin: "50% 50%", display: "flex", justifyContent: "center", width: "100%" }}>
+      <motion.div
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.25}
+        onDragStart={() => { dragMoved.current = false; }}
+        onDrag={(e, info) => { if (Math.abs(info.offset.x) > 6) dragMoved.current = true; }}
+        onDragEnd={handleDragEnd}
+        whileTap={{ cursor: "grabbing" }}
+        style={{
+          position: "relative",
+          width: 300,
+          height: 64,
+          transformStyle: "preserve-3d",
+          cursor: "grab",
+        }}
+      >
+        {cats.map((c, i) => {
+          let offset = i - activeIndex;
+          if (offset > N / 2) offset -= N;
+          if (offset < -N / 2) offset += N;
+          const isActive = offset === 0;
+          const hidden = Math.abs(offset) > 2;
+          return (
+            <motion.button
+              key={c}
+              onClick={() => { if (!dragMoved.current) onSelect(c); }}
+              data-cur
+              aria-pressed={isActive}
+              tabIndex={hidden ? -1 : 0}
+              initial={false}
+              animate={{
+                x: offset * spacing,
+                z: isActive ? 40 : -80,
+                rotateY: Math.max(-32, Math.min(32, offset * -26)),
+                scale: isActive ? 1.08 : 0.86,
+                opacity: hidden ? 0 : isActive ? 1 : 0.55,
+              }}
+              transition={{ type: "spring", stiffness: 230, damping: 26, mass: 0.9 }}
+              style={{
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                marginLeft: -btnW / 2,
+                marginTop: -btnH / 2,
+                width: btnW,
+                height: btnH,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                transformStyle: "preserve-3d",
+                backfaceVisibility: "hidden",
+                zIndex: isActive ? 3 : 1,
+                pointerEvents: hidden ? "none" : "auto",
+                fontFamily: "var(--mono)",
+                fontSize: "0.52rem",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                fontWeight: isActive ? 700 : 400,
+                whiteSpace: "nowrap",
+                color: isActive ? "var(--gold)" : "var(--ink3)",
+                background: isActive ? "rgba(201,168,76,0.08)" : "rgba(240,236,227,0.02)",
+                border: `1px solid ${isActive ? "rgba(201,168,76,0.55)" : "var(--rule)"}`,
+                borderRadius: 8,
+                boxShadow: isActive ? "0 6px 16px rgba(0,0,0,0.3)" : "0 6px 14px rgba(0,0,0,0.25)",
+                cursor: "pointer",
+              }}
+            >
+              {c}
+            </motion.button>
+          );
+        })}
+      </motion.div>
+    </div>
+  );
+}
+
 function Credentials() {
   const [activeCat, setActiveCat] = useState("All");
   const isMobile = useMobile();
@@ -1806,7 +2497,6 @@ function Credentials() {
   const allCreds = useMemo(() => {
     const courseCerts = D.certs.map(c => ({ ...c, cat: "Courses" }));
     const hackCerts = D.hackathons
-      .filter(h => h.name !== "Craftathon 2026") // Remove Craftathon from general Credentials
       .map(h => ({
         name: h.name,
         org: h.issuer,
@@ -1825,142 +2515,24 @@ function Credentials() {
   }, [activeCat, allCreds]);
 
   return (
-    <Card id="credentials" label="Credentials" index={4} bgOverride="var(--bg2)">
+    <Card id="credentials" label="Credentials" index={5} bgOverride="var(--bg2)">
       <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-        <SLabel n="05" text="Credentials" />
+        <SLabel n="06" text="Credentials" />
 
-        {/* CATEGORY FILTER */}
+        {/* CATEGORY FILTER — pills on desktop, circular 3D coverflow on mobile */}
         <div style={{
           display: "flex",
           justifyContent: "center",
-          marginBottom: "4rem",
+          marginBottom: isMobile ? "2.5rem" : "4rem",
           width: "100%",
+          overflow: "hidden",
         }}>
-          <div style={{
-            display: "flex",
-            flexWrap: "wrap",
-            background: "rgba(240,236,227,0.02)",
-            border: "1px solid rgba(240,236,227,0.08)",
-            borderRadius: 50,
-            padding: "6px",
-            gap: "8px",
-            justifyContent: "center"
-          }}>
-            {cats.map(c => {
-              const isActive = activeCat === c;
-              return (
-                <button
-                  key={c}
-                  onClick={() => setActiveCat(c)}
-                  data-cur
-                  style={{
-                    background: isActive ? "var(--gold)" : "transparent",
-                    border: "none",
-                    fontFamily: "var(--mono)",
-                    fontSize: "0.65rem",
-                    letterSpacing: "0.15em",
-                    color: isActive ? "var(--bg)" : "var(--ink2)",
-                    padding: "12px 24px",
-                    borderRadius: 40,
-                    textTransform: "uppercase",
-                    transition: "all 0.3s",
-                    fontWeight: isActive ? 700 : 400,
-                  }}
-                >
-                  {c}
-                </button>
-              );
-            })}
-          </div>
+          {isMobile
+            ? <Coverflow cats={cats} active={activeCat} onSelect={setActiveCat} />
+            : <PillFilter cats={cats} active={activeCat} onSelect={setActiveCat} />}
         </div>
 
         <CertificatesGrid certs={filtered} isMobile={isMobile} />
-      </div>
-
-      {/* GITHUB ACTIVITY BLOCK */}
-      <div style={{ 
-        padding: "0 clamp(1.5rem,6vw,5rem) clamp(4rem,10vw,8rem)",
-        display: "flex", 
-        flexDirection: "column", 
-        alignItems: "center",
-      }}>
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          style={{ textAlign: "center", marginBottom: "4rem" }}
-        >
-          <h2 style={{ 
-            fontFamily: "var(--serif)", 
-            fontSize: "clamp(2.5rem, 6vw, 5.5rem)", 
-            color: "var(--ink)", 
-            lineHeight: 1.1,
-            fontWeight: 300,
-            marginBottom: "1rem"
-          }}>
-            Powered by <i style={{ color: "var(--gold)", fontFamily: "inherit" }}>coffee & commits</i>
-          </h2>
-          <p style={{ 
-            fontFamily: "var(--mono)", 
-            fontSize: "0.75rem", 
-            letterSpacing: "0.4em", 
-            color: "var(--ink3)", 
-            textTransform: "uppercase" 
-          }}>
-            A chronicle of persistence and problem solving.
-          </p>
-        </motion.div>
-
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          style={{ width: "100%", maxWidth: 1000, display: "flex", justifyContent: "center" }}
-        >
-          <GitHubCalendar 
-            username="jaintulya" 
-            theme={ghTheme}
-            fontSize={12}
-            blockSize={isMobile ? 10 : 12}
-            blockMargin={4}
-            colorScheme="dark"
-            renderBlock={(block, activity) => (
-              React.cloneElement(block, {
-                'data-tooltip-id': 'github-tooltip',
-                'data-tooltip-content': `${activity.count} contributions on ${activity.date}`,
-              })
-            )}
-            style={{ color: "var(--ink2)", fontFamily: "var(--mono)" }}
-          />
-          <Tooltip id="github-tooltip" style={{ fontSize: '0.65rem', fontFamily: 'var(--mono)', borderRadius: '4px', background: 'var(--bg3)', color: 'var(--gold)', border: '1px solid var(--rule)' }} />
-        </motion.div>
-
-        {/* VISIT GITHUB BUTTON */}
-        <motion.a 
-          href="https://github.com/jaintulya"
-          target="_blank"
-          rel="noreferrer"
-          data-cur
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          style={{ 
-            marginTop: "4rem",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "1.2rem",
-            fontFamily: "var(--mono)",
-            fontSize: "0.68rem",
-            letterSpacing: "0.2em",
-            color: "var(--gold)",
-            textDecoration: "none",
-            textTransform: "uppercase"
-          }}
-        >
-          Visit Github Profile
-          <div style={{ height: 1, width: 24, background: "currentColor" }} />
-        </motion.a>
       </div>
     </Card>
   );
@@ -1990,9 +2562,9 @@ function Contact() {
   };
 
   return (
-    <Card id="contact" label="Contact" index={5} bgOverride="var(--bg)">
+    <Card id="contact" label="Contact" index={6} bgOverride="var(--bg)">
       <div style={{ padding: "clamp(2rem,5vw,4rem) clamp(1.5rem,6vw,5rem)", minHeight: "100vh" }}>
-        <SLabel n="06" text="Contact" />
+        <SLabel n="07" text="Contact" />
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: "3rem 4rem", alignItems: "start" }}>
           {/* Left — big text + links */}
@@ -2049,7 +2621,7 @@ function Contact() {
                 <p style={{ fontFamily: "var(--serif)", fontStyle: "italic", fontSize: "1rem", color: "var(--ink2)", fontWeight: 300, marginBottom: "1.5rem" }}>I'll respond within 24 hours.</p>
                 <button data-cur onClick={() => setStatus("idle")}
                   style={{ fontFamily: "var(--mono)", fontSize: "0.65rem", letterSpacing: "0.12em", color: "var(--ink3)", background: "none", border: "none", borderBottom: "1px solid var(--rule)", paddingBottom: 1 }}>
-                  Send bnother →
+                  Send another →
                 </button>
               </motion.div>
             ) : (
@@ -2097,6 +2669,7 @@ function PageHead() {
     "/work": "Selected Work — Tulya Jain",
     "/skills": "Tech Stack — Tulya Jain",
     "/hackathons": "Hackathons — Tulya Jain",
+    "/activities": "Activities — Tulya Jain",
     "/credentials": "Credentials — Tulya Jain",
     "/contact": "Contact — Tulya Jain"
   };
@@ -2126,6 +2699,7 @@ function RouterSync() {
     "/work": "Selected Work — Tulya Jain",
     "/skills": "Tech Stack — Tulya Jain",
     "/hackathons": "Hackathons — Tulya Jain",
+    "/activities": "Activities — Tulya Jain",
     "/credentials": "Credentials — Tulya Jain",
     "/contact": "Contact — Tulya Jain"
   };
@@ -2381,6 +2955,7 @@ export default function App() {
               <Work />
               <Skills />
               <Hackathons />
+              <Activities />
               <Credentials />
               <Contact />
             </main>
