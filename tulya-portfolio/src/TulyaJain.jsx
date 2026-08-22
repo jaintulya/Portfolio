@@ -2673,6 +2673,16 @@ function PageHead() {
     "/credentials": "Credentials — Tulya Jain",
     "/contact": "Contact — Tulya Jain"
   };
+  const descriptions = {
+    "/": "Portfolio of Tulya Jain, a Full Stack Developer from Ahmedabad, India. MERN stack projects, hackathons, certifications, and coding activity on GitHub & LeetCode.",
+    "/about": "About Tulya Jain — Computer Engineering student and Full Stack Developer specializing in the MERN stack, responsive web apps, and UI/UX design.",
+    "/work": "Selected work by Tulya Jain — clones, frontend builds, full-stack apps, games, and UI/UX experiments.",
+    "/skills": "Tech stack of Tulya Jain — React, Angular, React Native, Expo, Node.js, Express, MongoDB, MySQL, Redis, REST APIs, and more.",
+    "/hackathons": "Hackathon journey of Tulya Jain — CRAFTATHON, Hack Aarambh, Adivya 2.0, and more innovation challenges.",
+    "/activities": "Coding activity of Tulya Jain — GitHub contributions and LeetCode problem solving. A chronicle of building, solving, and persistence.",
+    "/credentials": "Credentials of Tulya Jain — course certifications and hackathon certificates.",
+    "/contact": "Contact Tulya Jain — Full Stack Developer open to opportunities and collaborations."
+  };
 
   useEffect(() => {
     const currentTitle = titles[pathname] || "Tulya Jain";
@@ -2682,6 +2692,11 @@ function PageHead() {
   return (
     <Helmet>
       <title>{titles[pathname] || "Tulya Jain"}</title>
+      <meta name="description" content={descriptions[pathname] || descriptions["/"]} />
+      <meta property="og:title" content={titles[pathname] || "Tulya Jain"} />
+      <meta property="og:description" content={descriptions[pathname] || descriptions["/"]} />
+      <meta property="og:url" content={`https://tulya-portfolio.vercel.app${pathname === "/" ? "" : pathname}`} />
+      <link rel="canonical" href={`https://tulya-portfolio.vercel.app${pathname === "/" ? "" : pathname}`} />
     </Helmet>
   );
 }
