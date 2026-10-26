@@ -48,6 +48,7 @@ const D = {
         { name: "CSS", icon: "https://www.vectorlogo.zone/logos/w3_css/w3_css-icon.svg" },
         { name: "JavaScript", icon: "https://cdn.simpleicons.org/javascript" },
         { name: "React", icon: "https://cdn.simpleicons.org/react" },
+        { name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs/f0ece3" },
         { name: "Angular", icon: "https://cdn.simpleicons.org/angular/f0ece3" },
         { name: "React Native", icon: "https://cdn.simpleicons.org/react/f0ece3" },
         { name: "Expo", icon: "https://cdn.simpleicons.org/expo/f0ece3" },
@@ -58,6 +59,7 @@ const D = {
       cat: "Backend",
       items: [
         { name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs" },
+        { name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs/f0ece3" },
         { name: "Express", icon: "https://cdn.simpleicons.org/express/f0ece3" },
         { name: "MongoDB", icon: "https://cdn.simpleicons.org/mongodb" },
         { name: "MySQL", icon: "https://cdn.simpleicons.org/mysql" },
