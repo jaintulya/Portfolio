@@ -776,14 +776,16 @@ function Card({ id, label, children, index, bgOverride }) {
         style={{
           position: "relative",
           minHeight: "100vh",
-          background: bgOverride || "var(--bg2)",
+          background: "transparent",
           borderRadius: "var(--card-r) var(--card-r) 0 0",
           border: "1px solid var(--rule)",
           borderBottom: "none",
           overflow: "hidden",
           boxShadow: "0 -8px 40px rgba(0,0,0,0.4)",
         }}>
-        {children}
+        <div style={{ position: "relative", zIndex: 1 }}>
+          {children}
+        </div>
       </section>
     </div>
   );
