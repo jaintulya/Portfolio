@@ -1,3 +1,4 @@
+import FlowContours from "./FlowContours";
 import Background from "./Background";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useLocation, useNavigate, NavLink, Link } from "react-router-dom";
@@ -3073,6 +3074,7 @@ export default function App() {
             <PageHead />
             <RouterSync />
             <Nav />
+            <FlowContours />
             <main style={{ position: "relative", zIndex: 1 }}>
               <Hero />
               <About />
