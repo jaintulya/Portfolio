@@ -85,8 +85,7 @@ export default function Background() {
       mx += (tmx - mx) * 0.04;
       my += (tmy - my) * 0.04;
 
-      cx.fillStyle = "rgba(13,12,10,0.22)";
-      cx.fillRect(0, 0, W, H);
+      cx.clearRect(0, 0, W, H);
 
       const cx0 = W / 2, cy0 = H / 2;
       const mdx = mx - cx0, mdy = my - cy0;
