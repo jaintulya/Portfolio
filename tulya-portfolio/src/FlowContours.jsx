@@ -19,10 +19,16 @@ export default function FlowContours() {
     let lastTime = 0;
     let animationId = 0;
     let scrollY = window.scrollY || 0;
+    let targetMouseX = -2000;
+    let targetMouseY = -2000;
+    let mouseX = -2000;
+    let mouseY = -2000;
 
     function animate(now) {
       const delta = lastTime ? Math.min(now - lastTime, 40) : 16;
       frame += delta;
+      mouseX += (targetMouseX - mouseX) * 0.08;
+      mouseY += (targetMouseY - mouseY) * 0.08;
       draw(frame);
       lastTime = now;
       animationId = requestAnimationFrame(animate);
@@ -45,6 +51,8 @@ export default function FlowContours() {
     window.addEventListener("resize", resize, { passive: true });
     const updateScroll = () => { scrollY = window.scrollY || 0; };
     window.addEventListener("scroll", updateScroll, { passive: true });
+    const onMouseMove = (e) => { targetMouseX = e.clientX; targetMouseY = e.clientY; };
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
     resize();
 
     function draw(time) {
@@ -107,6 +115,7 @@ export default function FlowContours() {
       return () => {
       window.removeEventListener("resize", resize);
       window.removeEventListener("scroll", updateScroll);
+      window.removeEventListener("mousemove", onMouseMove);
       if (animationId) cancelAnimationFrame(animationId);
     };
   }, []);
