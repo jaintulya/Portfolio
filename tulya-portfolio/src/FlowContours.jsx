@@ -23,12 +23,20 @@ export default function FlowContours() {
     let targetMouseY = -2000;
     let mouseX = -2000;
     let mouseY = -2000;
+    let lastEventMouseX = -2000;
+    let lastEventMouseY = -2000;
+    let interactionStrength = 0;
+    let interactionTarget = 0;
 
     function animate(now) {
       const delta = lastTime ? Math.min(now - lastTime, 40) : 16;
       frame += delta;
       mouseX += (targetMouseX - mouseX) * 0.08;
       mouseY += (targetMouseY - mouseY) * 0.08;
+      interactionStrength += (interactionTarget - interactionStrength) * 0.12;
+      interactionTarget *= 0.92;
+      if (interactionTarget < 0.004) interactionTarget = 0;
+      if (interactionStrength < 0.004) interactionStrength = 0;
       draw(frame);
       lastTime = now;
       animationId = requestAnimationFrame(animate);
@@ -49,9 +57,25 @@ export default function FlowContours() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     window.addEventListener("resize", resize, { passive: true });
-    const updateScroll = () => { scrollY = window.scrollY || 0; };
+    const updateScroll = () => {
+      scrollY = window.scrollY || 0;
+      interactionTarget = Math.min(1.0, interactionTarget + 0.35);
+    };
     window.addEventListener("scroll", updateScroll, { passive: true });
-    const onMouseMove = (e) => { targetMouseX = e.clientX; targetMouseY = e.clientY; };
+    const onMouseMove = (e) => {
+      targetMouseX = e.clientX;
+      targetMouseY = e.clientY;
+      if (lastEventMouseX !== -2000) {
+        const dx = e.clientX - lastEventMouseX;
+        const dy = e.clientY - lastEventMouseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist > 1.2) {
+          interactionTarget = Math.min(1.0, interactionTarget + Math.min(dist / 12, 0.45) + 0.15);
+        }
+      }
+      lastEventMouseX = e.clientX;
+      lastEventMouseY = e.clientY;
+    };
     window.addEventListener("mousemove", onMouseMove, { passive: true });
     resize();
 
@@ -106,9 +130,9 @@ export default function FlowContours() {
       const dy = baseY - mouseY;
       const distSq = dx * dx + dy * dy;
       const r = settings.cursorRadius;
-      if (distSq < r * r) {
+      if (interactionStrength > 0.004 && distSq < r * r) {
         const dist = Math.sqrt(distSq);
-        const force = Math.pow(1 - dist / r, 2);
+        const force = Math.pow(1 - dist / r, 2) * interactionStrength;
         y += Math.sin(dist * 0.032 - time * 0.0016) * force * settings.cursorForce;
       }
       return y;
