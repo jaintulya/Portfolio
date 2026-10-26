@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#080806" />
+<title>Flow Contours — Animated Background Reference</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --background: #080806;
+    --gold: 214, 181, 109;
+    --gold-light: 242, 221, 166;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: var(--background);
+  }
+  body {
+    position: relative;
+    isolation: isolate;
+  }
+  canvas {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  /* Very restrained warm ambience under the contour lines. */
+  .ambient {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 73% 36%, rgba(154, 119, 48, .075), transparent 37%),
+      radial-gradient(ellipse at 17% 83%, rgba(128, 96, 36, .035), transparent 34%),
+      linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.12));
+  }
+  @media (prefers-reduced-motion: reduce) {
+    canvas { opacity: .92; }
+  }
+</style>
+</head>
+<body>
+<canvas id="contours" aria-hidden="true"></canvas>
+<div class="ambient" aria-hidden="true"></div>
+<script>
+(() => {
+  const canvas = document.getElementById('contours');
+  const ctx = canvas.getContext('2d', { alpha: true });
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let frame = 0;
+  let lastTime = 0;
+  let paused = false;
+  let animationId = 0;
+
+  const settings = {
+    lineCount: 34,
+    lineSpacing: 9.2,
+    amplitude: 22,
+    lineStep: 4,
+    speed: 0.00024,
+    baseOpacity: 0.075,
+    highlightEvery: 9
+  };
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = Math.max(1, Math.round(width * dpr));
+    canvas.height = Math.max(1, Math.round(height * dpr));
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    draw(0);
+  }
+
+  // Organic, layered contour paths. Each path moves at a slightly different phase.
+  function contourY(x, index, time) {
+    const nx = x / Math.max(width, 1);
+    const centre = (settings.lineCount - 1) / 2;
+    const layer = index - centre;
+    const amp = settings.amplitude;
+    const slow = time * settings.speed;
+
+    const broadFlow =
+      Math.sin(nx * 5.0 + slow * 1.0 + index * 0.21) * amp;
+    const fineFlow =
+      Math.sin(nx * 10.8 - slow * 0.68 + index * 0.13) * amp * 0.29;
+    const longCurve =
+      Math.cos(nx * 2.25 + slow * 0.43 + index * 0.105) * amp * 0.74;
+    const travellingBend =
+      Math.sin(slow * 0.8 + index * 0.12 + nx * 3.1) * amp * 0.48;
+
+    // Slightly off-centre composition gives the lines a natural, editorial flow.
+    const centreY = height * (0.49 + 0.035 * Math.sin(slow * 0.36));
+    return centreY + layer * settings.lineSpacing +
+      broadFlow + fineFlow + longCurve + travellingBend;
+  }
+
+  function draw(time) {
+    ctx.clearRect(0, 0, width, height);
+
+    const left = -18;
+    const right = width + 18;
+
+    for (let i = 0; i < settings.lineCount; i++) {
+      const centre = (settings.lineCount - 1) / 2;
+      const edgeFade = 1 - Math.abs(i - centre) / (centre + 2);
+      const alpha = settings.baseOpacity * (0.44 + edgeFade * 0.75);
+      const isHighlight = i % settings.highlightEvery === 3;
+
+      ctx.beginPath();
+      let first = true;
+      for (let x = left; x <= right; x += settings.lineStep) {
+        const y = contourY(x, i, time);
+        if (first) {
+          ctx.moveTo(x, y);
+          first = false;
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+
+      ctx.strokeStyle = isHighlight
+        ? `rgba(${settings.goldLight || '242, 221, 166'}, ${alpha * 0.82})`
+        : `rgba(214, 181, 109, ${alpha})`;
+      ctx.lineWidth = isHighlight ? 0.85 : 0.68;
+      ctx.stroke();
+    }
+
+    // A very soft golden haze drifts behind the linework; it never becomes a bright blob.
+    const gx = width * (0.72 + 0.10 * Math.sin(time * 0.00018));
+    const gy = height * (0.34 + 0.12 * Math.cos(time * 0.00015));
+    const radius = Math.min(width, height) * 0.43;
+    const glow = ctx.createRadialGradient(gx, gy, 0, gx, gy, Math.max(1, radius));
+    glow.addColorStop(0, 'rgba(214, 181, 109, 0.042)');
+    glow.addColorStop(0.55, 'rgba(144, 109, 46, 0.016)');
+    glow.addColorStop(1, 'rgba(8, 8, 6, 0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, width, height);
+  }
+
+  function animate(now) {
+    if (!paused) {
+      // Use elapsed time so the motion remains calm on different refresh rates.
+      const delta = lastTime ? Math.min(now - lastTime, 40) : 16;
+      frame += delta;
+      draw(frame);
+      lastTime = now;
+    }
+    animationId = window.requestAnimationFrame(animate);
+  }
+
+  function handleVisibility() {
+    if (document.hidden) {
+      if (animationId) cancelAnimationFrame(animationId);
+      animationId = 0;
+      return;
+    }
+    lastTime = 0;
+    if (!animationId && !paused && !reducedMotion) {
+      animationId = requestAnimationFrame(animate);
+    }
+  }
+
+  window.addEventListener('resize', resize, { passive: true });
+  document.addEventListener('visibilitychange', handleVisibility);
+
+  resize();
+  if (!reducedMotion) {
+    animationId = requestAnimationFrame(animate);
+  } else {
+    draw(0);
+  }
+})();
+</script>
+</body>
+</html>
