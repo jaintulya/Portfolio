@@ -15,6 +15,19 @@ export default function FlowContours() {
     let width = window.innerWidth;
     let height = window.innerHeight;
     let dpr = 1;
+    let frame = 0;
+    let lastTime = 0;
+    let animationId = 0;
+
+    function animate(now) {
+      const delta = lastTime ? Math.min(now - lastTime, 40) : 16;
+      frame += delta;
+      draw(frame);
+      lastTime = now;
+      animationId = requestAnimationFrame(animate);
+    }
+    lastTime = performance.now();
+    animationId = requestAnimationFrame(animate);
 
     function resize() {
       width = window.innerWidth;
@@ -86,6 +99,7 @@ export default function FlowContours() {
     };
       return () => {
       window.removeEventListener("resize", resize);
+      if (animationId) cancelAnimationFrame(animationId);
     };
   }, []);
 
