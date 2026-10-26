@@ -18,6 +18,7 @@ export default function FlowContours() {
     let frame = 0;
     let lastTime = 0;
     let animationId = 0;
+    let scrollY = window.scrollY || 0;
 
     function animate(now) {
       const delta = lastTime ? Math.min(now - lastTime, 40) : 16;
@@ -42,6 +43,8 @@ export default function FlowContours() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
     window.addEventListener("resize", resize, { passive: true });
+    const updateScroll = () => { scrollY = window.scrollY || 0; };
+    window.addEventListener("scroll", updateScroll, { passive: true });
     resize();
 
     function draw(time) {
@@ -53,14 +56,18 @@ export default function FlowContours() {
       const numLines = Math.ceil(height / lineSpacing) + 6;
 
       for (let i = -3; i < numLines; i++) {
-        const baseY = i * lineSpacing;
-        const isHighlight = Math.abs(i) % settings.highlightEvery === 3;
+        const scrollShift = scrollY * 0.20;
+      const offsetMod = ((scrollShift % lineSpacing) + lineSpacing) % lineSpacing;
+      const lineBaseIndex = Math.floor(scrollShift / lineSpacing);
+      const baseY = i * lineSpacing - offsetMod;
+        const globalIndex = i + lineBaseIndex;
+        const isHighlight = Math.abs(globalIndex) % settings.highlightEvery === 3;
         const alpha = isHighlight ? settings.highlightOpacity : settings.baseOpacity;
 
         ctx.beginPath();
         let first = true;
         for (let x = -24; x <= width + 24; x += lineStep) {
-          const y = contourY(x, i, time, baseY, amp);
+          const y = contourY(x, globalIndex, time, baseY, amp);
           if (first) {
             ctx.moveTo(x, y);
             first = false;
@@ -99,6 +106,7 @@ export default function FlowContours() {
     };
       return () => {
       window.removeEventListener("resize", resize);
+      window.removeEventListener("scroll", updateScroll);
       if (animationId) cancelAnimationFrame(animationId);
     };
   }, []);
