@@ -14,6 +14,22 @@ export default function FlowContours() {
 
     let width = window.innerWidth;
     let height = window.innerHeight;
+    let dpr = 1;
+
+    function resize() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.max(1, Math.round(width * dpr));
+      canvas.height = Math.max(1, Math.round(height * dpr));
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener("resize", resize, { passive: true });
+    resize();
 
     function contourY(x, i, time, baseY, amp) {
       const nx = x / Math.max(width, 1);
@@ -34,6 +50,9 @@ export default function FlowContours() {
       highlightEvery: 7,
       gold: "214, 181, 109",
       goldLight: "242, 221, 166",
+    };
+      return () => {
+      window.removeEventListener("resize", resize);
     };
   }, []);
 
