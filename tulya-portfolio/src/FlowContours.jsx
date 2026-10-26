@@ -101,7 +101,17 @@ export default function FlowContours() {
       const longCurve = Math.cos(nx * 1.9 + slow * 0.52 + i * 0.10) * (amp * 0.75);
       const travellingBend = Math.sin(slow * 0.9 + i * 0.11 + nx * 2.7) * (amp * 0.45);
 
-      return baseY + broadFlow + fineFlow + longCurve + travellingBend;
+      let y = baseY + broadFlow + fineFlow + longCurve + travellingBend;
+      const dx = x - mouseX;
+      const dy = baseY - mouseY;
+      const distSq = dx * dx + dy * dy;
+      const r = settings.cursorRadius;
+      if (distSq < r * r) {
+        const dist = Math.sqrt(distSq);
+        const force = Math.pow(1 - dist / r, 2);
+        y += Math.sin(dist * 0.032 - time * 0.0016) * force * settings.cursorForce;
+      }
+      return y;
     }
 
     const settings = {
@@ -111,6 +121,8 @@ export default function FlowContours() {
       highlightEvery: 7,
       gold: "214, 181, 109",
       goldLight: "242, 221, 166",
+      cursorRadius: 280,
+      cursorForce: 18,
     };
       return () => {
       window.removeEventListener("resize", resize);
