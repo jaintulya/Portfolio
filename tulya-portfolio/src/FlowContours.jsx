@@ -31,6 +31,39 @@ export default function FlowContours() {
     window.addEventListener("resize", resize, { passive: true });
     resize();
 
+    function draw(time) {
+      ctx.clearRect(0, 0, width, height);
+      const isMobile = width < 768;
+      const lineStep = isMobile ? 5 : 4;
+      const lineSpacing = isMobile ? 16 : 18;
+      const amp = isMobile ? 26 : 36;
+      const numLines = Math.ceil(height / lineSpacing) + 6;
+
+      for (let i = -3; i < numLines; i++) {
+        const baseY = i * lineSpacing;
+        const isHighlight = Math.abs(i) % settings.highlightEvery === 3;
+        const alpha = isHighlight ? settings.highlightOpacity : settings.baseOpacity;
+
+        ctx.beginPath();
+        let first = true;
+        for (let x = -24; x <= width + 24; x += lineStep) {
+          const y = contourY(x, i, time, baseY, amp);
+          if (first) {
+            ctx.moveTo(x, y);
+            first = false;
+          } else {
+            ctx.lineTo(x, y);
+          }
+        }
+
+        ctx.strokeStyle = isHighlight
+          ? `rgba(${settings.goldLight}, ${alpha})`
+          : `rgba(${settings.gold}, ${alpha})`;
+        ctx.lineWidth = isHighlight ? 0.9 : 0.65;
+        ctx.stroke();
+      }
+    }
+
     function contourY(x, i, time, baseY, amp) {
       const nx = x / Math.max(width, 1);
       const slow = time * 0.0005;
