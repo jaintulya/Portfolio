@@ -82,6 +82,15 @@ const D = {
   ],
   projects: [
     {
+      name: "Shaadi Pitara", year: "2026",
+      desc: "Cinematic wedding reels and visual storytelling studio platform based in Ahmedabad. Built with Next.js, featuring elegant editorial typography, dynamic media showcases, and smooth responsive storytelling for luxury weddings.",
+      tech: ["Next.js", "React", "Tailwind CSS"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/ar_16:9,c_fill,g_auto,f_auto,q_auto,w_1200/v1793003667/4_qujast.jpg",
+      live: "https://www.shaadipitara.in/",
+      repo: "https://github.com/jaintulya/devportfolio",
+      cat: "Freelance"
+    },
+    {
       n: "01", name: "BEVEL Clone", year: "2025",
       desc: "Luxury men's grooming brand. Cinematic full-screen hero sections, layered parallax depth, and an immersive product story built in pure HTML/CSS.",
       tech: ["HTML5", "CSS3"],
@@ -139,6 +148,43 @@ const D = {
       live: "https://advmovie.netlify.app",
       repo: "https://github.com/jaintulya/movie-filter-byreact",
       videoId: "zcg205b-HYk",
+      cat: "Frontend"
+    },
+    {
+      name: "MakeYourQuiz", year: "2026",
+      desc: "Interactive full-stack quiz creation platform where users can dynamically design custom quizzes, insert questions with multiple options and instant explanations, and test or share knowledge seamlessly.",
+      tech: ["React", "Supabase", "Tailwind CSS"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1200/v1793004734/Screenshot_2026-10-26_142146_oehxjm.png",
+      live: "https://makeyourquiz.vercel.app/",
+      repo: "https://github.com/jaintulya/Quiz-Creator",
+      cat: "Full Stack"
+    },
+    {
+      name: "HomeEase", year: "2026",
+      desc: "Full-stack on-demand domestic help and emergency home service booking platform connecting households with verified service professionals including cleaners, cooks, plumbers, and electricians with instant booking and worker dashboards.",
+      tech: ["MERN Stack", "React", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1200/v1793006022/Screenshot_2026-10-26_144324_dhrxnd.png",
+      live: "https://homeease-tulya.vercel.app/",
+      repo: "https://github.com/jaintulya/HomeEase",
+      videoId: "cjDCsA7oesM",
+      cat: "Full Stack"
+    },
+    {
+      name: "Pincode India", year: "2026",
+      desc: "High-speed postal directory and Indian PIN code locator querying 154,000+ postal records. Features sub-70ms MongoDB index lookups, filterable post office grids, city shortcuts, and 1-click PIN copy.",
+      tech: ["MERN Stack", "React", "Node.js", "MongoDB", "Express"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1200/v1793009123/Screenshot_2026-10-26_153450_wuflul.png",
+      live: "https://pincodeindia-tulya.vercel.app/",
+      repo: "https://github.com/jaintulya/Pincodeindia",
+      cat: "Full Stack"
+    },
+    {
+      name: "The Chia Seed Project", year: "2026",
+      desc: "Immersive scroll-driven luxury wellness website celebrating natural superfoods. Engineered with smooth Lenis inertia scrolling, fluid GSAP timeline transitions, and engaging interactive visual storytelling as you scroll.",
+      tech: ["Next.js", "GSAP", "Lenis", "Tailwind CSS"],
+      img: "https://res.cloudinary.com/dob8kltpc/image/upload/f_auto,q_auto,w_1200/v1793005029/Screenshot_2026-10-26_142645_qog5eg.png",
+      live: "https://the-chia-seed-project.vercel.app/",
+      repo: "https://github.com/jaintulya/the-chia-seed-project",
       cat: "Frontend"
     },
     {
@@ -391,49 +437,111 @@ h1, h2, h3, h4, h5, h6 { font-weight: 300; }
 
 /* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  CURSOR ═ ═ ═  */
 function Cursor() {
-  const [p, setP] = useState({ x: -100, y: -100 });
+  const dotRef = useRef(null);
+  const ringRef = useRef(null);
   const [hov, setHov] = useState(false);
   const [mode, setMode] = useState("normal");
 
   useEffect(() => {
-    const mv = e => setP({ x: e.clientX, y: e.clientY });
-    const over = e => {
-      setHov(!!e.target.closest("a,button,input,textarea,[data-cur]"));
-      setMode(e.target.closest("[data-cursor-mode='design']") ? "design" : "normal");
+    let animId = null;
+    let targetX = -100, targetY = -100;
+    let currX = -100, currY = -100;
+
+    const onMove = e => {
+      targetX = e.clientX;
+      targetY = e.clientY;
+      // Instant zero-latency snap for precision center dot
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate3d(${targetX}px, ${targetY}px, 0) translate(-50%, -50%)`;
+      }
     };
-    window.addEventListener("mousemove", mv);
-    window.addEventListener("mouseover", over);
-    return () => { window.removeEventListener("mousemove", mv); window.removeEventListener("mouseover", over); };
+
+    // Smooth physics lerp loop for the outer reticle ring
+    const loop = () => {
+      currX += (targetX - currX) * 0.24;
+      currY += (targetY - currY) * 0.24;
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${currX}px, ${currY}px, 0) translate(-50%, -50%)`;
+      }
+      animId = requestAnimationFrame(loop);
+    };
+    animId = requestAnimationFrame(loop);
+
+    const onOver = e => {
+      const isHov = !!e.target.closest("a,button,input,textarea,[data-cur]");
+      const isDesign = !!e.target.closest("[data-cursor-mode='design']");
+      setHov(isHov);
+      setMode(isDesign ? "design" : "normal");
+    };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mouseover", onOver, { passive: true });
+
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseover", onOver);
+      if (animId) cancelAnimationFrame(animId);
+    };
   }, []);
 
-  const size = hov ? (mode === "design" ? 44 : 32) : (mode === "design" ? 28 : 18);
+  const size = hov ? (mode === "design" ? 46 : 36) : (mode === "design" ? 28 : 20);
   const col = mode === "design" ? "#f0ece3" : "#c9b84c";
 
   return (
-    <div style={{
-      position: "fixed", left: p.x, top: p.y,
-      transform: "translate(-50%,-50%)",
-      zIndex: 99999, pointerEvents: "none",
-      transition: "width 0.3s, height 0.3s, opacity 0.2s",
-      width: size, height: size,
-      display: "flex", alignItems: "center", justifyContent: "center"
-    }}>
-      {mode === "design" ? (
-        <>
-          <div style={{ position: "absolute", width: "100%", height: 1.5, background: col, opacity: 0.85 }} />
-          <div style={{ position: "absolute", height: "100%", width: 1.5, background: col, opacity: 0.85 }} />
-          {hov && <div style={{ position: "absolute", width: "70%", height: "70%", border: `1px dashed ${col}`, borderRadius: "50%", opacity: 0.4 }} />}
-        </>
-      ) : (
-        <>
-          {/* Precision Reticle */}
-          <div style={{ position: "absolute", borderRadius: "50%", border: `1px solid ${col}`, opacity: 0.35, width: "100%", height: "100%" }} />
-          <div style={{ position: "absolute", width: "120%", height: 1, background: col, opacity: 0.25 }} />
-          <div style={{ position: "absolute", height: "120%", width: 1, background: col, opacity: 0.25 }} />
-          <div style={{ width: 2, height: 2, background: col, borderRadius: "50%" }} />
-        </>
-      )}
-    </div>
+    <>
+      {/* Precision Instant Center Dot (Zero Lag) */}
+      <div
+        ref={dotRef}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 4,
+          height: 4,
+          borderRadius: "50%",
+          background: col,
+          transform: "translate3d(-100px,-100px,0) translate(-50%,-50%)",
+          zIndex: 99999,
+          pointerEvents: "none",
+          transition: "opacity 0.2s",
+          opacity: hov ? 0.3 : 1
+        }}
+      />
+
+      {/* Velvety Smooth Fluid Follower Reticle */}
+      <div
+        ref={ringRef}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          transform: "translate3d(-100px,-100px,0) translate(-50%,-50%)",
+          zIndex: 99998,
+          pointerEvents: "none",
+          transition: "width 0.3s cubic-bezier(0.16,1,0.3,1), height 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.2s",
+          width: size,
+          height: size,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          willChange: "transform"
+        }}
+      >
+        {mode === "design" ? (
+          <>
+            <div style={{ position: "absolute", width: "100%", height: 1.5, background: col, opacity: 0.85 }} />
+            <div style={{ position: "absolute", height: "100%", width: 1.5, background: col, opacity: 0.85 }} />
+            {hov && <div style={{ position: "absolute", width: "70%", height: "70%", border: `1px dashed ${col}`, borderRadius: "50%", opacity: 0.4 }} />}
+          </>
+        ) : (
+          <>
+            <div style={{ position: "absolute", borderRadius: "50%", border: `1px solid ${col}`, opacity: hov ? 0.8 : 0.4, width: "100%", height: "100%", transition: "opacity 0.2s" }} />
+            <div style={{ position: "absolute", width: "120%", height: 1, background: col, opacity: 0.2 }} />
+            <div style={{ position: "absolute", height: "120%", width: 1, background: col, opacity: 0.2 }} />
+          </>
+        )}
+      </div>
+    </>
   );
 }
 
@@ -911,11 +1019,11 @@ function VideoModal({ videoId, onClose }) {
 
 /* ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═ ═  WORK ═ ═ ═  */
 function Work() {
-  const [activeCat, setActiveCat] = useState("Clones");
+  const [activeCat, setActiveCat] = useState("Freelance");
   const [video, setVideo] = useState(null);
   const isMobile = useMobile();
 
-  const cats = ["All", "Clones", "Frontend", "Full Stack", "Games", "UI/UX Lab"];
+  const cats = ["All", "Freelance", "Clones", "Frontend", "Full Stack", "Games", "UI/UX Lab"];
 
   const filtered = useMemo(() => {
     if (activeCat === "All") return D.projects;
@@ -2676,7 +2784,7 @@ function PageHead() {
   const descriptions = {
     "/": "Portfolio of Tulya Jain, a Full Stack Developer from Ahmedabad, India. MERN stack projects, hackathons, certifications, and coding activity on GitHub & LeetCode.",
     "/about": "About Tulya Jain — Computer Engineering student and Full Stack Developer specializing in the MERN stack, responsive web apps, and UI/UX design.",
-    "/work": "Selected work by Tulya Jain — clones, frontend builds, full-stack apps, games, and UI/UX experiments.",
+    "/work": "Selected work by Tulya Jain — freelance projects, clones, frontend builds, full-stack apps, and UI/UX experiments.",
     "/skills": "Tech stack of Tulya Jain — React, Angular, React Native, Expo, Node.js, Express, MongoDB, MySQL, Redis, REST APIs, and more.",
     "/hackathons": "Hackathon journey of Tulya Jain — CRAFTATHON, Hack Aarambh, Adivya 2.0, and more innovation challenges.",
     "/activities": "Coding activity of Tulya Jain — GitHub contributions and LeetCode problem solving. A chronicle of building, solving, and persistence.",
@@ -2935,19 +3043,26 @@ export default function App() {
 
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 0.85,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 1.05,
       smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
     });
-    function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-    return () => lenis.destroy();
+    let rafId;
+    function raf(time) {
+      lenis.raf(time);
+      rafId = requestAnimationFrame(raf);
+    }
+    rafId = requestAnimationFrame(raf);
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      lenis.destroy();
+    };
   }, []);
 
   return (

@@ -49,7 +49,16 @@ export default function Background() {
     }
 
     resize();
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", resize, { passive: true });
+
+    let isVisible = true;
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible && !animId) {
+        animId = requestAnimationFrame(frame);
+      }
+    }, { threshold: 0 });
+    observer.observe(cv);
 
     const onMouseMove = (e) => {
       const rect = cv.getBoundingClientRect();
@@ -63,10 +72,14 @@ export default function Background() {
       tmy = e.touches[0].clientY - rect.top;
     };
 
-    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
     cv.addEventListener("touchmove", onTouchMove, { passive: true });
 
     function frame() {
+      if (!isVisible) {
+        animId = null;
+        return;
+      }
       animId = requestAnimationFrame(frame);
       t += 1;
       mx += (tmx - mx) * 0.04;
@@ -131,6 +144,7 @@ export default function Background() {
 
     return () => {
       cancelAnimationFrame(animId);
+      observer.disconnect();
       window.removeEventListener("resize", resize);
       window.removeEventListener("mousemove", onMouseMove);
       cv.removeEventListener("touchmove", onTouchMove);

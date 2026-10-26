@@ -20,16 +20,16 @@ export function ProjectItem({ project, index, isMobile, onPlayVideo }) {
   const opacity = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0, 1, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.25, 0.75, 1], [0.9, 1, 1, 0.9]);
   
-  // Lateral slide based on side
+  // Lateral slide based on side (gentle and smooth)
   const isRight = index % 2 !== 0;
-  const xOffset = isRight ? 120 : -120; // Increased offset for better visibility
+  const xOffset = isRight ? 45 : -45;
   
-  // Bidirectional sliding: Comes from side, stays center, exits opposite side
+  // Bidirectional sliding: Comes gently from side, stays center, exits opposite side
   const x = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [xOffset, 0, 0, -xOffset]);
   const reverseX = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [-xOffset, 0, 0, xOffset]);
 
-  // Parallax for image
-  const yParallax = useTransform(scrollYProgress, [0, 1], [-60, 60]);
+  // Gentle Parallax for image
+  const yParallax = useTransform(scrollYProgress, [0, 1], [-25, 25]);
 
   const handleImageClick = () => {
     if (project.live) window.open(project.live, "_blank");
@@ -82,24 +82,26 @@ export function ProjectItem({ project, index, isMobile, onPlayVideo }) {
             border: "1px solid rgba(240,236,227,0.1)",
             boxShadow: imgHover ? "0 30px 60px rgba(0,0,0,0.6)" : "0 20px 40px rgba(0,0,0,0.4)",
             cursor: "pointer",
-            transition: "all 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-            willChange: "transform, box-shadow"
+            transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
+            aspectRatio: project.cropTop ? "unset" : "16 / 9",
           }}
         >
           <motion.img 
             src={project.img} 
             alt={project.name}
+            loading="lazy"
+            decoding="async"
             style={{ 
               width: "100%", 
-              height: project.cropTop ? "450px" : "auto", 
-              objectFit: project.cropTop ? "cover" : "unset",
-              objectPosition: project.cropTop ? "top" : "unset",
+              height: project.cropTop ? "450px" : "100%", 
+              aspectRatio: project.cropTop ? "unset" : "16 / 9",
+              objectFit: "cover",
+              objectPosition: project.cropTop ? "top" : "center",
               display: "block",
               y: project.cat === "UI/UX Lab" ? 0 : yParallax, // Disable parallax for UI/UX to save performance
-              scale: 1.1,
+              scale: 1.05,
               filter: imgHover ? "brightness(0.3) contrast(1.1)" : "brightness(0.9) contrast(1.1)",
-              transition: "filter 0.5s ease",
-              willChange: "transform, filter"
+              transition: "filter 0.4s ease",
             }}
           />
           
@@ -219,9 +221,9 @@ export function ProjectItem({ project, index, isMobile, onPlayVideo }) {
             <ProjectButton href={project.live} label={project.btnLabel || "Figma"} highlight />
           ) : (
             <>
-              <ProjectButton href={project.live} label="Live" highlight />
-              <ProjectButton href={project.repo} label="Source" />
-              <ProjectButton onClick={() => onPlayVideo(project.videoId)} label="Demo" />
+              {project.live && <ProjectButton href={project.live} label="Live" highlight />}
+              {project.repo && <ProjectButton href={project.repo} label="Source" />}
+              {project.videoId && <ProjectButton onClick={() => onPlayVideo(project.videoId)} label="Demo" />}
             </>
           )}
         </div>
