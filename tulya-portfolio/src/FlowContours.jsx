@@ -86,7 +86,7 @@ export default function FlowContours() {
 
     function contourY(x, i, time, baseY, amp) {
       const nx = x / Math.max(width, 1);
-      const slow = time * 0.0005;
+      const slow = time * settings.speed;
 
       const broadFlow = Math.sin(nx * 4.0 + slow * 1.1 + i * 0.19) * amp;
       const fineFlow = Math.sin(nx * 8.5 - slow * 0.75 + i * 0.13) * (amp * 0.32);
@@ -99,7 +99,7 @@ export default function FlowContours() {
     const settings = {
       baseOpacity: 0.058,
       highlightOpacity: 0.095,
-      speed: 0.00075,
+      speed: 0.00028,
       highlightEvery: 7,
       gold: "214, 181, 109",
       goldLight: "242, 221, 166",
