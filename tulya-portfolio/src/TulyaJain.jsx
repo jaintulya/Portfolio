@@ -1,5 +1,5 @@
-import FlowContours from "./FlowContours";
 import Background from "./Background";
+import FlowContours from "./FlowContours";
 import { useState, useEffect, useRef, useMemo } from "react";
 import { useLocation, useNavigate, NavLink, Link } from "react-router-dom";
 import { motion, AnimatePresence, useInView } from "framer-motion";
@@ -426,7 +426,7 @@ h1, h2, h3, h4, h5, h6 { font-weight: 300; }
 .hl{color:var(--gold);font-weight:500;font-style:normal;}
 .marquee-strip{overflow:hidden;white-space:nowrap;padding:1.4rem 0;background:var(--bg);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:flex;align-items:center;}
 .marquee-inner{display:flex;gap:4rem;animation:scroll 40s linear infinite;}
-.about-watermark{position:absolute;right:-5%;top:20%;font-family:var(--serif);font-size:25vw;font-weight:300;color:rgba(240,236,227,0.03);pointer-events:none;z-index:0;user-select:none;line-height:1;}
+.about-watermark{position:absolute;right:-5%;top:20%;font-family:var(--serif);font-size:25vw;font-weight:300;color:rgba(240,236,227,0.048);pointer-events:none;z-index:0;user-select:none;line-height:1;}
 @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 `;
 
@@ -2783,7 +2783,7 @@ function PageHead() {
     "/": "Portfolio of Tulya Jain, a Full Stack Developer from Ahmedabad, India. MERN stack projects, hackathons, certifications, and coding activity on GitHub & LeetCode.",
     "/about": "About Tulya Jain — Computer Engineering student and Full Stack Developer specializing in the MERN stack, responsive web apps, and UI/UX design.",
     "/work": "Selected work by Tulya Jain — freelance projects, clones, frontend builds, full-stack apps, and UI/UX experiments.",
-    "/skills": "Tech stack of Tulya Jain — React, Angular, React Native, Expo, Node.js, Express, MongoDB, MySQL, Redis, REST APIs, and more.",
+    "/skills": "Tech stack of Tulya Jain — Next.js, React, Angular, React Native, Expo, Node.js, Express, MongoDB, MySQL, Redis, REST APIs, and more.",
     "/hackathons": "Hackathon journey of Tulya Jain — CRAFTATHON, Hack Aarambh, Adivya 2.0, and more innovation challenges.",
     "/activities": "Coding activity of Tulya Jain — GitHub contributions and LeetCode problem solving. A chronicle of building, solving, and persistence.",
     "/credentials": "Credentials of Tulya Jain — course certifications and hackathon certificates.",
